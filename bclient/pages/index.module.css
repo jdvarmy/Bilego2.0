@@ -1,0 +1,10 @@
+.ul {
+  list-style: none;
+  display: flex;
+}
+.ul li {
+  padding: 1em;
+  margin: 1em;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
