@@ -11,6 +11,7 @@ cypress/screenshots
 cypress/videos
 
 .cache
+.env
 
 npm-debug.log*
 yarn-debug.log*
