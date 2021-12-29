@@ -46,6 +46,13 @@ export interface IManager extends IPost {}
 
 export interface INews extends IPost {}
 
+export interface IUser {
+  userId: number;
+  name: string;
+  username: string;
+  password?: string;
+}
+
 export interface IEventSlider {}
 
 export type ImageType = string;

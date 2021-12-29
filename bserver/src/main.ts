@@ -1,8 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
-export const restAPI = process.env.BILEGO_API_SERVER;
-
 async function bootstrap() {
   try {
     const PORT = process.env.APP_PORT;
