@@ -20,3 +20,7 @@ export enum ECity {
   moscow = 'Москва',
   petersburg = 'Санкт-Петербург',
 }
+
+export enum EUserRoles {
+  subscriber = 'subscriber',
+}

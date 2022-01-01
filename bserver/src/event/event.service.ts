@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { map, Observable } from 'rxjs';
-import { IEvent } from '../types';
 import * as QueryString from 'querystring';
+import { IEvent } from '../types/types';
 
 @Injectable()
 export class EventService {

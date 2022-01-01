@@ -1,21 +1,23 @@
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
-import { LocalAuthGuard } from './auth/local-auth.guard';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth/auth.service';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { LoginUser, RegisterUser, ReturnToken } from './types/userTypes';
+import { Observable } from 'rxjs';
 
 @Controller()
 export class AppController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(LocalAuthGuard)
   @Post('auth/login')
-  async login(@Request() req) {
-    return this.authService.login(req.user);
+  public async login(
+    @Body() loginUser: LoginUser,
+  ): Promise<Observable<ReturnToken>> {
+    return this.authService.login(loginUser);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
+  @Post('auth/register')
+  public async register(
+    @Body() registerUser: RegisterUser,
+  ): Promise<Observable<ReturnToken>> {
+    return this.authService.register(registerUser);
   }
 }

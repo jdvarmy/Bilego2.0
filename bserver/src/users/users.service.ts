@@ -1,34 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { IUser } from '../types';
+import { LoginUser, RegisterUser } from '../types/userTypes';
+import { HttpService } from '@nestjs/axios';
+import { map, Observable } from 'rxjs';
+import { Id, WPError } from '../types/types';
+import { AxiosResponse } from 'axios';
 
 @Injectable()
 export class UsersService {
-  private readonly users: IUser[];
+  constructor(private readonly httpService: HttpService) {}
 
-  constructor() {
-    this.users = [
-      {
-        userId: 1,
-        name: 'john',
-        username: 'john',
-        password: 'ccc',
-      },
-      {
-        userId: 2,
-        name: 'chris',
-        username: 'chris',
-        password: 'secret',
-      },
-      {
-        userId: 3,
-        name: 'maria',
-        username: 'maria',
-        password: 'guess',
-      },
-    ];
+  async getUser(data: LoginUser): Promise<Observable<Id | WPError>> {
+    return this.httpService
+      .post(`${process.env.BILEGO_API_SERVER}/auth/login`, data)
+      .pipe(map((response: AxiosResponse<Id | WPError>) => response.data));
   }
 
-  async findOne(name: string): Promise<IUser | undefined> {
-    return this.users.find((user) => user.name === name);
+  async registerUser(data: RegisterUser): Promise<Observable<Id | WPError>> {
+    return this.httpService
+      .post(`${process.env.BILEGO_API_SERVER}/auth/register`, data)
+      .pipe(map((response: AxiosResponse<Id | WPError>) => response.data));
   }
 }

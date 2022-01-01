@@ -1,5 +1,7 @@
 import { ECity } from './enums';
 
+export type Id = number;
+
 interface IPost {
   title: string;
   content: string;
@@ -46,13 +48,6 @@ export interface IManager extends IPost {}
 
 export interface INews extends IPost {}
 
-export interface IUser {
-  userId: number;
-  name: string;
-  username: string;
-  password?: string;
-}
-
 export interface IEventSlider {}
 
 export type ImageType = string;
@@ -83,3 +78,12 @@ export interface IFeeling extends ITerm {}
 export interface IItemType extends ITerm {
   image: ImageType;
 }
+
+export type WPError = {
+  code: string;
+  message: string;
+  data: {
+    status: boolean;
+    code: number;
+  };
+};
