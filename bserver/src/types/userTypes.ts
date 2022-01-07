@@ -1,6 +1,6 @@
 import { EUserRoles } from './enums';
 
-export interface IUser {
+export interface User {
   data: {
     ID: number;
     user_login: string;
@@ -25,7 +25,10 @@ export interface IUser {
     subscriber: boolean;
   };
   filter: any;
+  tickets?: Tickets;
 }
+
+export interface Tickets {}
 
 export type LoginUser = {
   email: string;
@@ -38,5 +41,4 @@ export type RegisterUser = {
   password: string;
 };
 
-export type ReturnPromiseType = { statusCode: number; message: string };
 export type ReturnToken = { access_token: string };

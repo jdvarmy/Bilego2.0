@@ -1,8 +1,8 @@
-import { ECity } from './enums';
+import { ECity, ETermType } from './enums';
 
-export type Id = number;
+export type Id = number | string;
 
-interface IPost {
+interface Post {
   title: string;
   content: string;
   slug: string;
@@ -10,33 +10,33 @@ interface IPost {
   images?: ImageType[];
 }
 
-export interface IEvent extends IPost {
+export interface Event extends Post {
   age?: number;
   city: ECity;
-  artist?: IArtist;
-  item?: IItem;
-  manager?: IManager;
+  artist?: Artist;
+  item?: Item;
+  manager?: Manager;
   deal?: number;
   managerProps?: string;
   categories?: ICategory[];
   genres?: IGenre[];
   selections?: ISelection[];
   feelings?: IFeeling[];
-  series?: IEvent[];
+  series?: Event[];
   startDate: Date;
   endDate: Date;
-  slider?: IEventSlider;
+  slider?: EventSlider;
   yamusic?: string;
   youtube?: string;
 }
 
-export interface IArtist extends IPost {
+export interface Artist extends Post {
   image?: ImageType;
   background?: ImageType;
 }
 
-export interface IItem extends IPost {
-  type?: IItemType[];
+export interface Item extends Post {
+  type?: ItemType[];
   address?: string;
   latitude?: number;
   longitude?: number;
@@ -44,38 +44,39 @@ export interface IItem extends IPost {
   metro?: string[];
 }
 
-export interface IManager extends IPost {}
+export interface Manager extends Post {}
 
-export interface INews extends IPost {}
+export interface News extends Post {}
 
-export interface IEventSlider {}
+export interface EventSlider {}
 
 export type ImageType = string;
 
-interface ITerm {
+export interface Term {
   id: number;
-  name: string;
+  type?: ETermType;
+  name?: string;
   description?: string;
-  slug: string;
+  slug?: string;
 }
 
-export interface ICategory extends ITerm {
+export interface ICategory extends Term {
   image: ImageType;
 }
 
-export interface IGenre extends ITerm {
+export interface IGenre extends Term {
   image: ImageType;
 }
 
-export interface ISelection extends ITerm {
+export interface ISelection extends Term {
   sort: number;
   isShow: boolean;
   image: ImageType;
 }
 
-export interface IFeeling extends ITerm {}
+export interface IFeeling extends Term {}
 
-export interface IItemType extends ITerm {
+export interface ItemType extends Term {
   image: ImageType;
 }
 

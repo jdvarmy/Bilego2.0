@@ -5,8 +5,6 @@ import { JwtService } from '@nestjs/jwt';
 import { map } from 'rxjs';
 import { checkErrorResponse } from '../utils';
 
-export const accessTokenName = 'access_token';
-
 @Injectable()
 export class AuthService {
   constructor(
@@ -50,7 +48,7 @@ export class AuthService {
               throw new UnauthorizedException({
                 ...defaultException,
                 message:
-                  'Извините, этот email пользователя уже зарегистрирован!',
+                  'Извините, этот email пользователя уже зарегистрирован',
               });
             case 'user_login_too_long':
               throw new UnauthorizedException({

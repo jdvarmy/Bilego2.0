@@ -17,10 +17,18 @@ export enum EPostStatus {
 }
 
 export enum ECity {
-  moscow = 'Москва',
-  petersburg = 'Санкт-Петербург',
+  moscow = 'moscow',
+  petersburg = 'petersburg',
 }
 
 export enum EUserRoles {
   subscriber = 'subscriber',
+}
+
+export enum ETermType {
+  eventCategory = 'category',
+  eventGenre = 'genre',
+  eventSelection = 'selection',
+  eventFeeling = 'feeling',
+  itemType = 'type',
 }
