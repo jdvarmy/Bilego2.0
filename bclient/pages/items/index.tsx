@@ -1,7 +1,8 @@
 import React from 'react';
+import Layout from '../../src/layout/Layout';
 
 const Items = () => {
-  return <div>Items</div>;
+  return <Layout>Items</Layout>;
 };
 
 export default Items;

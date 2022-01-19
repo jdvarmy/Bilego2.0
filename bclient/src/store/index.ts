@@ -1,7 +1,7 @@
-import { applyMiddleware, combineReducers, createStore, Store } from 'redux';
+import { Action, AnyAction, applyMiddleware, combineReducers, createStore, Store } from 'redux';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
-import thunkMiddleware from 'redux-thunk';
-import eventsSlice from './events/eventsSlice';
+import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import reducers from './store';
 
 const bindMiddleware = (middleware) => {
   if (process.env.NODE_ENV !== 'production') {
@@ -11,7 +11,7 @@ const bindMiddleware = (middleware) => {
   return applyMiddleware(...middleware);
 };
 
-const rootReducer = combineReducers({ events: eventsSlice });
+const rootReducer = combineReducers({ ...reducers });
 
 const store = (state, action) => {
   if (action.type === HYDRATE) {
@@ -19,7 +19,7 @@ const store = (state, action) => {
       ...state,
       ...action.payload,
     };
-    if (state.count.count) nextState.count.count = state.count.count;
+    if (state.count) nextState.count = state.count;
     return nextState;
   } else {
     return rootReducer(state, action);
@@ -31,4 +31,7 @@ const initStore = () => {
 };
 
 export type RootStateType = ReturnType<typeof rootReducer>;
+export type ThunkActionType<ReturnType = void> = ThunkAction<ReturnType, RootStateType, unknown, Action<string>>;
+export type ThunkDispatchType = ThunkDispatch<RootStateType, void, AnyAction>;
+
 export const wrapper = createWrapper<Store<RootStateType>>(initStore, { debug: true });

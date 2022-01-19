@@ -1,4 +1,5 @@
-import { wrapper } from '../store/store';
+import { wrapper } from '../src/store';
+import '../public/output.css';
 
 const WrappedApp = ({ Component, pageProps }) => {
   return <Component {...pageProps} />;
