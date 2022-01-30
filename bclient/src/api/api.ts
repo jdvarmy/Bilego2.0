@@ -9,17 +9,6 @@ const baseConfig = {
   },
 };
 
-// axios.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     if ([401, 403].includes(error?.response?.code)) {
-//       console.log(error?.response);
-//     } else {
-//       return Promise.reject(error);
-//     }
-//   },
-// );
-
 const instance = axios.create(baseConfig);
 
 enum RequestMethod {

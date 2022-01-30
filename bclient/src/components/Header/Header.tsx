@@ -9,23 +9,25 @@ const Header = () => {
   };
 
   return (
-    <ul>
-      <li onClick={handleRouter('/artists/artis_one')}>
-        <a>artists</a>
-      </li>
-      <li onClick={handleRouter('/events')}>
-        <a>events</a>
-      </li>
-      <li onClick={handleRouter('/items')}>
-        <a>items</a>
-      </li>
-      <li onClick={handleRouter('/news')}>
-        <a>news</a>
-      </li>
-      <li onClick={handleRouter('/user')}>
-        <a>user</a>
-      </li>
-    </ul>
+    <header>
+      <ul>
+        <li onClick={handleRouter('/artists/vera-polozkova')}>
+          <a>artists</a>
+        </li>
+        <li onClick={handleRouter('/events')}>
+          <a>events</a>
+        </li>
+        <li onClick={handleRouter('/items')}>
+          <a>items</a>
+        </li>
+        <li onClick={handleRouter('/news')}>
+          <a>news</a>
+        </li>
+        <li onClick={handleRouter('/user')}>
+          <a>user</a>
+        </li>
+      </ul>
+    </header>
   );
 };
 
