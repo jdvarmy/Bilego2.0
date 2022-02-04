@@ -1,11 +1,10 @@
 {
-  "name": "bclient",
+  "name": "bticket",
   "private": true,
   "scripts": {
-    "dev": "next dev & npx tailwindcss -i ./src/styles/styles.css -o ./public/output.css --watch",
+    "dev": "next dev -p 3002 & npx tailwindcss -i ./src/styles/styles.css -o ./public/output.css --watch",
     "build": "next build",
-    "start": "next start",
-    "tailwind": "npx tailwindcss -i ./src/styles/styles.css -o ./public/output.css --watch"
+    "start": "next start"
   },
   "resolutions": {
     "webpack": "5.1.3"
