@@ -7,11 +7,10 @@ module.exports = {
       new options.webpack.container.ModuleFederationPlugin({
         remoteType: 'var',
         remotes: {
-          bticket: 'bticket',
+          // bticket: 'bticket', // add this you remotes
         },
         shared: {
           react: {
-            // Notice shared ARE eager here.
             eager: true,
             singleton: true,
             requiredVersion: false,
