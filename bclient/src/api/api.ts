@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const baseConfig = {
-  baseURL: process.env.NEXT_PUBLIC_REACT_APP_API_ROOT,
+  baseURL: process.env.NEXT_PUBLIC_NEST_APP_API_ROOT,
   withCredentials: true,
   headers: {
     Accept: 'application/json',

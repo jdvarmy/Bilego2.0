@@ -12,7 +12,7 @@ class MyDocument extends Document {
         <Head />
         <body>
           <Main />
-          {/*<script data-webpack='bticket' src='http://localhost:3002/_next/static/chunks/ticket.js' />*/}
+          <script data-webpack='bticket' src='http://localhost:3002/ticket.js' />
           <NextScript />
         </body>
       </Html>
