@@ -3,7 +3,7 @@ import { HttpService } from '@nestjs/axios';
 import { map, Observable } from 'rxjs';
 import { WPError } from '../types/types';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { stringifyQuery } from '../utils';
+import * as qs from 'qs';
 
 @Injectable()
 export class ApiService {
@@ -17,7 +17,7 @@ export class ApiService {
     let fullUrl = `${process.env.BILEGO_API_SERVER}/${url}`;
 
     if (options) {
-      fullUrl += `?${stringifyQuery(options)}`;
+      fullUrl += qs.stringify(options, { addQueryPrefix: true });
     }
 
     return this.httpService

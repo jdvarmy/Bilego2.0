@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ApiModule } from './api/api.module';
 import { ArtistsModule } from './artists/artists.module';
 import { ItemsModule } from './items/items.module';
+import { TicketsModule } from './tickets/tickets.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ItemsModule } from './items/items.module';
     EventsModule,
     ArtistsModule,
     ItemsModule,
+    TicketsModule,
   ],
   controllers: [AppController],
 })

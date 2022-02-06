@@ -11,19 +11,3 @@ export const checkErrorResponse = (response): false | WPError => {
 
   return false;
 };
-
-export const stringifyQuery = (
-  options: NodeJS.Dict<
-    string | number | boolean | ReadonlyArray<string | number | boolean> | null
-  >,
-): string => {
-  return Object.entries(options)
-    .map(([key, value]) => {
-      if (Array.isArray(value)) {
-        return value.map((item) => `${key}[]=${item}`).join('&');
-      }
-
-      return `${key}=${value}`;
-    })
-    .join('&');
-};

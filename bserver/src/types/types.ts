@@ -48,6 +48,8 @@ export interface Manager extends Post {}
 
 export interface News extends Post {}
 
+export interface Ticket {}
+
 export interface EventSlider {}
 
 export type ImageType = string;

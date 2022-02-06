@@ -1,7 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import qs from 'qs';
 
 const baseConfig = {
-  baseURL: process.env.NEXT_PUBLIC_NEST_APP_API_ROOT,
+  baseURL: process.env.REACT_APP_NEST_APP_API_ROOT,
   withCredentials: true,
   headers: {
     Accept: 'application/json',
@@ -22,9 +23,13 @@ enum RequestMethod {
 const baseRequest = <R>({ method, url, ...config }: AxiosRequestConfig): Promise<AxiosResponse<R>> =>
   instance({ method, url, ...config });
 
-export default {
-  get: <R>(url: string, params?: AxiosRequestConfig, cfg?: AxiosRequestConfig) =>
-    baseRequest<R>({ method: RequestMethod.Get, url, params, ...cfg }),
+const requests = {
+  get: <R>(url: string, data?: any, cfg?: AxiosRequestConfig) =>
+    baseRequest<R>({
+      method: RequestMethod.Get,
+      url: data ? `${url}${qs.stringify(data, { addQueryPrefix: true })}` : url,
+      ...cfg,
+    }),
 
   post: <R>(url: string, data?: any, cfg?: AxiosRequestConfig) =>
     baseRequest<R>({ method: RequestMethod.Post, url, data, ...cfg }),
@@ -38,3 +43,5 @@ export default {
   delete: <R>(url: string, _data?: any, cfg?: AxiosRequestConfig) =>
     baseRequest<R>({ method: RequestMethod.Delete, url, ...cfg }),
 };
+
+export default requests;
