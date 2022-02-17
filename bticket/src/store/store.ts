@@ -1,9 +1,11 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import ticketsReducer from './ticketsSlice/ticketsSlice';
 import thunk from 'redux-thunk';
+import optionsReducer from './optionsSlice/optionsSlice';
 
 const reducer = {
   tickets: ticketsReducer,
+  options: optionsReducer,
 };
 
 const store = configureStore({

@@ -1,6 +1,8 @@
 import { AppThunk } from '../store';
 import { requestTickets } from '../../api/requests';
 import { addTicket } from './ticketsSlice';
+import { setApplicationStatus } from '../optionsSlice/optionsSlice';
+import { ApplicationStatuses } from '../../typings/enum';
 
 export const fetchTickets =
   ({ id, slug }: { id?: number; slug?: string }): AppThunk =>
@@ -12,6 +14,6 @@ export const fetchTickets =
       dispatch(addTicket(data));
     } catch (e) {
       console.log(e);
-      // dispatch(logError(e, 'fetchVersion'));
+      dispatch(setApplicationStatus(ApplicationStatuses.error));
     }
   };

@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Ticket } from '../../typings/types';
 
 interface State {
-  selected: Ticket[];
+  selected: Ticket;
 }
 
 const initialState: State = {
-  selected: [],
+  selected: null,
 };
 
 const tickets = createSlice({

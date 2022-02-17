@@ -1,11 +1,6 @@
 import React from 'react';
 import Layout from '../src/layout/Layout';
-import dynamic from 'next/dynamic';
-
-// @ts-ignore
-const AppTicket = dynamic(() => import('bticket/appTicket'), {
-  ssr: false,
-});
+import AppTicket from '../src/components/AppTicket/AppTicket';
 
 const Index = () => {
   return (
