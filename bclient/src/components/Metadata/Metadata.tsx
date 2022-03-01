@@ -1,9 +1,9 @@
-import React, { ReactChild } from 'react';
+import React, { ReactNode } from 'react';
 import Head from 'next/head';
 
 type Props = {
   title?: string;
-  children?: ReactChild;
+  children?: ReactNode;
 };
 
 const Metadata = ({ title }: Props) => {

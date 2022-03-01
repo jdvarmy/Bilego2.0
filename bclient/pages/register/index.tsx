@@ -1,12 +1,12 @@
 import React from 'react';
 import Layout from '../../src/layout/Layout';
 
-const News = () => {
+const Register = () => {
   return (
     <Layout>
-      <h1 className='text-3xl font-bold underline'>News</h1>
+      <h1 className='text-3xl font-bold underline'>Register</h1>
     </Layout>
   );
 };
 
-export default News;
+export default Register;

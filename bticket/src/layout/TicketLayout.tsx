@@ -14,7 +14,7 @@ const TicketLayout = () => {
   usePostMessageListener();
 
   return (
-    <div className='relative bg-white'>
+    <div className='relative bg-gray-50 h-full'>
       <Header />
       <Loading status={status} />
       <Tickets status={status} />

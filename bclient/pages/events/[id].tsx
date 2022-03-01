@@ -18,7 +18,11 @@ const SingleEvent = () => {
     }
   }, []);
 
-  return <Layout>SingleEvent</Layout>;
+  return (
+    <Layout>
+      <h1 className='text-3xl font-bold underline'>Single Event</h1>
+    </Layout>
+  );
 };
 
 export default SingleEvent;

@@ -1,3 +1,11 @@
+export type User = {
+  name: string;
+};
+export type RequestLogin = {
+  email: string;
+  password: string;
+};
+
 export type ResponsePostsType<T> = {
   posts: T;
   seo: any;
@@ -20,8 +28,4 @@ export interface Item {
 export interface Artist {
   title: string;
   slug: string;
-}
-
-export interface User {
-  name?: string;
 }

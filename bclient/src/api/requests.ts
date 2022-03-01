@@ -1,5 +1,7 @@
 import requests from './api';
-import { Event, ResponsePostsType, ResponsePostType } from '../types/types';
+import { Event, RequestLogin, ResponsePostsType, ResponsePostType } from '../types/types';
+
+export const login = (data: RequestLogin) => requests.post<string>('auth/login', data);
 
 export const fetchEvents = () => requests.get<ResponsePostsType<Event[]>>(`events`);
 

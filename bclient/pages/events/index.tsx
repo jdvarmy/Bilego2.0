@@ -5,6 +5,7 @@ import { eventsSelector } from '../../src/store/selectors';
 import { getEventsClientSide } from '../../src/store/events/eventsSlice';
 import { useDispatch } from 'react-redux';
 import { getEventsServerSide } from '../../src/store/events/eventsThunk';
+import SkeletonEvent from '../../src/components/Skeletons/SkeletonEvent';
 
 const Events = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,12 @@ const Events = () => {
     }
   }, []);
 
-  return <Layout>Events</Layout>;
+  return (
+    <Layout>
+      <h1 className='text-3xl font-bold underline'>Events</h1>
+      <SkeletonEvent />
+    </Layout>
+  );
 };
 
 export default Events;
