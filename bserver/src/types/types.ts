@@ -1,4 +1,4 @@
-import { ECity, ETermType } from './enums';
+import { ECity, ETermType, EUserRoles } from './enums';
 
 export type Id = number | string;
 
@@ -18,10 +18,10 @@ export interface Event extends Post {
   manager?: Manager;
   deal?: number;
   managerProps?: string;
-  categories?: ICategory[];
-  genres?: IGenre[];
-  selections?: ISelection[];
-  feelings?: IFeeling[];
+  categories?: TermCategory[];
+  genres?: TermGenre[];
+  selections?: TermSelection[];
+  feelings?: TermFeeling[];
   series?: Event[];
   startDate: Date;
   endDate: Date;
@@ -62,21 +62,21 @@ export interface Term {
   slug?: string;
 }
 
-export interface ICategory extends Term {
+export interface TermCategory extends Term {
   image: ImageType;
 }
 
-export interface IGenre extends Term {
+export interface TermGenre extends Term {
   image: ImageType;
 }
 
-export interface ISelection extends Term {
+export interface TermSelection extends Term {
   sort: number;
   isShow: boolean;
   image: ImageType;
 }
 
-export interface IFeeling extends Term {}
+export interface TermFeeling extends Term {}
 
 export interface ItemType extends Term {
   image: ImageType;
@@ -89,4 +89,31 @@ export type WPError = {
     status: boolean;
     code: number;
   };
+};
+
+export interface User {
+  id: Id;
+  name: string;
+  email: string;
+  roles?: string[];
+  tickets?: Tickets;
+}
+
+export interface Tickets {}
+
+export type LoginUser = {
+  email: string;
+  password: string;
+  ip: string;
+};
+
+export type RegisterUser = LoginUser & {
+  name: string;
+};
+
+export type ReturnToken = { accessToken: string };
+export type UserTokens = {
+  accessToken: string;
+  refreshToken: string;
+  user: User;
 };

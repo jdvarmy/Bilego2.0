@@ -32,3 +32,7 @@ export enum ETermType {
   eventFeeling = 'feeling',
   itemType = 'type',
 }
+
+export enum ETokens {
+  refresh = 'refreshToken',
+}

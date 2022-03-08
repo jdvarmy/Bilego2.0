@@ -5,9 +5,6 @@ module.exports = {
   purge: ['./pages/**/*.tsx', './src/**/*.tsx'],
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
-  },
-  theme: {
     screens: {
       sm: '640px',
       md: '768px',

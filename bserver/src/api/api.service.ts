@@ -1,37 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { map, Observable } from 'rxjs';
-import { WPError } from '../types/types';
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosRequestConfig } from 'axios';
 import * as qs from 'qs';
 
 @Injectable()
 export class ApiService {
+  apiUrl = process.env.BILEGO_URL;
+
   constructor(private readonly httpService: HttpService) {}
 
-  async get<T>(
-    url: string,
-    options?: any,
-    config?: AxiosRequestConfig,
-  ): Promise<Observable<T | WPError>> {
-    let fullUrl = `${process.env.BILEGO_API_SERVER}/${url}`;
+  get<T>(url: string, options?: any, config?: AxiosRequestConfig) {
+    return new Promise<T>((resolve, reject) => {
+      let fullUrl = `${this.apiUrl}/${url}`;
 
-    if (options) {
-      fullUrl += qs.stringify(options, { addQueryPrefix: true });
-    }
+      if (options) {
+        fullUrl += qs.stringify(options, { addQueryPrefix: true });
+      }
 
-    return this.httpService
-      .get(fullUrl, config)
-      .pipe(map((response: AxiosResponse<T | WPError>) => response.data));
+      this.httpService.get<T>(fullUrl, config).subscribe(
+        ({ data }) => resolve(data as T),
+        (err) => reject(err),
+      );
+    });
   }
 
-  async post<T>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig,
-  ): Promise<Observable<T | WPError>> {
-    return this.httpService
-      .post(`${process.env.BILEGO_API_SERVER}/${url}`, data, config)
-      .pipe(map((response: AxiosResponse<T | WPError>) => response.data));
+  post<T>(url: string, data?: any, config?: AxiosRequestConfig) {
+    return new Promise<T>((resolve, reject) => {
+      this.httpService.post<T>(`${this.apiUrl}/${url}`, data, config).subscribe(
+        ({ data }) => resolve(data as T),
+        (err) => reject(err),
+      );
+    });
   }
 }

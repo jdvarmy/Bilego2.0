@@ -1,67 +1,72 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { LoginUser, RegisterUser } from 'src/types/userTypes';
-import { UsersService } from '../users/users.service';
-import { JwtService } from '@nestjs/jwt';
-import { map } from 'rxjs';
-import { checkErrorResponse } from '../utils';
+import { LoginUser, RegisterUser, User, UserTokens } from 'src/types/types';
+import { checkWPErrorResponse } from '../utils';
+import { ApiService } from '../api/api.service';
+import { TokensService } from '../tokens/tokens.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UsersService,
-    private readonly jwtService: JwtService,
+    private readonly apiService: ApiService,
+    private readonly tokensService: TokensService,
   ) {}
 
-  async login({ email, password }: LoginUser) {
-    const user = await this.usersService.getUser({ email, password });
+  async register(data: RegisterUser): Promise<UserTokens> {
+    const { ip, ...userData } = data;
 
-    return user.pipe(
-      map((response) => {
-        if (checkErrorResponse(response)) {
-          throw new UnauthorizedException({
-            code: 'login_user',
-            message: 'Извините, пользователь не найден',
-            data: { status: false, code: 401 },
-          });
-        }
+    const user = await this.apiService.post<User>(`auth/register`, userData);
+    checkWPErrorResponse(user);
 
-        return { access_token: this.jwtService.sign({ id: response }) };
-      }),
-    );
+    const tokens = this.tokensService.generateTokens(user);
+    const props = { ip };
+
+    await this.tokensService.saveToken(user.id, tokens.refreshToken, props);
+
+    return { user, ...tokens };
   }
 
-  async register(data: RegisterUser) {
-    const user = await this.usersService.registerUser(data);
+  async login(data: LoginUser): Promise<UserTokens> {
+    const { ip, ...userData } = data;
 
-    return user.pipe(
-      map((response) => {
-        if (typeof response === 'object' && checkErrorResponse(response)) {
-          const defaultException = {
-            code: 'register_user',
-            message:
-              'Извините, регистрация не удалась, попробуйте повторить позже',
-            data: { status: false, code: 401 },
-          };
+    const user = await this.apiService.post<User>(`auth/login`, userData);
+    checkWPErrorResponse(user);
 
-          switch (response.code) {
-            case 'existing_user_login':
-              throw new UnauthorizedException({
-                ...defaultException,
-                message:
-                  'Извините, этот email пользователя уже зарегистрирован',
-              });
-            case 'user_login_too_long':
-              throw new UnauthorizedException({
-                ...defaultException,
-                message: 'Извините, email не может быть длинее 60 символов',
-              });
-            default:
-              throw new UnauthorizedException(defaultException);
-          }
-        }
+    const tokens = this.tokensService.generateTokens(user);
+    const props = { ip };
 
-        return { access_token: this.jwtService.sign({ id: response }) };
-      }),
+    await this.tokensService.saveToken(user.id, tokens.refreshToken, props);
+
+    return { user, ...tokens };
+  }
+
+  async logout(refreshToken: string): Promise<boolean> {
+    return this.tokensService.removeToken(refreshToken);
+  }
+
+  async refresh(refreshToken: string, ip: string): Promise<UserTokens> {
+    if (!refreshToken) {
+      throw new UnauthorizedException();
+    }
+
+    const user = this.tokensService.verifyToken(
+      refreshToken,
+      process.env.JWT_REFRESH_SECRET,
     );
+    const userIdFromBd = await this.tokensService.findToken(refreshToken);
+
+    if (!user || !userIdFromBd.id) {
+      throw new UnauthorizedException();
+    }
+
+    const tokens = this.tokensService.generateTokens(userIdFromBd);
+    const props = { ip };
+
+    await this.tokensService.saveToken(
+      userIdFromBd.id,
+      tokens.refreshToken,
+      props,
+    );
+
+    return { user: userIdFromBd, ...tokens };
   }
 }

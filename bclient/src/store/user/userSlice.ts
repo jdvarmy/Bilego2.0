@@ -5,11 +5,13 @@ import { RequestLogin } from '../../types/types';
 
 type State = {
   login: boolean;
+  jwt: string | null;
   name: string | null;
 };
 
 const initialState: State = {
   login: false,
+  jwt: null,
   name: null,
 };
 
@@ -20,7 +22,7 @@ const user = createSlice({
     setUser: (state, action) => {
       state.login = true;
 
-      state.name = action.payload;
+      state.jwt = action.payload;
     },
     clearUser: (state) => {
       state.login = false;
