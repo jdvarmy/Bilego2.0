@@ -16,7 +16,7 @@
   /* 2 */
   border-style: solid;
   /* 2 */
-  border-color: #e5e7eb;
+  border-color: currentColor;
   /* 2 */
 }
 
@@ -123,7 +123,7 @@ code,
 kbd,
 samp,
 pre {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Liberation Mono", "Courier New", monospace;
   /* 1 */
   font-size: 1em;
   /* 2 */
@@ -468,6 +468,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-backdrop-sepia:  ;
 }
 
+.visible {
+  visibility: visible;
+}
+
 .static {
   position: static;
 }
@@ -476,12 +480,61 @@ Ensure the default browser behavior of the `hidden` attribute.
   position: fixed;
 }
 
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.m-2 {
+  margin: 0.5rem;
+}
+
+.-m-2 {
+  margin: -0.5rem;
+}
+
+.-m-3 {
+  margin: -0.75rem;
+}
+
+.-m-4 {
+  margin: -1rem;
+}
+
+.m-4 {
+  margin: 1rem;
+}
+
+.-mx-1 {
+  margin-left: -0.25rem;
+  margin-right: -0.25rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
 .mt-3 {
   margin-top: 0.75rem;
 }
 
-.mb-3 {
-  margin-bottom: 0.75rem;
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 .flex {
@@ -492,16 +545,52 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 100vh;
 }
 
+.h-5 {
+  height: 1.25rem;
+}
+
+.h-6 {
+  height: 1.5rem;
+}
+
+.h-7 {
+  height: 1.75rem;
+}
+
 .w-screen {
   width: 100vw;
 }
 
-.w-80 {
-  width: 20rem;
+.w-5 {
+  width: 1.25rem;
+}
+
+.w-8 {
+  width: 2rem;
+}
+
+.w-32 {
+  width: 8rem;
+}
+
+.w-menu {
+  width: 269px;
 }
 
 .w-full {
   width: 100%;
+}
+
+.w-36 {
+  width: 9rem;
+}
+
+.w-6 {
+  width: 1.5rem;
+}
+
+.w-7 {
+  width: 1.75rem;
 }
 
 .flex-1 {
@@ -524,8 +613,27 @@ Ensure the default browser behavior of the `hidden` attribute.
   cursor: pointer;
 }
 
+.select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
 .flex-col {
   flex-direction: column;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.items-center {
+  align-items: center;
 }
 
 .justify-between {
@@ -536,30 +644,36 @@ Ensure the default browser behavior of the `hidden` attribute.
   overflow: hidden;
 }
 
-.bg-gradient-to-br {
-  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+.bg-my-blue-liter {
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 14 48 / var(--tw-bg-opacity));
 }
 
-.from-blue-300 {
-  --tw-gradient-from: #93c5fd;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(147 197 253 / 0));
-}
-
-.from-amber-100 {
-  --tw-gradient-from: #fef3c7;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(254 243 199 / 0));
-}
-
-.to-blue-400 {
-  --tw-gradient-to: #60a5fa;
-}
-
-.to-amber-50 {
-  --tw-gradient-to: #fffbeb;
+.bg-my-blue {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 34 / var(--tw-bg-opacity));
 }
 
 .p-4 {
   padding: 1rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.p-1 {
+  padding: 0.25rem;
+}
+
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.px-9 {
+  padding-left: 2.25rem;
+  padding-right: 2.25rem;
 }
 
 .px-6 {
@@ -572,13 +686,73 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-bottom: 1rem;
 }
 
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+
+.pt-14 {
+  padding-top: 3.5rem;
+}
+
+.pr-2 {
+  padding-right: 0.5rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
+}
+
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
 }
 
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
 .font-bold {
   font-weight: 700;
+}
+
+.font-light {
+  font-weight: 300;
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-my-turquoise {
+  --tw-text-opacity: 1;
+  color: rgb(0 227 181 / var(--tw-text-opacity));
+}
+
+.text-my-raspberry {
+  --tw-text-opacity: 1;
+  color: rgb(255 51 109 / var(--tw-text-opacity));
+}
+
+.text-my-purple {
+  --tw-text-opacity: 1;
+  color: rgb(123 123 171 / var(--tw-text-opacity));
+}
+
+.text-my-chrome {
+  --tw-text-opacity: 1;
+  color: rgb(199 199 222 / var(--tw-text-opacity));
 }
 
 .underline {

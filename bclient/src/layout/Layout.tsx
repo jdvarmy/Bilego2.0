@@ -18,7 +18,7 @@ const Layout = ({ children }: Props) => {
       <div className='fixed flex overflow-hidden w-screen h-screen'>
         <LeftSideMenu>
           <Logo />
-          <div className='flex-1'>
+          <div className='flex-1 mt-8'>
             <Calendar />
             <Menu />
           </div>

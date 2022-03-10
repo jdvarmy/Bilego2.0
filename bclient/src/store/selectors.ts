@@ -7,3 +7,6 @@ export const eventsSelector = (state: RootStateType) => rootState(state).events;
 
 // USER
 export const userSelector = (state: RootStateType) => rootState(state).user;
+
+// CALENDAR
+export const calendarSelector = (state: RootStateType) => rootState(state).calendar;

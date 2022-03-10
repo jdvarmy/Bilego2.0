@@ -7,7 +7,7 @@ type Props = {
 
 const RightSideContent = ({ children }: Props) => {
   return (
-    <div className='flex-1 w-full h-screen px-6 py-4 bg-gradient-to-br from-amber-100 to-amber-50'>
+    <div className='flex-1 w-full h-screen px-6 py-4 bg-my-blue'>
       <Head />
       <div>{children}</div>
     </div>

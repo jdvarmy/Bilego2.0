@@ -10,9 +10,9 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head />
-        <body>
+        <body className='text-white'>
           <Main />
-          <script data-webpack='bticket' src='http://localhost:3002/ticket.js' />
+          <script async data-webpack='bticket' src='http://localhost:3002/ticket.js' />
           <NextScript />
         </body>
       </Html>
