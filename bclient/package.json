@@ -10,7 +10,6 @@
     "webpack": "5.1.3"
   },
   "dependencies": {
-    "@charlesvien/react-animatecss": "^1.0.10",
     "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.6",
     "@module-federation/nextjs-mf": "^2.3.1",

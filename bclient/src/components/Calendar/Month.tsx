@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ArrowSmLeftIcon, ArrowSmRightIcon } from '@heroicons/react/solid';
 import { getWeek } from '../../utils/functions';
 import { addWeeks, endOfWeek, isBefore, startOfWeek, subWeeks } from 'date-fns';
 import { ru } from 'date-fns/locale';
-import Animate from '@charlesvien/react-animatecss';
 import css from './Calendar.module.css';
 
 type Props = {
@@ -28,19 +27,15 @@ const months = [
 ];
 
 const Month = ({ date, setDay, setWeek }: Props) => {
-  const [animation, setAnimation] = useState<'back' | 'forward'>('forward');
-
   const handleClickForward = () => {
     const nextWeek = addWeeks(date, 1);
     setDay(nextWeek);
     setWeek(getWeek(nextWeek));
-    setAnimation('forward');
   };
   const handleClickBack = () => {
     const nextWeek = subWeeks(date, 1);
     setDay(nextWeek);
     setWeek(getWeek(nextWeek));
-    setAnimation('back');
   };
 
   return (
@@ -52,26 +47,20 @@ const Month = ({ date, setDay, setWeek }: Props) => {
 
           return (
             <div className='h-5 absolute' key={month}>
-              <Animate
-                className='text-my-chrome font-light inline-block pr-4'
-                animationIn='fadeInRight'
-                animationOut='fadeOutLeft'
-                inDuration={500}
-                outDuration={500}
-                visible={startWeek === key}
+              <div
+                className={`text-my-chrome font-light inline-block pr-4 -translate-x-full ${
+                  startWeek === key ? `visible ${css.In}` : css.Out
+                }`}
               >
                 {month}
-              </Animate>
-              <Animate
-                className='text-my-purple font-light text-xs inline-block'
-                animationIn='fadeInRight'
-                animationOut='fadeOutLeft'
-                inDuration={500}
-                outDuration={500}
-                visible={endWeek === key + 1 && startWeek === key}
+              </div>
+              <div
+                className={`text-my-purple font-light text-xs inline-block ${
+                  endWeek === key + 1 && startWeek === key ? 'visible' : 'invisible'
+                }`}
               >
                 {months[key + 1]}
-              </Animate>
+              </div>
             </div>
           );
         })}

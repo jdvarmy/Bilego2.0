@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Layout from '../../src/layout/Layout';
 import { useTypeSelector } from '../../src/hooks/useTypeSelector';
 import { eventsSelector } from '../../src/store/selectors';
 import { getEventsClientSide } from '../../src/store/events/eventsSlice';
@@ -18,10 +17,10 @@ const Events = () => {
   }, []);
 
   return (
-    <Layout>
+    <>
       <h1 className='text-3xl font-bold underline'>Events</h1>
       <SkeletonEvent />
-    </Layout>
+    </>
   );
 };
 

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Layout from '../../src/layout/Layout';
 import { getEventByIdServerSide } from '../../src/store/events/eventsThunk';
 import { useDispatch } from 'react-redux';
 import { useTypeSelector } from '../../src/hooks/useTypeSelector';
@@ -18,11 +17,7 @@ const SingleEvent = () => {
     }
   }, []);
 
-  return (
-    <Layout>
-      <h1 className='text-3xl font-bold underline'>Single Event</h1>
-    </Layout>
-  );
+  return <h1 className='text-3xl font-bold underline'>Single Event</h1>;
 };
 
 export default SingleEvent;

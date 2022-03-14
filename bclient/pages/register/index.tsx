@@ -1,12 +1,7 @@
 import React from 'react';
-import Layout from '../../src/layout/Layout';
 
 const Register = () => {
-  return (
-    <Layout>
-      <h1 className='text-3xl font-bold underline'>Register</h1>
-    </Layout>
-  );
+  return <h1 className='text-3xl font-bold underline'>Register</h1>;
 };
 
 export default Register;
