@@ -48,15 +48,15 @@ const Month = ({ date, setDay, setWeek }: Props) => {
           return (
             <div className='h-5 absolute' key={month}>
               <div
-                className={`text-my-chrome font-light inline-block pr-4 -translate-x-full ${
-                  startWeek === key ? `visible ${css.In}` : css.Out
+                className={`text-my-chrome font-light inline-block pr-4 ${
+                  startWeek === key ? `${css.In}` : `opacity-0 ${css.Out}`
                 }`}
               >
                 {month}
               </div>
               <div
                 className={`text-my-purple font-light text-xs inline-block ${
-                  endWeek === key + 1 && startWeek === key ? 'visible' : 'invisible'
+                  endWeek === key + 1 && startWeek === key ? `${css.In}` : `opacity-0 ${css.Out}`
                 }`}
               >
                 {months[key + 1]}

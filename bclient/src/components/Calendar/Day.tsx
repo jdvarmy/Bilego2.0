@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { isEqual, isWeekend } from 'date-fns';
+import React, { useCallback, useMemo, useState } from 'react';
+import { isBefore, isEqual, isWeekend } from 'date-fns';
 import { useDispatch } from 'react-redux';
 import { setSelectedDate } from '../../store/calendar/calendarSlice';
 import css from './Calendar.module.css';
@@ -16,9 +16,13 @@ const Day = ({ day, selectedDate, dayOfWeek, isHover, setIsHover }: Props) => {
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
 
-  const isSelectedDay: boolean = isEqual(
-    new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate()),
-    new Date(day.getFullYear(), day.getMonth(), day.getDate()),
+  const isSelectedDay: boolean = useMemo(
+    () =>
+      isEqual(
+        new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate()),
+        new Date(day.getFullYear(), day.getMonth(), day.getDate()),
+      ),
+    [day, selectedDate],
   );
 
   const handleOver = useCallback(() => {
@@ -30,6 +34,11 @@ const Day = ({ day, selectedDate, dayOfWeek, isHover, setIsHover }: Props) => {
     setIsHover(false);
   }, [setIsHover]);
   const handleClick = useCallback(() => {
+    const today = new Date();
+    if (isBefore(day, new Date(today.getFullYear(), today.getMonth(), today.getDate()))) {
+      return undefined;
+    }
+
     dispatch(setSelectedDate(day));
   }, [day, dispatch]);
 
