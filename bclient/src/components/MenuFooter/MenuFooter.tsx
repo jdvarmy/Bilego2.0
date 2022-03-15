@@ -5,8 +5,6 @@ import IconVk from './IconVk';
 import IconInstagram from './IconInstagram';
 
 const MenuFooter = () => {
-  console.log('FOOTER');
-
   return (
     <div className='flex flex-col justify-end text-my-purple'>
       <div className='h-0 border-t border-my-purple' />
