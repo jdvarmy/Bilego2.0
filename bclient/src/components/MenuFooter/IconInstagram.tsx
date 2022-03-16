@@ -14,10 +14,10 @@ const Icon = ({ fill }: { fill?: string }) => {
 };
 
 const IconInstagram = () => {
-  const { show, coords, handleClick } = useIconClickEffect();
+  const { show, coords, handlerClick } = useIconClickEffect();
 
   return (
-    <span className='cursor-pointer' onClick={handleClick}>
+    <span className='cursor-pointer' onClick={handlerClick}>
       <Icon />
       {Array(AMOUNT)
         .fill(1)

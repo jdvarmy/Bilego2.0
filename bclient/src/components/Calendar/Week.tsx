@@ -5,7 +5,7 @@ import css from './Calendar.module.css';
 
 type Props = {
   week: Date[];
-  selectedDate: Date;
+  selectedDate: Date | number;
 };
 
 const weekNames = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
@@ -20,7 +20,7 @@ const Week = ({ week, selectedDate }: Props) => {
           <Day
             key={item.toDateString()}
             day={item}
-            selectedDate={selectedDate}
+            selectedDate={new Date(selectedDate)}
             dayOfWeek={weekNames[getDay(item)]}
             isHover={isHover}
             setIsHover={setIsHover}

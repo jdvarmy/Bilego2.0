@@ -1,7 +1,7 @@
 import { ru } from 'date-fns/locale';
 import { endOfWeek, isBefore, startOfWeek, addDays } from 'date-fns';
 
-export const getWeek = function (date: Date): Date[] {
+export const getWeek = function (date: Date | number): Date[] {
   const startWeek = startOfWeek(date, { locale: ru });
   const endWeek = endOfWeek(date, { locale: ru });
   const week: Date[] = [];

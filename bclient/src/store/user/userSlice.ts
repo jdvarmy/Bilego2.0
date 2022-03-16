@@ -39,7 +39,6 @@ export const loginClientSide =
   async (dispatch) => {
     try {
       const { data } = await login(userLoginData);
-      console.log(data);
       dispatch(setUser(data));
     } catch (e) {
       console.log('ERROR', e);

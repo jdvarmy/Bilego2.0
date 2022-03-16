@@ -14,7 +14,7 @@ export const Particle = ({ show, coords, children }: Props) => {
   const destinationY = (Math.random() - 0.5) * 100;
   const rotation = Math.random() * 520;
   const scale = Math.random() * 0.3;
-  const delay = Math.random() * 200;
+  const delay = Math.random() * 300;
   const duration = Math.random() * 1500;
 
   const style = {

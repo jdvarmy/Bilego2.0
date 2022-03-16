@@ -8,7 +8,7 @@ type Props = {
 const Menu = ({ className }: Props) => {
   const router = useRouter();
 
-  const handleRouter = (href) => async () => {
+  const handlerRouter = (href) => async () => {
     await router.push(href);
   };
 
@@ -16,27 +16,32 @@ const Menu = ({ className }: Props) => {
     <header className={className}>
       <ul>
         <li>
-          <a onClick={handleRouter('/artists/vera-polozkova')} className='cursor-pointer'>
+          <a onClick={handlerRouter('/artists/vera-polozkova')} className='cursor-pointer'>
             artists
           </a>
         </li>
         <li>
-          <a onClick={handleRouter('/events')} className='cursor-pointer'>
+          <a onClick={handlerRouter('/events')} className='cursor-pointer'>
             events
           </a>
         </li>
         <li>
-          <a onClick={handleRouter('/items')} className='cursor-pointer'>
+          <a onClick={handlerRouter('/events/583')} className='cursor-pointer'>
+            single event
+          </a>
+        </li>
+        <li>
+          <a onClick={handlerRouter('/items')} className='cursor-pointer'>
             items
           </a>
         </li>
         <li>
-          <a onClick={handleRouter('/news')} className='cursor-pointer'>
+          <a onClick={handlerRouter('/news')} className='cursor-pointer'>
             news
           </a>
         </li>
         <li>
-          <a onClick={handleRouter('/user')} className='cursor-pointer'>
+          <a onClick={handlerRouter('/user')} className='cursor-pointer'>
             user
           </a>
         </li>

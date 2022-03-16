@@ -4,13 +4,13 @@ import { useRouter } from 'next/router';
 const Logo = () => {
   const router = useRouter();
 
-  const handleRouter = (href) => async () => {
+  const handlerRouter = (href) => async () => {
     await router.push(href);
   };
 
   return (
     <div className='flex-grow-0 flex-shrink-0 basis-auto'>
-      <span onClick={handleRouter('/')} className='cursor-pointer'>
+      <span onClick={handlerRouter('/')} className='cursor-pointer'>
         <svg width='154' height='38' viewBox='0 0 154 38' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path
             d='M141.34 16.43C141.34 18.61 139.57 20.38 137.39 20.38C135.21 20.38 133.44 18.61 133.44 16.43C133.44 14.25 135.21 12.48 137.39 12.48C139.57 12.47 141.34 14.24 141.34 16.43Z'

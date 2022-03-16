@@ -8,7 +8,7 @@ import css from './Calendar.module.css';
 import { transitionTimingFunction } from '../../types/types';
 
 type Props = {
-  date: Date;
+  date: Date | number;
   setDay: (date: Date) => void;
   setWeek: (dates: Date[]) => void;
 };
@@ -29,7 +29,7 @@ const months = [
 ];
 const timeout = 0;
 
-const RenderMonths = ({ date, month, index }: { date: Date; month: string; index: number }) => {
+const RenderMonths = ({ date, month, index }: { date: Date | number; month: string; index: number }) => {
   const startWeek = startOfWeek(date, { locale: ru }).getMonth();
   const endWeek = endOfWeek(date, { locale: ru }).getMonth();
   const inMonth = startWeek === index;
@@ -75,12 +75,12 @@ const RenderMonths = ({ date, month, index }: { date: Date; month: string; index
 };
 
 const Month = ({ date, setDay, setWeek }: Props) => {
-  const handleClickForward = () => {
+  const handlerClickForward = () => {
     const nextWeek = addWeeks(date, 1);
     setDay(nextWeek);
     setWeek(getWeek(nextWeek));
   };
-  const handleClickBack = () => {
+  const handlerClickBack = () => {
     const nextWeek = subWeeks(date, 1);
     setDay(nextWeek);
     setWeek(getWeek(nextWeek));
@@ -97,12 +97,12 @@ const Month = ({ date, setDay, setWeek }: Props) => {
         {isBefore(startOfWeek(new Date()), startOfWeek(date)) && (
           <ArrowSmLeftIcon
             className='h-6 w-6 inline-block text-my-turquoise cursor-pointer'
-            onClick={handleClickBack}
+            onClick={handlerClickBack}
           />
         )}
         <ArrowSmRightIcon
           className='h-6 w-6 inline-block text-my-turquoise cursor-pointer'
-          onClick={handleClickForward}
+          onClick={handlerClickForward}
         />
       </div>
     </div>
