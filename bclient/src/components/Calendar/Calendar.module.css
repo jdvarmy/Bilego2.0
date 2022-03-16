@@ -51,30 +51,3 @@
 .Day:nth-child(7).Active ~ .Indicator {
   transform: translateX(calc(1.9rem * 6));
 }
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-@keyframes fadeOutLeft {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-}
-.In {
-  animation: fadeInRight 0.5s;
-}
-.Out {
-  animation: fadeOutLeft 0.5s;
-}

@@ -1,6 +1,7 @@
-import { Transition } from 'react-transition-group';
 import React, { ReactChild } from 'react';
+import { Transition, TransitionStatus } from 'react-transition-group';
 import css from './Particle.module.css';
+import { transitionTimingFunction } from '../../types/types';
 
 type Props = {
   show: boolean;
@@ -9,19 +10,17 @@ type Props = {
 };
 
 export const Particle = ({ show, coords, children }: Props) => {
-  const width = Math.floor(Math.random() * 30);
   const destinationX = (Math.random() - 0.5) * 100;
   const destinationY = (Math.random() - 0.5) * 100;
   const rotation = Math.random() * 520;
   const scale = Math.random() * 0.3;
   const delay = Math.random() * 200;
   const duration = Math.random() * 1500;
-  const easing = 'cubic-bezier(0, .9, .57, 1)';
 
   const style = {
-    transitionProperty: 'opacity transform',
+    transitionProperty: 'opacity, transform',
     transitionDuration: `${duration}ms`,
-    transitionTimingFunction: easing,
+    transitionTimingFunction,
     transitionDelay: `${delay}ms`,
   };
 
@@ -38,7 +37,7 @@ export const Particle = ({ show, coords, children }: Props) => {
 
   return (
     <Transition in={show} timeout={duration} mountOnEnter unmountOnExit>
-      {(state) => (
+      {(state: TransitionStatus) => (
         <span className={css.particle} style={{ ...style, ...transitionStyles[state] }}>
           {children}
         </span>
