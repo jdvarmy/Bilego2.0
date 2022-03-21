@@ -26,7 +26,7 @@ const Menu = ({ className }: Props) => {
           </a>
         </li>
         <li>
-          <a onClick={handlerRouter('/events/583')} className='cursor-pointer'>
+          <a onClick={handlerRouter('/events/stereoleto')} className='cursor-pointer'>
             single event
           </a>
         </li>

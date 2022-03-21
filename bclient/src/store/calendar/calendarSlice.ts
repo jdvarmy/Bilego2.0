@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper';
 
 type Store = {
   selectedDate: Date | number;
@@ -18,6 +19,11 @@ const calendar = createSlice({
       } else {
         state.selectedDate = Date.parse(action.payload.toString());
       }
+    },
+  },
+  extraReducers: {
+    [HYDRATE]: (state) => {
+      return { ...state };
     },
   },
 });

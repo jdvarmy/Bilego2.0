@@ -1,12 +1,12 @@
-import { RootStateType } from './index';
+import { RootStoreType } from './index';
 
-const rootState = (state: RootStateType) => state;
+const rootState = (state: RootStoreType) => state;
 
 // EVENTS
-export const eventsSelector = (state: RootStateType) => rootState(state).events;
+export const eventsSelector = (state: RootStoreType) => rootState(state).events;
 
 // USER
-export const userSelector = (state: RootStateType) => rootState(state).user;
+export const userSelector = (state: RootStoreType) => rootState(state).user;
 
 // CALENDAR
-export const calendarSelector = (state: RootStateType) => rootState(state).calendar;
+export const calendarSelector = (state: RootStoreType) => rootState(state).calendar;

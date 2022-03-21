@@ -5,6 +5,7 @@ import { getEventsClientSide } from '../../src/store/events/eventsSlice';
 import { useDispatch } from 'react-redux';
 import { getEventsServerSide } from '../../src/store/events/eventsThunk';
 import SkeletonEvent from '../../src/components/Skeletons/SkeletonEvent';
+import { GetServerSideProps } from 'next';
 
 const Events = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const Events = () => {
     if (!events.length) {
       dispatch(getEventsClientSide());
     }
-  }, []);
+  }, [events.length, dispatch]);
 
   return (
     <>
@@ -26,4 +27,4 @@ const Events = () => {
 
 export default Events;
 
-export const getServerSideProps = getEventsServerSide;
+export const getServerSideProps: GetServerSideProps = getEventsServerSide;

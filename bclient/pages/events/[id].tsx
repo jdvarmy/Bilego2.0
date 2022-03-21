@@ -15,7 +15,7 @@ const SingleEvent = () => {
     if (!event && router?.query?.id && typeof router.query.id === 'string') {
       dispatch(getEventByIdClientSide(router.query.id));
     }
-  }, []);
+  }, [event, dispatch]);
 
   return <h1 className='text-3xl font-bold underline'>Single Event</h1>;
 };

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Event } from '../../types/types';
 import { ThunkActionType } from '../index';
 import { fetchEventById, fetchEvents } from '../../api/requests';
+import { HYDRATE } from 'next-redux-wrapper';
 
 type State = {
   events: Event[];
@@ -22,6 +23,11 @@ const events = createSlice({
     },
     setEvent: (state, action: PayloadAction<Event>) => {
       state.event = action.payload;
+    },
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return { ...state, ...action.payload.events };
     },
   },
 });
