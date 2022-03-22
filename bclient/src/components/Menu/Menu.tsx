@@ -1,52 +1,31 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import MenuItem from './MenuItem';
 
 type Props = {
   className?: string;
 };
 
+type NavigationMenu = {
+  title: string;
+  href?: string;
+};
+
+const menuItems: NavigationMenu[] = [
+  { title: 'artists', href: '/artists/vera-polozkova' },
+  { title: 'events', href: '/events' },
+  { title: 'items', href: '/items' },
+  { title: 'news', href: '/news' },
+  { title: 'user', href: '/user' },
+];
+
 const Menu = ({ className }: Props) => {
-  const router = useRouter();
-
-  const handlerRouter = (href) => async () => {
-    await router.push(href);
-  };
-
   return (
-    <header className={className}>
-      <ul>
-        <li>
-          <a onClick={handlerRouter('/artists/vera-polozkova')} className='cursor-pointer'>
-            artists
-          </a>
-        </li>
-        <li>
-          <a onClick={handlerRouter('/events')} className='cursor-pointer'>
-            events
-          </a>
-        </li>
-        <li>
-          <a onClick={handlerRouter('/events/stereoleto')} className='cursor-pointer'>
-            single event
-          </a>
-        </li>
-        <li>
-          <a onClick={handlerRouter('/items')} className='cursor-pointer'>
-            items
-          </a>
-        </li>
-        <li>
-          <a onClick={handlerRouter('/news')} className='cursor-pointer'>
-            news
-          </a>
-        </li>
-        <li>
-          <a onClick={handlerRouter('/user')} className='cursor-pointer'>
-            user
-          </a>
-        </li>
-      </ul>
-    </header>
+    <nav className={`mt-24 ${className}`}>
+      <div className='text-xl text-my-turquoise'>подборки</div>
+      {menuItems.map((item) => (
+        <MenuItem key={item.href} title={item.title} href={item.href} />
+      ))}
+    </nav>
   );
 };
 
