@@ -2,19 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 import { userSelector } from '../../store/selectors';
 import { useTypeSelector } from '../../hooks/useTypeSelector';
+import { UserCircleIcon } from '@heroicons/react/solid';
 
 const User = () => {
   const { login } = useTypeSelector(userSelector);
 
   return !login ? (
     <div>
-      <Link href={'/login'}>
-        <a className='cursor-pointer'>login</a>
-      </Link>
-      /
-      <Link href={'/register'}>
-        <a className='cursor-pointer'>register</a>
-      </Link>
+      <UserCircleIcon className='ml-3 w-12 h-12 fill-my-chrome cursor-pointer' />
     </div>
   ) : (
     <div>

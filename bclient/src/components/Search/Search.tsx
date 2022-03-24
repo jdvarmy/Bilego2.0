@@ -1,10 +1,9 @@
-import React, { ChangeEvent, Fragment, KeyboardEvent, memo, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, Fragment, KeyboardEvent, memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Transition } from '@headlessui/react';
 import { SearchCircleIcon } from '@heroicons/react/outline';
 import { XIcon } from '@heroicons/react/solid';
 import { transitionTimingFunction } from '../../types/types';
-import { AMOUNT, useIconClickEffect } from '../../hooks/useIconClickEffect';
-import { Particle } from '../Particle/Particle';
+import { useIconClickEffect } from '../../hooks/useIconClickEffect';
 
 const Search = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -15,15 +14,15 @@ const Search = () => {
 
   const { show, coords, handlerClick } = useIconClickEffect();
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsOpen(false);
-  };
-  const openModal = () => {
+  }, []);
+  const openModal = useCallback(() => {
     setIsOpen(true);
-  };
-  const handlerFocus = () => {
+  }, []);
+  const handlerFocus = useCallback(() => {
     inputRef.current?.focus();
-  };
+  }, [inputRef.current]);
   const handlerSearchValue = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
   };
@@ -56,27 +55,16 @@ const Search = () => {
     return () => {
       document.removeEventListener('mousedown', onOuterClick);
     };
-  }, []);
+  }, [wrapperRef.current]);
 
   return (
-    <div className='mt-2 mb-4' ref={wrapperRef}>
+    <div ref={wrapperRef}>
       <div className='relative h-9 bg-white w-96 border-0 rounded-2xl'>
         <span onClick={handlerClick}>
           <SearchCircleIcon
             className='absolute top-1.5 left-3.5 h-6 w-6 inline-block text-my-blue-liter cursor-pointer'
             onClick={handlerSearchIcon}
           />
-          {Array(AMOUNT)
-            .fill(1)
-            .map((item, key) => (
-              <Particle show={show} coords={coords} key={key}>
-                <SearchCircleIcon
-                  stroke={`hsl(${Math.random() * 50 + 308.66}, 75.23%, 57.25%)`}
-                  className='h-6 w-6 inline-block text-my-blue-liter'
-                  onClick={handlerSearchIcon}
-                />
-              </Particle>
-            ))}
         </span>
         <input
           ref={inputRef}

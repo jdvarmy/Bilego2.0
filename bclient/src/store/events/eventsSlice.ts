@@ -32,7 +32,7 @@ const events = createSlice({
   },
 });
 
-export const { setEvents, setEvent, ...eventActionsClient } = events.actions;
+export const { setEvents, setEvent } = events.actions;
 export default events.reducer;
 
 export const getEventsClientSide = (): ThunkActionType => async (dispatch) => {

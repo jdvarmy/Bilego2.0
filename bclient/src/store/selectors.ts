@@ -10,3 +10,7 @@ export const userSelector = (state: RootStoreType) => rootState(state).user;
 
 // CALENDAR
 export const calendarSelector = (state: RootStoreType) => rootState(state).calendar;
+
+// MODES
+export const modesSelector = (state: RootStoreType) => rootState(state).modes;
+export const preferenceModeSelector = (state: RootStoreType) => modesSelector(state).preference;

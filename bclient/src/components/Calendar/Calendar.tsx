@@ -16,7 +16,7 @@ const Calendar = () => {
   return (
     <div className='pb-2 px-1 -mx-1'>
       <div className='text-xl text-my-turquoise'>
-        календарь <ArrowCircleDownIcon className='h-5 w-5 inline-block text-my-raspberry cursor-pointer' />
+        календарь <ArrowCircleDownIcon className='h-5 w-5 stroke-1 inline-block text-my-raspberry cursor-pointer' />
       </div>
       <Month date={day} setDay={setDay} setWeek={setWeek} />
       <Week week={week} startDate={startDate} endDate={endDate} />
