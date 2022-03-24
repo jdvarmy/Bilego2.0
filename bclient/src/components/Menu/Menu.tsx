@@ -7,7 +7,7 @@ type Props = {
 
 type NavigationMenu = {
   title: string;
-  href?: string;
+  href: string;
 };
 
 const menuItems: NavigationMenu[] = [

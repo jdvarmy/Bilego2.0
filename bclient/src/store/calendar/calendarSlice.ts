@@ -2,22 +2,40 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 
 type Store = {
-  selectedDate: Date | number;
+  startDate: Date | number;
+  endDate: Date | number;
 };
 
 const initialState: Store = {
-  selectedDate: Date.parse(new Date().toString()),
+  startDate: Date.parse(new Date().toString()),
+  endDate: Date.parse(new Date().toString()),
 };
 
 const calendar = createSlice({
   initialState,
   name: 'calendar',
   reducers: {
-    setSelectedDate: (state, action: PayloadAction<Date | number>) => {
+    setOneDayDate: (state, action: PayloadAction<Date | number>) => {
       if (typeof action.payload === 'number') {
-        state.selectedDate = action.payload;
+        state.startDate = action.payload;
+        state.endDate = action.payload;
       } else {
-        state.selectedDate = Date.parse(action.payload.toString());
+        state.startDate = Date.parse(action.payload.toString());
+        state.endDate = Date.parse(action.payload.toString());
+      }
+    },
+    setStartDate: (state, action: PayloadAction<Date | number>) => {
+      if (typeof action.payload === 'number') {
+        state.startDate = action.payload;
+      } else {
+        state.startDate = Date.parse(action.payload.toString());
+      }
+    },
+    setEndDate: (state, action: PayloadAction<Date | number>) => {
+      if (typeof action.payload === 'number') {
+        state.endDate = action.payload;
+      } else {
+        state.endDate = Date.parse(action.payload.toString());
       }
     },
   },
@@ -28,5 +46,5 @@ const calendar = createSlice({
   },
 });
 
-export const { setSelectedDate } = calendar.actions;
+export const { setOneDayDate, setStartDate, setEndDate } = calendar.actions;
 export default calendar.reducer;

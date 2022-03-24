@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { isBefore, isEqual, isWeekend } from 'date-fns';
 import { useDispatch } from 'react-redux';
-import { setSelectedDate } from '../../store/calendar/calendarSlice';
+import { setOneDayDate } from '../../store/calendar/calendarSlice';
 import css from './Calendar.module.css';
 
 type Props = {
@@ -39,7 +39,7 @@ const Day = ({ day, selectedDate, dayOfWeek, isHover, setIsHover }: Props) => {
       return undefined;
     }
 
-    dispatch(setSelectedDate(day));
+    dispatch(setOneDayDate(day));
   }, [day, dispatch]);
 
   return (

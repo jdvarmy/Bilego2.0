@@ -10,9 +10,9 @@
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: #7b7bab;
+  background: rgba(123, 123, 171, 0.5);
   transform: translate(-50%, -50%);
-  transition: width 0.5s, height 0.5s;
+  transition: width 0.5s, height 0.5s, background-color 0.2s;
 }
 .button span {
   position: relative;
@@ -21,4 +21,17 @@
 .button:hover::before {
   width: 400px;
   height: 400px;
+}
+.button:active::before {
+  background: #7b7bab;
+}
+.button.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+.button.ripple:hover {
+  background: #7b7bab radial-gradient(circle, transparent 1%, #7b7bab 1%) center/15000%;
+}
+.button:active::before {
+  background: rgb(143, 143, 173);
 }

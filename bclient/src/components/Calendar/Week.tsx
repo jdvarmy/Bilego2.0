@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { getDay, isBefore } from 'date-fns';
+import { getDay, isBefore, isEqual } from 'date-fns';
 import Day from './Day';
 import css from './Calendar.module.css';
 
 type Props = {
   week: Date[];
-  selectedDate: Date | number;
+  startDate: Date | number;
+  endDate: Date | number;
 };
 
 const weekNames = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
 
-const Week = ({ week, selectedDate }: Props) => {
+const Week = ({ week, startDate, endDate }: Props) => {
   const [isHover, setIsHover] = useState<boolean>(false);
 
   return (
@@ -20,14 +21,20 @@ const Week = ({ week, selectedDate }: Props) => {
           <Day
             key={item.toDateString()}
             day={item}
-            selectedDate={new Date(selectedDate)}
+            selectedDate={new Date(startDate)}
             dayOfWeek={weekNames[getDay(item)]}
             isHover={isHover}
             setIsHover={setIsHover}
           />
         );
       })}
-      {<div className={`${css.Indicator} ${isBefore(week[0], selectedDate) ? css.After : css.Before}`} />}
+      {
+        <div
+          className={`${css.Indicator} ${!isEqual(startDate, endDate) && css.Weekend} ${
+            isBefore(week[0], startDate) ? css.After : css.Before
+          }`}
+        />
+      }
     </div>
   );
 };
