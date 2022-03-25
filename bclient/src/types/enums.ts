@@ -5,3 +5,5 @@ export enum AppActions {
   news = 'news',
   user = 'user',
 }
+
+export const ModalSelector = 'bilego-modal' as const;

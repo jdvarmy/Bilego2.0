@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import Head from '../Head/Head';
+import Header from '../Header/Header';
 
 type Props = {
   children?: ReactNode;
@@ -7,9 +7,9 @@ type Props = {
 
 const RightSideContent = ({ children }: Props) => {
   return (
-    <div className='flex-1 w-full h-screen px-6 py-4 bg-my-blue'>
-      <Head />
-      <div>{children}</div>
+    <div className='flex flex-col w-full h-screen px-6 py-4 bg-my-blue'>
+      <Header />
+      {children}
     </div>
   );
 };

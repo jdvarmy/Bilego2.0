@@ -1,12 +1,13 @@
 import React from 'react';
+import SkeletonSlider from '../src/components/Skeletons/SkeletonSlider';
 // import AppTicket from '../src/components/AppTicket/AppTicket';
 
 const Index = () => {
   return (
-    <>
-      <h1 className='text-3xl font-bold underline'>MAIN PAGE</h1>
+    <div className='flex-1'>
+      <SkeletonSlider />
       {/*<AppTicket />*/}
-    </>
+    </div>
   );
 };
 

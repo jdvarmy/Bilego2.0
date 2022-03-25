@@ -4,9 +4,9 @@ import User from '../User/User';
 import PreferenceMode from './PreferenceMode/PreferenceMode';
 import City from './City/City';
 
-const Head = () => {
+const Header = () => {
   return (
-    <div className='flex justify-between pt-4 pb-6 mt-2'>
+    <div className='flex justify-between pt-4 pb-6'>
       <div className='flex items-center justify-center'>
         <Search />
         <PreferenceMode />
@@ -19,4 +19,4 @@ const Head = () => {
   );
 };
 
-export default Head;
+export default Header;
