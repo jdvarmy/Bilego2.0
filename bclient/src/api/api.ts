@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { storageTokenName } from '../types/types';
 
-const baseConfig = {
+export const baseConfig = {
   baseURL: process.env.NEXT_PUBLIC_NEST_APP_API_ROOT,
   withCredentials: true,
   headers: {
@@ -10,6 +11,29 @@ const baseConfig = {
 };
 
 const instance = axios.create(baseConfig);
+
+instance.interceptors.request.use((request) => {
+  if (request.headers) {
+    request.headers.Authorization = `Bearer ${localStorage.getItem(storageTokenName)}`;
+  }
+
+  return request;
+});
+instance.interceptors.response.use(
+  (request) => request,
+  (error) => {
+    const originalRequest = error.config;
+
+    try {
+      if ([401, 403].includes(error.response.status && error.config && !error.config._isRetry)) {
+        originalRequest._isRetry = true;
+        console.log(error.response.data);
+      }
+    } catch (e) {
+      // todo:  сделать стор для ошибок авторизации и их визуализировать
+    }
+  },
+);
 
 enum RequestMethod {
   Get = 'get',

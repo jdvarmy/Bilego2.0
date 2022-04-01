@@ -6,9 +6,9 @@ import MenuFooter from '../MenuFooter/MenuFooter';
 
 const LeftSideMenu = () => {
   return (
-    <div className='w-menu flex flex-col h-screen bg-my-blue-liter pt-14 px-9'>
+    <div className='fixed left-0 top-0 w-menu flex flex-col h-screen bg-blue-800 pt-9.5 px-8.5'>
       <Logo />
-      <div className='flex-1 mt-8'>
+      <div className='flex-1'>
         <Calendar />
         <Menu />
       </div>

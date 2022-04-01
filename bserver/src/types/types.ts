@@ -1,4 +1,6 @@
-import { ECity, ETermType, EUserRoles } from './enums';
+import { ECity, ETermType } from './enums';
+
+export const CookieTokenName = 'refreshToken' as const;
 
 export type Id = number | string;
 

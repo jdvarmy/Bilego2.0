@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
-import { ArrowSmLeftIcon, ArrowSmRightIcon } from '@heroicons/react/solid';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import { getWeek } from '../../utils/functions';
 import { addWeeks, endOfWeek, isBefore, startOfWeek, subWeeks } from 'date-fns';
 import { ru } from 'date-fns/locale';
@@ -46,7 +46,7 @@ const RenderMonths = ({ date, month, index }: { date: Date | number; month: stri
         leaveFrom='opacity-100 scale-100 translate-x-0'
         leaveTo='opacity-0 scale-75 -translate-x-full'
       >
-        <div className={`text-my-chrome font-light inline-block pr-4 ${!inMonth && 'opacity-0'}`}>{month}</div>
+        <div className={`text-chrome-500 font-light inline-block pr-4 ${!inMonth && 'opacity-0'}`}>{month}</div>
       </Transition>
       <Transition
         show={inNextMonth}
@@ -79,7 +79,7 @@ const Month = ({ date, setDay, setWeek }: Props) => {
   };
 
   return (
-    <div className='flex justify-between items-center mt-3 mb-2'>
+    <div className='flex justify-between items-center mt-3'>
       <div className='w-36 h-5 relative select-none'>
         {months.map((month, key) => (
           <RenderMonths date={date} month={month} key={key} index={key} />
@@ -87,13 +87,13 @@ const Month = ({ date, setDay, setWeek }: Props) => {
       </div>
       <div>
         {isBefore(startOfWeek(new Date()), startOfWeek(date)) && (
-          <ArrowSmLeftIcon
-            className='h-6 w-6 inline-block text-my-turquoise cursor-pointer'
+          <ChevronLeftIcon
+            className='h-6 w-6 inline-block text-turquoise-500 cursor-pointer'
             onClick={handlerClickBack}
           />
         )}
-        <ArrowSmRightIcon
-          className='h-6 w-6 inline-block text-my-turquoise cursor-pointer'
+        <ChevronRightIcon
+          className='h-6 w-6 inline-block text-turquoise-500 cursor-pointer'
           onClick={handlerClickForward}
         />
       </div>

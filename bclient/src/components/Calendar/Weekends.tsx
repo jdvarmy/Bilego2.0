@@ -1,16 +1,26 @@
 import React, { useCallback } from 'react';
-import { LightBulbIcon } from '@heroicons/react/solid';
 import { useDispatch } from 'react-redux';
 import { isSaturday, isSunday, addDays, nextSaturday, nextSunday } from 'date-fns';
 import { setEndDate, setOneDayDate, setStartDate } from '../../store/calendar/calendarSlice';
+import { getWeek } from '../../utils/functions';
 
-const Weekends = () => {
+type Props = {
+  setDay: (date: Date | number) => void;
+  setWeek: (dates: Date[]) => void;
+};
+
+const Weekends = ({ setDay, setWeek }: Props) => {
   const dispatch = useDispatch();
 
-  const clickHandler = useCallback(() => {
+  const clickTodayHandler = useCallback(() => {
     const date = new Date();
+    dispatch(setOneDayDate(date));
 
-    console.log(nextSaturday(date));
+    setDay(date);
+    setWeek(getWeek(date));
+  }, [dispatch]);
+  const clickWeekendHandler = useCallback(() => {
+    const date = new Date();
 
     if (isSaturday(date)) {
       dispatch(setStartDate(date));
@@ -21,14 +31,24 @@ const Weekends = () => {
       dispatch(setStartDate(nextSaturday(date)));
       dispatch(setEndDate(nextSunday(date)));
     }
+
+    setDay(date);
+    setWeek(getWeek(date));
   }, [dispatch]);
   return (
-    <div
-      className='mt-6 border rounded-2xl border-my-chrome text-center pt-0.5 pb-1 text-my-chrome cursor-pointer'
-      onClick={clickHandler}
-    >
-      <LightBulbIcon className='h-5 w-4 inline-block text-my-chrome mr-1.5' />
-      <span>GO на выходные</span>
+    <div className='flex flex-row justify-between'>
+      <div
+        className='text-sm mt-6 border rounded-2xl border-chrome-500 text-center pb-0.5 px-3 text-chrome-500 cursor-pointer'
+        onClick={clickTodayHandler}
+      >
+        сегодня
+      </div>
+      <div
+        className='text-sm mt-6 border rounded-2xl border-chrome-500 text-center pb-0.5 px-3 text-chrome-500 cursor-pointer'
+        onClick={clickWeekendHandler}
+      >
+        выходные
+      </div>
     </div>
   );
 };

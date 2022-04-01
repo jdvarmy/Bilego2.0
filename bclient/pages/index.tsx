@@ -1,11 +1,13 @@
 import React from 'react';
-import SkeletonSlider from '../src/components/Skeletons/SkeletonSlider';
+import Slider from '../src/components/Slider/Slider';
+import EventsBlock from '../src/components/Blocks/EventsBlock';
 // import AppTicket from '../src/components/AppTicket/AppTicket';
 
 const Index = () => {
   return (
     <div className='flex-1'>
-      <SkeletonSlider />
+      <Slider />
+      <EventsBlock />
       {/*<AppTicket />*/}
     </div>
   );

@@ -7,7 +7,7 @@ type Props = {
 
 const RightSideContent = ({ children }: Props) => {
   return (
-    <div className='flex flex-col w-full h-screen px-6 py-4 bg-my-blue'>
+    <div className='relative ml-menu flex flex-col w-full bg-blue-900 py-9.5 px-20'>
       <Header />
       {children}
     </div>

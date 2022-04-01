@@ -1,6 +1,6 @@
 .Indicator {
   position: absolute;
-  width: 2rem;
+  width: 2.1rem;
   height: 3.15rem;
   top: 0.3rem;
   left: 0.2rem;
@@ -23,35 +23,35 @@
   z-index: 2;
 }
 .Indicator.Weekend {
-  width: 4rem;
+  width: 4.05rem;
 }
 .Day.Active:hover ~ .Indicator {
-  width: 2rem;
+  width: 2.1rem;
 }
 .Day ~ .Indicator.Before {
-  transform: translateX(calc(1.9rem * -3));
+  transform: translateX(calc(2.05rem * -3));
 }
 .Day ~ .Indicator.After {
-  transform: translateX(calc(1.9rem * 9));
+  transform: translateX(calc(2.05rem * 9));
 }
 .Day:nth-child(1).Active ~ .Indicator {
-  transform: translateX(calc(1.9rem * 0));
+  transform: translateX(calc(2.05rem * 0));
 }
 .Day:nth-child(2).Active ~ .Indicator {
-  transform: translateX(calc(1.9rem * 1));
+  transform: translateX(calc(2.05rem * 1));
 }
 .Day:nth-child(3).Active ~ .Indicator {
-  transform: translateX(calc(1.9rem * 2));
+  transform: translateX(calc(2.05rem * 2));
 }
 .Day:nth-child(4).Active ~ .Indicator {
-  transform: translateX(calc(1.9rem * 3));
+  transform: translateX(calc(2.05rem * 3));
 }
 .Day:nth-child(5).Active ~ .Indicator {
-  transform: translateX(calc(1.9rem * 4));
+  transform: translateX(calc(2.05rem * 4));
 }
 .Day:nth-child(6).Active ~ .Indicator {
-  transform: translateX(calc(1.9rem * 5));
+  transform: translateX(calc(2.05rem * 5));
 }
 .Day:nth-child(7).Active ~ .Indicator {
-  transform: translateX(calc(1.9rem * 6));
+  transform: translateX(calc(2.05rem * 6));
 }

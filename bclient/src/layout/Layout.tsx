@@ -11,7 +11,7 @@ const Layout = ({ children }: Props) => {
   return (
     <>
       <Metadata />
-      <div className='fixed flex overflow-hidden w-screen h-screen'>
+      <div className='flex w-screen h-screen'>
         <LeftSideMenu />
         <RightSideContent>{children}</RightSideContent>
       </div>

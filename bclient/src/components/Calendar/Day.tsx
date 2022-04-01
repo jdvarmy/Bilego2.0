@@ -52,7 +52,7 @@ const Day = ({ day, selectedDate, dayOfWeek, isHover, setIsHover }: Props) => {
       } flex flex-col items-center cursor-pointer relative w-8 select-none`}
     >
       <div className='font-light text-my-purple select-none'>{dayOfWeek}</div>
-      <div className={`${isWeekend(day) && 'text-my-raspberry select-none'}`}>{day.getDate()}</div>
+      <div className={`${isWeekend(day) && 'text-raspberry-500 select-none'}`}>{day.getDate()}</div>
     </div>
   );
 };

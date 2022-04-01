@@ -1,7 +1,16 @@
 export const transitionTimingFunction = 'cubic-bezier(0, .9, .57, 1)' as const;
+export const modalSelector = 'bmodal' as const;
+export const storageTokenName = 'token' as const;
 
 export type User = {
+  id: number;
   name: string;
+  email: string;
+};
+export type RequestRegister = {
+  email: string;
+  name: string;
+  password: string;
 };
 export type RequestLogin = {
   email: string;
@@ -30,4 +39,10 @@ export interface Item {
 export interface Artist {
   title: string;
   slug: string;
+}
+
+export interface WPError {
+  code: string;
+  data: { status: false; code: number };
+  message: string;
 }

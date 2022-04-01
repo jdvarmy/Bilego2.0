@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { modalSelector } from '../src/types/types';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -10,8 +11,9 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head />
-        <body className='text-white'>
+        <body className='text-white bg-blue-900'>
           <Main />
+          <div id={modalSelector} />
           <script async data-webpack='bticket' src='http://localhost:3002/ticket.js' />
           <NextScript />
         </body>
