@@ -29,7 +29,7 @@ const User = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem(storageTokenName)) {
+    if (localStorage.getItem(storageTokenName) && !isLogin) {
       dispatch(checkIsUserLoginClientSide());
     }
   }, [dispatch]);
@@ -106,9 +106,6 @@ const User = () => {
         </>
       ) : (
         <div>
-          {/*<Link href={'/user'}>*/}
-          {/*  <UserCircleIcon className='w-10 h-10 fill-chrome-500 cursor-pointer' />*/}
-          {/*</Link>*/}
           <div onClick={handleLogout}>Logout</div>
         </div>
       )}
