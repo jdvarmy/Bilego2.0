@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { storageTokenName } from '../types/types';
+import { storageTokenName, User } from '../types/types';
+import { setToken, setUser } from '../store/user/userSlice';
 
 export const baseConfig = {
   baseURL: process.env.NEXT_PUBLIC_NEST_APP_API_ROOT,
@@ -13,24 +14,36 @@ export const baseConfig = {
 const instance = axios.create(baseConfig);
 
 instance.interceptors.request.use((request) => {
-  if (request.headers) {
+  if (typeof window !== 'undefined' && request.headers) {
     request.headers.Authorization = `Bearer ${localStorage.getItem(storageTokenName)}`;
   }
+
+  request.params = { ...request.params, c: 'petersburg' };
 
   return request;
 });
 instance.interceptors.response.use(
   (request) => request,
-  (error) => {
+  async (error) => {
     const originalRequest = error.config;
+    if (
+      [401, 403].includes(error.response.status) &&
+      typeof window !== 'undefined' &&
+      error.config &&
+      !error.config._isRetry
+    ) {
+      originalRequest._isRetry = true;
+      try {
+        const { data } = await axios.get<{ user: User; accessToken: string }>(
+          `${process.env.NEXT_PUBLIC_NEST_APP_API_ROOT}auth/refresh`,
+          { withCredentials: true },
+        );
+        setToken(data.accessToken);
 
-    try {
-      if ([401, 403].includes(error.response.status && error.config && !error.config._isRetry)) {
-        originalRequest._isRetry = true;
-        console.log(error.response.data);
+        return instance.request(originalRequest);
+      } catch (e) {
+        // todo:  сделать стор для ошибок авторизации и их визуализировать
       }
-    } catch (e) {
-      // todo:  сделать стор для ошибок авторизации и их визуализировать
     }
   },
 );

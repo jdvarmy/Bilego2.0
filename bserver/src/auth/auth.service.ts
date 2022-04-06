@@ -43,7 +43,7 @@ export class AuthService {
     return this.tokensService.removeToken(refreshToken);
   }
 
-  async refresh(refreshToken: string, ip: string): Promise<any> {
+  async refresh(refreshToken: string, ip: string): Promise<UserTokens> {
     if (!refreshToken) {
       throw new UnauthorizedException();
     }

@@ -1,22 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type State = {
-  modeOn: boolean;
+  modePreferenceOn: boolean;
 };
 
 const initialState: State = {
-  modeOn: false,
+  modePreferenceOn: false,
 };
 
 const modePreference = createSlice({
   initialState,
   name: 'mode preference',
   reducers: {
-    setMode: (state, action: PayloadAction<boolean>) => {
-      state.modeOn = action.payload;
+    setModePreference: (state, action: PayloadAction<boolean>) => {
+      state.modePreferenceOn = action.payload;
     },
   },
 });
 
-export const { setMode } = modePreference.actions;
+export const { setModePreference } = modePreference.actions;
 export default modePreference.reducer;

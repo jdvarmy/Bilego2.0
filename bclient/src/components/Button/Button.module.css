@@ -1,0 +1,20 @@
+.button {
+  position: absolute;
+  background-color: #ffffff;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: animateRipple 700ms ease infinite;
+}
+@keyframes animateRipple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3);
+    opacity: 0;
+  }
+}

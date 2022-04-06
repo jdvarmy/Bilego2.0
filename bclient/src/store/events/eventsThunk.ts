@@ -7,9 +7,12 @@ export const getEventsServerSide = wrapper.getServerSideProps((store): any => as
 
   try {
     const { data } = await fetchEvents();
-    dispatch(setEvents(data.posts));
+
+    if (data) {
+      dispatch(setEvents(data.posts));
+    }
   } catch (e) {
-    console.log('ERROR', e);
+    console.log('getEventsServerSide', e);
   }
 });
 
@@ -18,8 +21,11 @@ export const getEventByIdServerSide = wrapper.getServerSideProps((store): any =>
 
   try {
     const { data } = await fetchEventById(params.id);
-    dispatch(setEvent(data.post));
+
+    if (data) {
+      dispatch(setEvent(data.post));
+    }
   } catch (e) {
-    console.log('ERROR', e);
+    console.log('getEventByIdServerSide', e);
   }
 });

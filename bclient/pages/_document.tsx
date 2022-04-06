@@ -11,7 +11,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head />
-        <body className='text-white bg-blue-900'>
+        <body className='text-white bg-blue-900 font-body'>
           <Main />
           <div id={modalSelector} />
           <script async data-webpack='bticket' src='http://localhost:3002/ticket.js' />

@@ -40,7 +40,7 @@ export const getEventsClientSide = (): ThunkActionType => async (dispatch) => {
     const { data } = await fetchEvents();
     dispatch(setEvents(data.posts));
   } catch (e) {
-    console.log('ERROR', e);
+    console.log('getEventsClientSide', e);
   }
 };
 
@@ -51,6 +51,6 @@ export const getEventByIdClientSide =
       const { data } = await fetchEventById(id);
       dispatch(setEvent(data.post));
     } catch (e) {
-      console.log('ERROR', e);
+      console.log('getEventByIdClientSide', e);
     }
   };

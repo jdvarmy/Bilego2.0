@@ -41,6 +41,14 @@ export interface Artist {
   slug: string;
 }
 
+export interface Slide {
+  title: string;
+  slug: string;
+  image: string;
+  date?: Date;
+  terms?: string[];
+}
+
 export interface WPError {
   code: string;
   data: { status: false; code: number };

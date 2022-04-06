@@ -14,3 +14,6 @@ export const calendarSelector = (state: RootStoreType) => rootState(state).calen
 // MODES
 export const modesSelector = (state: RootStoreType) => rootState(state).modes;
 export const preferenceModeSelector = (state: RootStoreType) => modesSelector(state).preference;
+
+// SLIDES
+export const sliderSelector = (state: RootStoreType) => rootState(state).slider;

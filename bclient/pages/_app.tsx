@@ -1,6 +1,6 @@
 import { wrapper } from '../src/store';
-import '../public/output.css';
 import Layout from '../src/layout/Layout';
+import '../public/output.css';
 
 const WrappedApp = ({ Component, pageProps }) => {
   return (

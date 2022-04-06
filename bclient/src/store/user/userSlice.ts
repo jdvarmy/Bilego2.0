@@ -15,7 +15,7 @@ const initialState: State = {
   user: null,
 };
 
-const setToken = (accessToken) => {
+export const setToken = (accessToken) => {
   localStorage.setItem(storageTokenName, accessToken);
 };
 const removeToken = () => {
@@ -70,7 +70,7 @@ export const checkIsUserLoginClientSide = (): ThunkActionType => async (dispatch
   try {
     const { data } = await axios.get<{ user: User; accessToken: string }>(
       `${process.env.NEXT_PUBLIC_NEST_APP_API_ROOT}auth/refresh`,
-      baseConfig,
+      { withCredentials: true },
     );
 
     dispatch(setUser(data));

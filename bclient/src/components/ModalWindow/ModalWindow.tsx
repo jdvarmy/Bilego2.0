@@ -1,4 +1,4 @@
-import React, { forwardRef, Fragment, ReactChild, useEffect } from 'react';
+import React, { Fragment, ReactChild, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Transition } from '@headlessui/react';
 import { transitionTimingFunction, modalSelector } from '../../types/types';
@@ -27,7 +27,7 @@ const ModalWindow = ({ isOpen, closeModal, children, wrapper }: ModalProps) => {
     };
   }, []);
 
-  if (typeof window === 'object') {
+  if (typeof window !== 'undefined') {
     return ReactDOM.createPortal(
       <Transition
         show={isOpen}

@@ -119,3 +119,11 @@ export type UserTokens = {
   refreshToken: string;
   user: User;
 };
+
+export interface Slide {
+  title: string;
+  slug: string;
+  image: string;
+  date?: Date;
+  terms?: string[];
+}
