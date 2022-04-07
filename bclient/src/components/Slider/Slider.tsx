@@ -39,14 +39,23 @@ const Slider = () => {
           <div key={slide.slug} data-src={slide.image}>
             <div className='absolute top-0 left-0 w-full h-full bg-black-700 opacity-50' />
             <div className='absolute top-0 left-0 w-full h-full bg-gradient-to-t from-blue-900 to-black-800' />
-            <p className='absolute bottom-44 left-14 text-white text-7xl select-none font-bold'>{slide.title}</p>
+            <div className='absolute bottom-44 left-14 text-white select-none'>
+              <div>
+                {slide.categories.genre &&
+                  slide.categories.genre.map((term) => (
+                    <span
+                      key={term.name}
+                      className='inline-block text-xs border border-turquoise-500 rounded-2xl py-1 px-3 lowercase mb-5'
+                    >
+                      {term.name}
+                    </span>
+                  ))}
+              </div>
+              <p className='text-7xl font-bold'>{slide.title}</p>
+            </div>
             <Button link={`events/${slide.slug}`} className='absolute bottom-24 text-xl left-14'>
               ГОУ
             </Button>
-            {slide.terms?.length &&
-              slide.terms.map((term: string) => {
-                console.log(term);
-              })}
           </div>
         ))}
       </AutoplaySlider>

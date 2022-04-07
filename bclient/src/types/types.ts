@@ -45,8 +45,10 @@ export interface Slide {
   title: string;
   slug: string;
   image: string;
-  date?: Date;
-  terms?: string[];
+  categories: {
+    genre: { name: string }[] | null;
+    feeling: { name: string }[] | null;
+  };
 }
 
 export interface WPError {

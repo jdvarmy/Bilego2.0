@@ -8,7 +8,7 @@ export class EventsController {
 
   @Get()
   getFilteredEvents(
-    @Query('city') city?: ECity,
+    @Query('c') city?: ECity,
     @Query('category') categories?: ETermType | ETermType[],
     @Query('count') count?: number,
     @Query('offset') offset?: number,

@@ -17,7 +17,7 @@ const Button = ({ link, children, className }: Props) => {
     const y = event.pageY - box.top + window.pageYOffset - event.target.clientTop;
 
     const ripple = document.createElement('span');
-    ripple.setAttribute('class', css.button);
+    ripple.setAttribute('class', css.ripple);
     ripple.style.left = x + 'px';
     ripple.style.top = y + 'px';
 
@@ -33,7 +33,7 @@ const Button = ({ link, children, className }: Props) => {
     <div
       onClick={handlerClick}
       ref={buttonRef}
-      className={`${className} bg-raspberry-500 rounded-3xl px-16 py-2 cursor-pointer overflow-hidden`}
+      className={`${className} ${css.button} bg-raspberry-500 rounded-3xl px-16 py-2 cursor-pointer overflow-hidden`}
     >
       {children}
     </div>

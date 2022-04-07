@@ -1,4 +1,11 @@
 .button {
+  transition: 0.2s;
+  filter: drop-shadow(0 0 3px rgba(255, 51, 109, 0.4)) drop-shadow(0 0 16px rgba(255, 51, 109, 0.4));
+}
+.button:hover {
+  filter: drop-shadow(0 0 16px #ff336d);
+}
+.ripple {
   position: absolute;
   background-color: #ffffff;
   transform: translate(-50%, -50%);
