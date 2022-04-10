@@ -25,7 +25,7 @@ const ModalWindow = ({ isOpen, closeModal, children, wrapper }: ModalProps) => {
     return () => {
       document.removeEventListener('mousedown', onOuterClick);
     };
-  }, []);
+  }, [closeModal, wrapper]);
 
   if (typeof window !== 'undefined') {
     return ReactDOM.createPortal(

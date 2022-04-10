@@ -23,7 +23,7 @@ const Search = () => {
   }, []);
   const handlerFocus = useCallback(() => {
     inputRef.current?.focus();
-  }, [inputRef.current]);
+  }, []);
   const handlerSearchValue = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
   };

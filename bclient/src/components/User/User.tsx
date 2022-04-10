@@ -32,7 +32,7 @@ const User = () => {
     if (localStorage.getItem(storageTokenName) && !isLogin) {
       dispatch(checkIsUserLoginClientSide());
     }
-  }, [dispatch]);
+  }, [isLogin, dispatch]);
 
   return (
     <div className='ml-3'>

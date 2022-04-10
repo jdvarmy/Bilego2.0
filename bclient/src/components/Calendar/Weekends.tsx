@@ -12,14 +12,14 @@ type Props = {
 const Weekends = ({ setDay, setWeek }: Props) => {
   const dispatch = useDispatch();
 
-  const clickTodayHandler = useCallback(() => {
+  const clickTodayHandler = () => {
     const date = new Date();
     dispatch(setOneDayDate(date));
 
     setDay(date);
     setWeek(getWeek(date));
-  }, [dispatch]);
-  const clickWeekendHandler = useCallback(() => {
+  };
+  const clickWeekendHandler = () => {
     const date = new Date();
 
     if (isSaturday(date)) {
@@ -34,7 +34,7 @@ const Weekends = ({ setDay, setWeek }: Props) => {
 
     setDay(date);
     setWeek(getWeek(date));
-  }, [dispatch]);
+  };
   return (
     <div className='flex flex-row justify-between'>
       <div
