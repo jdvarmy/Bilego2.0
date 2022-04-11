@@ -25,7 +25,7 @@ const Slider = () => {
   return (
     <div>
       <AutoplaySlider
-        play={false}
+        play={true}
         cancelOnInteraction={true}
         interval={6000}
         animation='openAnimation'
@@ -45,15 +45,15 @@ const Slider = () => {
                   slide.categories.genre.map((term) => (
                     <span
                       key={term.name}
-                      className='inline-block text-xs border border-turquoise-500 rounded-2xl py-1 px-3 lowercase mb-5'
+                      className='inline-block text-xs border border-turquoise rounded-2xl py-1 px-3 lowercase mb-5'
                     >
                       {term.name}
                     </span>
                   ))}
               </div>
-              <p className='text-7xl font-bold'>{slide.title}</p>
+              <p className='text-h3 font-bold'>{slide.title}</p>
             </div>
-            <Button link={`events/${slide.slug}`} className='absolute bottom-24 text-xl left-14'>
+            <Button link={`events/${slide.slug}`} className='absolute bottom-24 text-h3 left-14'>
               ГОУ
             </Button>
           </div>

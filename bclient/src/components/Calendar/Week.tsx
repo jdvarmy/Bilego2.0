@@ -15,7 +15,7 @@ const Week = ({ week, startDate, endDate }: Props) => {
   const [isHover, setIsHover] = useState<boolean>(false);
 
   return (
-    <div className='flex flex-row overflow-hidden justify-between -m-3 mt-0 p-1 relative'>
+    <div className='flex flex-row overflow-hidden justify-between -m-3 mt-0 p-1 relative text-xs'>
       {week.map((item) => {
         return (
           <Day

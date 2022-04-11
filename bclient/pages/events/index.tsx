@@ -20,7 +20,7 @@ const Events = () => {
 
   return (
     <>
-      <h1 className='text-3xl font-bold underline'>Events</h1>
+      <h1 className='text-h3 font-bold underline'>Events</h1>
       <SkeletonEvents />
       <ul className='mt-3'>
         {events.map((event) => (

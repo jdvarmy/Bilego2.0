@@ -21,7 +21,7 @@ const menuItems: NavigationMenu[] = [
 const Menu = ({ className }: Props) => {
   return (
     <nav className={`mt-14 ${className}`}>
-      <div className='text-xl text-turquoise-500'>подборки</div>
+      <div className='text-h3 text-turquoise'>подборки</div>
       {menuItems.map((item) => (
         <MenuItem key={item.href} title={item.title} href={item.href} />
       ))}

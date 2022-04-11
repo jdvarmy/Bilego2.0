@@ -42,7 +42,7 @@ html {
   -o-tab-size: 4;
      tab-size: 4;
   /* 3 */
-  font-family: sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
   /* 4 */
 }
 
@@ -569,44 +569,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   left: 1.5rem;
 }
 
-.left-10 {
-  left: 2.5rem;
-}
-
-.top-36 {
-  top: 9rem;
-}
-
-.bottom-44 {
-  bottom: 11rem;
-}
-
-.top-96 {
-  top: 24rem;
-}
-
 .left-14 {
   left: 3.5rem;
-}
-
-.bottom-24 {
-  bottom: 6rem;
-}
-
-.bottom-60 {
-  bottom: 15rem;
-}
-
-.bottom-80 {
-  bottom: 20rem;
 }
 
 .bottom-64 {
   bottom: 16rem;
 }
 
-.bottom-72 {
-  bottom: 18rem;
+.bottom-44 {
+  bottom: 11rem;
+}
+
+.bottom-24 {
+  bottom: 6rem;
 }
 
 .z-10 {
@@ -682,6 +658,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 2.25rem;
 }
 
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -696,14 +676,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .ml-0 {
   margin-left: 0px;
-}
-
-.mb-4 {
-  margin-bottom: 1rem;
-}
-
-.mb-5 {
-  margin-bottom: 1.25rem;
 }
 
 .block {
@@ -726,12 +698,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: grid;
 }
 
-.h-screen {
-  height: 100vh;
-}
-
 .h-5 {
   height: 1.25rem;
+}
+
+.h-screen {
+  height: 100vh;
 }
 
 .h-6 {
@@ -770,24 +742,24 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 4rem;
 }
 
-.h-4 {
-  height: 1rem;
-}
-
 .h-12 {
   height: 3rem;
+}
+
+.h-4 {
+  height: 1rem;
 }
 
 .min-h-screen {
   min-height: 100vh;
 }
 
-.w-screen {
-  width: 100vw;
-}
-
 .w-5 {
   width: 1.25rem;
+}
+
+.w-screen {
+  width: 100vw;
 }
 
 .w-8 {
@@ -838,8 +810,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 50%;
 }
 
-.w-28 {
-  width: 7rem;
+.w-40 {
+  width: 10rem;
 }
 
 .w-4 {
@@ -848,14 +820,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-10 {
   width: 2.5rem;
-}
-
-.w-32 {
-  width: 8rem;
-}
-
-.w-40 {
-  width: 10rem;
 }
 
 .max-w-md {
@@ -1036,34 +1000,34 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-style: none;
 }
 
-.border-chrome-500 {
+.border-chrome {
   --tw-border-opacity: 1;
   border-color: rgb(199 199 222 / var(--tw-border-opacity));
 }
 
-.border-my-purple {
+.border-purple {
   --tw-border-opacity: 1;
   border-color: rgb(123 123 171 / var(--tw-border-opacity));
 }
 
-.border-turquoise-500 {
+.border-turquoise {
   --tw-border-opacity: 1;
   border-color: rgb(0 227 181 / var(--tw-border-opacity));
 }
 
 .bg-blue-900 {
   --tw-bg-opacity: 1;
-  background-color: rgb(0 0 34 / var(--tw-bg-opacity));
+  background-color: rgb(7 7 46 / var(--tw-bg-opacity));
 }
 
-.bg-raspberry-500 {
+.bg-raspberry {
   --tw-bg-opacity: 1;
   background-color: rgb(255 51 109 / var(--tw-bg-opacity));
 }
 
 .bg-blue-800 {
   --tw-bg-opacity: 1;
-  background-color: rgb(14 14 48 / var(--tw-bg-opacity));
+  background-color: rgb(23 23 63 / var(--tw-bg-opacity));
 }
 
 .bg-white {
@@ -1075,7 +1039,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgba(0,0,34,0.34);
 }
 
-.bg-my-purple {
+.bg-purple {
   --tw-bg-opacity: 1;
   background-color: rgb(123 123 171 / var(--tw-bg-opacity));
 }
@@ -1085,19 +1049,19 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 .from-blue-900 {
-  --tw-gradient-from: #000022;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(0 0 34 / 0));
+  --tw-gradient-from: #07072e;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(7 7 46 / 0));
 }
 
 .to-black-800 {
   --tw-gradient-to: rgba(0,0,12,0);
 }
 
-.fill-raspberry-500 {
+.fill-raspberry {
   fill: #ff336d;
 }
 
-.stroke-chrome-500 {
+.stroke-chrome {
   stroke: #c7c7de;
 }
 
@@ -1131,6 +1095,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 1.5rem;
 }
 
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .px-16 {
   padding-left: 4rem;
   padding-right: 4rem;
@@ -1139,11 +1108,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-}
-
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
 }
 
 .px-3 {
@@ -1230,34 +1194,19 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-family: Sansation;
 }
 
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
 .text-xs {
-  font-size: 0.75rem;
-  line-height: 1rem;
-}
-
-.text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
-.text-7xl {
+.text-h3 {
   font-size: 4.5rem;
   line-height: 1;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .font-bold {
@@ -1268,12 +1217,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-weight: 300;
 }
 
-.font-medium {
-  font-weight: 500;
-}
-
 .lowercase {
   text-transform: lowercase;
+}
+
+.text-turquoise {
+  --tw-text-opacity: 1;
+  color: rgb(0 227 181 / var(--tw-text-opacity));
+}
+
+.text-raspberry {
+  --tw-text-opacity: 1;
+  color: rgb(255 51 109 / var(--tw-text-opacity));
 }
 
 .text-white {
@@ -1281,29 +1236,19 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-turquoise-500 {
-  --tw-text-opacity: 1;
-  color: rgb(0 227 181 / var(--tw-text-opacity));
-}
-
-.text-raspberry-500 {
-  --tw-text-opacity: 1;
-  color: rgb(255 51 109 / var(--tw-text-opacity));
-}
-
-.text-my-purple {
+.text-purple {
   --tw-text-opacity: 1;
   color: rgb(123 123 171 / var(--tw-text-opacity));
 }
 
-.text-chrome-500 {
+.text-chrome {
   --tw-text-opacity: 1;
   color: rgb(199 199 222 / var(--tw-text-opacity));
 }
 
 .text-blue-800 {
   --tw-text-opacity: 1;
-  color: rgb(14 14 48 / var(--tw-text-opacity));
+  color: rgb(23 23 63 / var(--tw-text-opacity));
 }
 
 .underline {

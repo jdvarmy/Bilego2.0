@@ -81,14 +81,14 @@ const Search = () => {
       </div>
       <ModalComponentWithNoSSR isOpen={isOpen} closeModal={handlerCloseModal} wrapper={wrapperRef.current}>
         <div className='absolute left-90 top-22 w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl'>
-          <h3 className='text-lg text-my-purple'>Поиск</h3>
+          <h3 className='text-h3 text-purple'>Поиск</h3>
           <div className='mt-2'>
-            <p className='text-sm text-my-purple'>Здесь будут всякие ссылки на поисковые запросы.</p>
+            <p className='text-xs text-purple'>Здесь будут всякие ссылки на поисковые запросы.</p>
           </div>
           <div className='mt-4'>
             <button
               type='button'
-              className='inline-flex justify-center px-4 py-2 text-sm text-my-purple border rounded-md border-my-purple'
+              className='inline-flex justify-center px-4 py-2 text-xs text-purple border rounded-md border-purple'
               onClick={handlerCloseModal}
             >
               Ясно, спасибо!

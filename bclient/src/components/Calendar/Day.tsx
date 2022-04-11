@@ -51,8 +51,8 @@ const Day = ({ day, selectedDate, dayOfWeek, isHover, setIsHover }: Props) => {
         (isHover ? active : isSelectedDay) && css.Active
       } flex flex-col items-center cursor-pointer relative w-8 select-none`}
     >
-      <div className='font-light text-my-purple select-none'>{dayOfWeek}</div>
-      <div className={`${isWeekend(day) && 'text-raspberry-500 select-none'}`}>{day.getDate()}</div>
+      <div className='font-light text-purple select-none'>{dayOfWeek}</div>
+      <div className={`${isWeekend(day) && 'text-raspberry select-none'}`}>{day.getDate()}</div>
     </div>
   );
 };

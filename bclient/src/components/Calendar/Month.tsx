@@ -46,7 +46,7 @@ const RenderMonths = ({ date, month, index }: { date: Date | number; month: stri
         leaveFrom='opacity-100 scale-100 translate-x-0'
         leaveTo='opacity-0 scale-75 -translate-x-full'
       >
-        <div className={`text-chrome-500 font-light inline-block pr-4 ${!inMonth && 'opacity-0'}`}>{month}</div>
+        <div className={`text-chrome font-light inline-block pr-4 ${!inMonth && 'opacity-0'}`}>{month}</div>
       </Transition>
       <Transition
         show={inNextMonth}
@@ -58,9 +58,7 @@ const RenderMonths = ({ date, month, index }: { date: Date | number; month: stri
         leaveFrom='opacity-100 scale-100 translate-x-0'
         leaveTo='opacity-0 scale-125 -translate-x-full'
       >
-        <div className={`text-my-purple font-light text-xs inline-block ${!inNextMonth && 'opacity-0'}`}>
-          {months[index + 1]}
-        </div>
+        <div className={`text-purple font-light inline-block ${!inNextMonth && 'opacity-0'}`}>{months[index + 1]}</div>
       </Transition>
     </div>
   );
@@ -79,7 +77,7 @@ const Month = ({ date, setDay, setWeek }: Props) => {
   };
 
   return (
-    <div className='flex justify-between items-center mt-3'>
+    <div className='flex justify-between items-center mt-3  text-xs'>
       <div className='w-36 h-5 relative select-none'>
         {months.map((month, key) => (
           <RenderMonths date={date} month={month} key={key} index={key} />
@@ -87,13 +85,10 @@ const Month = ({ date, setDay, setWeek }: Props) => {
       </div>
       <div>
         {isBefore(startOfWeek(new Date()), startOfWeek(date)) && (
-          <ChevronLeftIcon
-            className='h-6 w-6 inline-block text-turquoise-500 cursor-pointer'
-            onClick={handlerClickBack}
-          />
+          <ChevronLeftIcon className='h-6 w-6 inline-block text-turquoise cursor-pointer' onClick={handlerClickBack} />
         )}
         <ChevronRightIcon
-          className='h-6 w-6 inline-block text-turquoise-500 cursor-pointer'
+          className='h-6 w-6 inline-block text-turquoise cursor-pointer'
           onClick={handlerClickForward}
         />
       </div>

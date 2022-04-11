@@ -65,8 +65,8 @@ const User = () => {
                   leaveFrom='opacity-100 scale-100'
                   leaveTo='opacity-0 scale-95'
                 >
-                  <div className='inline-block bg-my-purple w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl rounded-2xl'>
-                    <Dialog.Title as='h3' className='text-lg font-medium'>
+                  <div className='inline-block bg-purple w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl rounded-2xl'>
+                    <Dialog.Title as='h3' className='text-h3 font-medium'>
                       Временный Логин
                     </Dialog.Title>
                     <div className='mt-2'>
@@ -92,7 +92,7 @@ const User = () => {
                     <div className='mt-4'>
                       <button
                         type='button'
-                        className='inline-flex justify-center px-4 py-2 text-sm font-medium border rounded-md'
+                        className='inline-flex justify-center px-4 py-2 text-xs font-medium border rounded-md'
                         onClick={handlerLogin}
                       >
                         Залогиниться

@@ -6,8 +6,8 @@ const City = () => {
 
   return (
     <div className='flex items-center cursor-pointer' onClick={clickHandler}>
-      <span className='text-xs text-chrome-500'>Санкт-Петербург</span>
-      <LocationMarkerIcon className='ml-1 w-4 h-4 fill-raspberry-500' />
+      <span className='text-xs text-chrome'>Санкт-Петербург</span>
+      <LocationMarkerIcon className='ml-1 w-4 h-4 fill-raspberry' />
     </div>
   );
 };

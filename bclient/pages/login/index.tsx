@@ -19,7 +19,7 @@ const Login = () => {
 
   return (
     <>
-      <h1 className='text-3xl font-bold underline'>Login</h1>
+      <h1 className='text-h3 font-bold underline'>Login</h1>
       <div className='flex flex-col p-4'>
         <input type='text' name='name' value={email} onChange={handlerChange(setEmail)} />
         <input type='text' name='password' value={pass} onChange={handlerChange(setPass)} />

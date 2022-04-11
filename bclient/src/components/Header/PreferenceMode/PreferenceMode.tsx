@@ -15,8 +15,8 @@ const PreferenceMode = () => {
 
   return (
     <div className='flex items-center w-36 cursor-pointer' onClick={clickHandler}>
-      <HeartIcon className={`w-10 h-10 ml-3 stroke-1 stroke-chrome-500 ${modePreferenceOn && 'fill-raspberry-500'}`} />
-      <span className='text-xs ml-0.5 text-chrome-500'>режим предпочтений</span>
+      <HeartIcon className={`w-10 h-10 ml-3 stroke-1 stroke-chrome ${modePreferenceOn && 'fill-raspberry'}`} />
+      <span className='text-xs ml-0.5 text-chrome'>режим предпочтений</span>
     </div>
   );
 };

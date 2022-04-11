@@ -36,15 +36,15 @@ const Weekends = ({ setDay, setWeek }: Props) => {
     setWeek(getWeek(date));
   };
   return (
-    <div className='flex flex-row justify-between'>
+    <div className='flex flex-row justify-between text-xs'>
       <div
-        className='text-sm mt-6 border rounded-2xl border-chrome-500 text-center pb-0.5 px-3 text-chrome-500 cursor-pointer'
+        className='text-xs mt-6 border rounded-2xl border-chrome text-center pb-0.5 px-3 text-chrome cursor-pointer'
         onClick={clickTodayHandler}
       >
         сегодня
       </div>
       <div
-        className='text-sm mt-6 border rounded-2xl border-chrome-500 text-center pb-0.5 px-3 text-chrome-500 cursor-pointer'
+        className='text-xs mt-6 border rounded-2xl border-chrome text-center pb-0.5 px-3 text-chrome cursor-pointer'
         onClick={clickWeekendHandler}
       >
         выходные

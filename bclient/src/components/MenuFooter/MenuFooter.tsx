@@ -6,8 +6,8 @@ import IconInstagram from './IconInstagram';
 
 const MenuFooter = () => {
   return (
-    <div className='flex flex-col justify-end text-my-purple'>
-      <div className='h-0 border-t border-my-purple' />
+    <div className='flex flex-col justify-end text-purple'>
+      <div className='h-0 border-t border-purple' />
       <div className='my-4 grid grid-rows-2 grid-flow-col gap-0'>
         <div>
           <Link href={'/contacts'}>

@@ -33,7 +33,7 @@ const Button = ({ link, children, className }: Props) => {
     <div
       onClick={handlerClick}
       ref={buttonRef}
-      className={`${className} ${css.button} bg-raspberry-500 rounded-3xl px-16 py-2 cursor-pointer overflow-hidden`}
+      className={`${className} ${css.button} bg-raspberry rounded-3xl px-16 py-2 cursor-pointer overflow-hidden`}
     >
       {children}
     </div>
