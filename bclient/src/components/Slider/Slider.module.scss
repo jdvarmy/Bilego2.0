@@ -1,3 +1,8 @@
+.gradient {
+  background: linear-gradient(360deg, #0a0a30 0%, rgba(0, 0, 0, 0) 100%),
+    linear-gradient(0deg, rgba(0, 0, 34, 0.5), rgba(0, 0, 34, 0.5));
+}
+
 $root-element: 'awssld';
 $cos45: 0.7071;
 $transition-bezier: cubic-bezier(0.5, 0.075, 0.25, 0.95);
@@ -142,7 +147,7 @@ $content-background-color: transparent;
       width: var(--control-button-width);
       height: var(--control-button-height);
       position: absolute;
-      z-index: 10;
+      //z-index: 10;
       top: calc(50% - (0.5 * var(--control-button-height)));
       border: none;
       background-color: var(--control-button-background);

@@ -1,4 +1,7 @@
 import React from 'react';
+import { GetServerSideProps } from 'next';
+import { ThunkDispatchType, wrapper } from '../../src/store';
+import { asyncGetTaxonomy } from '../../src/store/taxonomy/taxonomyThunk';
 
 const SingleNews = () => {
   return (
@@ -9,3 +12,13 @@ const SingleNews = () => {
 };
 
 export default SingleNews;
+
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store): any => async () => {
+  const dispatch = store.dispatch as ThunkDispatchType;
+
+  try {
+    await asyncGetTaxonomy(dispatch);
+  } catch (e) {
+    console.log('getServerSideProps news [id]', e);
+  }
+});

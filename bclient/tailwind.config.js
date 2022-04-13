@@ -92,8 +92,6 @@ module.exports = {
       'blue-900': '#07072e',
       'blue-800': '#17173f',
       white: '#ffffff',
-      'black-800': 'rgba(0,0,12,0)',
-      'black-700': 'rgba(0,0,34,0.34)',
     },
     width: (theme) => ({
       auto: 'auto',
@@ -131,9 +129,9 @@ module.exports = {
     fontSize: {
       xs: ['0.875rem', { lineHeight: '1.25rem' }],
       base: ['1rem', { lineHeight: '1.5rem' }],
-      h3: ['4.5rem', { lineHeight: '1' }],
+      h3: ['1.125rem', { lineHeight: '1.75rem' }],
       h2: ['1.25rem', { lineHeight: '1.75rem' }],
-      h1: ['1.125rem', { lineHeight: '1.75rem' }],
+      h1: ['4.5rem', { lineHeight: '1' }],
     },
     fontWeight: {
       light: '300',

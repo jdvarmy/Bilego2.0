@@ -26,7 +26,6 @@ const months = [
   'ноябрь',
   'декабрь',
 ];
-const timeout = 0;
 
 const RenderMonths = ({ date, month, index }: { date: Date | number; month: string; index: number }) => {
   const startWeek = startOfWeek(date, { locale: ru }).getMonth();
@@ -77,15 +76,18 @@ const Month = ({ date, setDay, setWeek }: Props) => {
   };
 
   return (
-    <div className='flex justify-between items-center mt-3  text-xs'>
+    <div className='flex justify-between items-center mt-3 text-xs'>
       <div className='w-36 h-5 relative select-none'>
         {months.map((month, key) => (
           <RenderMonths date={date} month={month} key={key} index={key} />
         ))}
       </div>
-      <div>
+      <div className='-mr-1'>
         {isBefore(startOfWeek(new Date()), startOfWeek(date)) && (
-          <ChevronLeftIcon className='h-6 w-6 inline-block text-turquoise cursor-pointer' onClick={handlerClickBack} />
+          <ChevronLeftIcon
+            className='h-6 w-6 inline-block text-turquoise cursor-pointer stroke-0'
+            onClick={handlerClickBack}
+          />
         )}
         <ChevronRightIcon
           className='h-6 w-6 inline-block text-turquoise cursor-pointer'

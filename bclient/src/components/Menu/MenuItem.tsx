@@ -29,7 +29,7 @@ const MenuItem = ({ title, href }: Props) => {
       style={{ '--x': `${coords.x}px`, '--y': `${coords.y}px` } as React.CSSProperties}
       onMouseMove={moveHandler}
       onClick={clickHandler}
-      className={`${css.button} ${css.ripple} cursor-pointer block bg-blue-900 my-1.5 p-1.5 pl-4 border-0 rounded-2xl select-none`}
+      className={`${css.button} ${css.ripple} cursor-pointer block bg-blue-900 my-1.5 p-1.5 pl-4 border-0 rounded-2xl select-none lowercase`}
     >
       <span className='text-chrome'>{title}</span>
     </a>

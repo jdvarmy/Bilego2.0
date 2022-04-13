@@ -3,10 +3,12 @@ import { useTypeSelector } from '../../src/hooks/useTypeSelector';
 import { eventsSelector } from '../../src/store/selectors';
 import { getEventsClientSide } from '../../src/store/events/eventsSlice';
 import { useDispatch } from 'react-redux';
-import { getEventsServerSide } from '../../src/store/events/eventsThunk';
 import SkeletonEvents from '../../src/components/Skeletons/SkeletonEvents';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
+import { ThunkDispatchType, wrapper } from '../../src/store';
+import { asyncGetEvents } from '../../src/store/events/eventsThunk';
+import { asyncGetTaxonomy } from '../../src/store/taxonomy/taxonomyThunk';
 
 const Events = () => {
   const dispatch = useDispatch();
@@ -35,4 +37,12 @@ const Events = () => {
 
 export default Events;
 
-export const getServerSideProps: GetServerSideProps = getEventsServerSide;
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store): any => async () => {
+  const dispatch = store.dispatch as ThunkDispatchType;
+
+  try {
+    await Promise.all([asyncGetEvents(dispatch), asyncGetTaxonomy(dispatch)]);
+  } catch (e) {
+    console.log('getServerSideProps events', e);
+  }
+});

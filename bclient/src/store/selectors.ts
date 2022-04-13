@@ -17,3 +17,6 @@ export const preferenceModeSelector = (state: RootStoreType) => modesSelector(st
 
 // SLIDES
 export const sliderSelector = (state: RootStoreType) => rootState(state).slider;
+
+// TAXONOMY
+export const taxonomySelector = (state: RootStoreType) => rootState(state).taxonomy;

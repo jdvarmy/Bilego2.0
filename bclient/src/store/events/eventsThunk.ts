@@ -1,10 +1,8 @@
-import { ThunkDispatchType, wrapper } from '../index';
+import { ThunkDispatchType } from '../index';
 import { fetchEventById, fetchEvents } from '../../api/requests';
 import { setEvent, setEvents } from './eventsSlice';
 
-export const getEventsServerSide = wrapper.getServerSideProps((store): any => async () => {
-  const dispatch = store.dispatch as ThunkDispatchType;
-
+export const asyncGetEvents = async (dispatch): Promise<void> => {
   try {
     const { data } = await fetchEvents();
 
@@ -12,20 +10,22 @@ export const getEventsServerSide = wrapper.getServerSideProps((store): any => as
       dispatch(setEvents(data.posts));
     }
   } catch (e) {
-    console.log('getEventsServerSide', e);
+    throw new Error(e);
   }
-});
+};
 
-export const getEventByIdServerSide = wrapper.getServerSideProps((store): any => async ({ params }) => {
-  const dispatch = store.dispatch as ThunkDispatchType;
-
+export const asyncGetEventById = async (dispatch, id: string): Promise<void> => {
   try {
-    const { data } = await fetchEventById(params.id);
+    if (!id) {
+      new Error('event id is undefined');
+    }
+
+    const { data } = await fetchEventById(id);
 
     if (data) {
       dispatch(setEvent(data.post));
     }
   } catch (e) {
-    console.log('getEventByIdServerSide', e);
+    throw new Error(e);
   }
-});
+};

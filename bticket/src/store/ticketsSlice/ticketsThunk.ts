@@ -9,7 +9,6 @@ export const fetchTickets =
   async (dispatch) => {
     try {
       const { data } = await requestTickets({ id, slug });
-      console.log(data);
 
       dispatch(addTicket(data));
     } catch (e) {

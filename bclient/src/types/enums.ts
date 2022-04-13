@@ -5,3 +5,10 @@ export enum AppActions {
   news = 'news',
   user = 'user',
 }
+
+export enum Term {
+  category = 'category',
+  genre = 'genre',
+  selection = 'selection',
+  feeling = 'feeling',
+}

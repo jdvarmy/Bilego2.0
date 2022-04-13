@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Event } from '../../types/types';
 import { ThunkActionType } from '../index';
-import { fetchEventById, fetchEvents } from '../../api/requests';
 import { HYDRATE } from 'next-redux-wrapper';
+import { asyncGetEventById, asyncGetEvents } from './eventsThunk';
 
 type State = {
   events: Event[];
@@ -37,8 +37,7 @@ export default events.reducer;
 
 export const getEventsClientSide = (): ThunkActionType => async (dispatch) => {
   try {
-    const { data } = await fetchEvents();
-    dispatch(setEvents(data.posts));
+    await asyncGetEvents(dispatch);
   } catch (e) {
     console.log('getEventsClientSide', e);
   }
@@ -48,8 +47,7 @@ export const getEventByIdClientSide =
   (id: string): ThunkActionType =>
   async (dispatch) => {
     try {
-      const { data } = await fetchEventById(id);
-      dispatch(setEvent(data.post));
+      await asyncGetEventById(dispatch, id);
     } catch (e) {
       console.log('getEventByIdClientSide', e);
     }

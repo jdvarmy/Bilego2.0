@@ -11,6 +11,7 @@ import { ArtistsModule } from './artists/artists.module';
 import { TicketsModule } from './tickets/tickets.module';
 import { UsersModule } from './users/users.module';
 import { SlidesModule } from './slides/slides.module';
+import { TaxonomyModule } from './taxonomy/taxonomy.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { SlidesModule } from './slides/slides.module';
     ItemsModule,
     TicketsModule,
     SlidesModule,
+    TaxonomyModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -4,6 +4,7 @@ import { setUser } from './userSlice';
 import { ThunkActionType } from '../index';
 
 // todo: функция не передает куки на бек, надо разобраться
+// да и нужно ее переделать на основе функции fetchGetTaxonomy, сейчас asyncCheckIsUserLogin нигде не используется
 export const asyncCheckIsUserLogin =
   (context): ThunkActionType =>
   async (dispatch) => {

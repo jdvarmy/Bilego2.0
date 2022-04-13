@@ -36,4 +36,4 @@ export type RootStoreType = ReturnType<typeof makeStore>;
 export type ThunkActionType<ReturnType = void> = ThunkAction<ReturnType, RootStoreType, unknown, Action<string>>;
 export type ThunkDispatchType = ThunkDispatch<RootStoreType, void, AnyAction>;
 
-export const wrapper = createWrapper<Store<RootStoreType>>(initStore, { debug: true });
+export const wrapper = createWrapper<Store<RootStoreType>>(initStore, { debug: process.env.NODE_ENV !== 'production' });

@@ -46,6 +46,10 @@ export interface Item extends Post {
   metro?: string[];
 }
 
+export interface ItemType extends Term {
+  image: ImageType;
+}
+
 export interface Manager extends Post {}
 
 export interface News extends Post {}
@@ -57,31 +61,30 @@ export interface EventSlider {}
 export type ImageType = string;
 
 export interface Term {
-  id: number;
-  type?: ETermType;
-  name?: string;
+  name: string;
+  slug: string;
   description?: string;
-  slug?: string;
 }
 
 export interface TermCategory extends Term {
-  image: ImageType;
+  showInMenu: boolean;
+  sort?: number;
+  icon?: ImageType;
 }
 
 export interface TermGenre extends Term {
-  image: ImageType;
+  icon?: ImageType;
 }
 
 export interface TermSelection extends Term {
-  sort: number;
-  isShow: boolean;
-  image: ImageType;
+  showInMainPage: boolean;
+  showInMenu: boolean;
+  sort?: number;
+  image?: ImageType;
 }
 
-export interface TermFeeling extends Term {}
-
-export interface ItemType extends Term {
-  image: ImageType;
+export interface TermFeeling extends Term {
+  icon?: ImageType;
 }
 
 export type WPError = {

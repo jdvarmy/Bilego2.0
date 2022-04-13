@@ -3,10 +3,7 @@ import { Transition } from '@headlessui/react';
 import { SearchCircleIcon } from '@heroicons/react/outline';
 import { XIcon } from '@heroicons/react/outline';
 import { transitionTimingFunction } from '../../types/types';
-import dynamic from 'next/dynamic';
 import ModalWindow from '../ModalWindow/ModalWindow';
-
-const ModalComponentWithNoSSR = dynamic(() => Promise.resolve(ModalWindow), { ssr: false });
 
 const Search = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -30,6 +27,7 @@ const Search = () => {
   const handlerRemoveSearchValue = () => {
     setSearchValue('');
     handlerFocus();
+    setIsOpen(true);
   };
   const handlerSearch = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' || event.keyCode === 13) {
@@ -79,7 +77,7 @@ const Search = () => {
           />
         </Transition>
       </div>
-      <ModalComponentWithNoSSR isOpen={isOpen} closeModal={handlerCloseModal} wrapper={wrapperRef.current}>
+      <ModalWindow isOpen={isOpen} closeModal={handlerCloseModal} ref={wrapperRef}>
         <div className='absolute left-90 top-22 w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl'>
           <h3 className='text-h3 text-purple'>Поиск</h3>
           <div className='mt-2'>
@@ -95,7 +93,7 @@ const Search = () => {
             </button>
           </div>
         </div>
-      </ModalComponentWithNoSSR>
+      </ModalWindow>
     </div>
   );
 };

@@ -14,7 +14,7 @@ const Calendar = () => {
   const [week, setWeek] = useState<Date[]>(() => getWeek(startDate));
 
   return (
-    <div className='pt-8 px-2 -mx-2'>
+    <div className='pt-7 px-2 -mx-2'>
       <div className='text-turquoise'>
         календарь <ArrowCircleDownIcon className='h-5 w-5 stroke-1 inline-block text-raspberry cursor-pointer' />
       </div>

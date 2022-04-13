@@ -1,4 +1,4 @@
-import React, { Fragment, ReactChild, useEffect } from 'react';
+import React, { forwardRef, Fragment, ReactChild, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Transition } from '@headlessui/react';
 import { transitionTimingFunction, modalSelector } from '../../types/types';
@@ -6,16 +6,19 @@ import { transitionTimingFunction, modalSelector } from '../../types/types';
 type ModalProps = {
   isOpen?: boolean;
   closeModal?: () => void;
-  wrapper?: HTMLElement | null;
   children?: ReactChild;
 };
 
-const ModalWindow = ({ isOpen, closeModal, children, wrapper }: ModalProps) => {
+const ModalWindow = forwardRef<HTMLElement, ModalProps>(function Component(
+  { isOpen, closeModal, children }: ModalProps,
+  ref,
+) {
   useEffect(() => {
     const onOuterClick = (event) => {
       const modal = document.getElementById(modalSelector);
 
-      if (closeModal && (!modal?.contains(event.target) || (wrapper && !wrapper?.contains(event.target)))) {
+      // @ts-ignore
+      if (closeModal && !modal?.contains(event.target) && ref?.current && !ref?.current.contains(event.target)) {
         closeModal();
       }
     };
@@ -25,7 +28,7 @@ const ModalWindow = ({ isOpen, closeModal, children, wrapper }: ModalProps) => {
     return () => {
       document.removeEventListener('mousedown', onOuterClick);
     };
-  }, [closeModal, wrapper]);
+  }, []);
 
   if (typeof window !== 'undefined') {
     return ReactDOM.createPortal(
@@ -46,6 +49,6 @@ const ModalWindow = ({ isOpen, closeModal, children, wrapper }: ModalProps) => {
   }
 
   return null;
-};
+});
 
 export default ModalWindow;

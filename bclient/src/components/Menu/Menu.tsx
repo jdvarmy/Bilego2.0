@@ -1,31 +1,52 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MenuItem from './MenuItem';
+import { useTypeSelector } from '../../hooks/useTypeSelector';
+import { taxonomySelector } from '../../store/selectors';
+import { useDispatch } from 'react-redux';
+import { getTaxonomiesClientSide } from '../../store/taxonomy/taxonomySlice';
+import { Selection } from '../../types/types';
 
 type Props = {
   className?: string;
 };
 
-type NavigationMenu = {
-  title: string;
-  href: string;
-};
-
-const menuItems: NavigationMenu[] = [
-  { title: 'artists', href: '/artists/vera-polozkova' },
-  { title: 'events', href: '/events' },
-  { title: 'items', href: '/items' },
-  { title: 'news', href: '/news' },
-  { title: 'user', href: '/user' },
-];
-
 const Menu = ({ className }: Props) => {
+  const dispatch = useDispatch();
+  const { selection, category } = useTypeSelector(taxonomySelector);
+
+  useEffect(() => {
+    if (!selection.length || !category.length) {
+      dispatch(getTaxonomiesClientSide());
+    }
+  }, [dispatch, selection, category]);
+
   return (
-    <nav className={`mt-14 ${className}`}>
-      <div className='text-h3 text-turquoise'>подборки</div>
-      {menuItems.map((item) => (
-        <MenuItem key={item.href} title={item.title} href={item.href} />
-      ))}
-    </nav>
+    <>
+      <nav className={`mt-14 ${className}`}>
+        <div className='text-turquoise'>подборки</div>
+        <div className='text-xs'>
+          <MenuItem title='выходные' href='/events?holy=1' />
+          <MenuItem title='ближайшие' href='/events?closest=1' />
+          {selection
+            .filter((item) => item.showInMenu)
+            .sort((a, b) => (a.sort && b.sort ? a.sort - b.sort : 0))
+            .map((item: Selection) => (
+              <MenuItem key={item.slug} title={item.name} href={`/events?selection=[${item.slug}]`} />
+            ))}
+        </div>
+      </nav>
+      <nav className={`mt-8 ${className}`}>
+        <div className='text-turquoise'>формат</div>
+        <div className='text-xs'>
+          {category
+            .filter((item) => item.showInMenu)
+            .sort((a, b) => (a.sort && b.sort ? a.sort - b.sort : 0))
+            .map((item: Selection) => (
+              <MenuItem key={item.slug} title={item.name} href={`/events?category=[${item.slug}]`} />
+            ))}
+        </div>
+      </nav>
+    </>
   );
 };
 

@@ -3,8 +3,8 @@ import Slider from '../src/components/Slider/Slider';
 import EventsBlock from '../src/components/Blocks/EventsBlock';
 import { GetServerSideProps } from 'next';
 import { ThunkDispatchType, wrapper } from '../src/store';
-import { setSlides } from '../src/store/slider/sliderSlice';
-import { fetchSlides } from '../src/api/requests';
+import { asyncGetTaxonomy } from '../src/store/taxonomy/taxonomyThunk';
+import { asyncGetSlides } from '../src/store/slider/sliderThunk';
 // import AppTicket from '../src/components/AppTicket/AppTicket';
 
 const Index = () => {
@@ -23,13 +23,8 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
   const dispatch = store.dispatch as ThunkDispatchType;
 
   try {
-    // dispatch(asyncCheckIsUserLogin(context));
-    const { data } = await fetchSlides();
-
-    if (data) {
-      dispatch(setSlides(data));
-    }
+    await Promise.all([asyncGetSlides(dispatch), asyncGetTaxonomy(dispatch)]);
   } catch (e) {
-    console.log('getMainServerSide', e);
+    console.log('getServerSideProps index', e);
   }
 });

@@ -38,13 +38,13 @@ const Weekends = ({ setDay, setWeek }: Props) => {
   return (
     <div className='flex flex-row justify-between text-xs'>
       <div
-        className='text-xs mt-6 border rounded-2xl border-chrome text-center pb-0.5 px-3 text-chrome cursor-pointer'
+        className='text-xs mt-8 border rounded-2xl border-chrome text-center pb-0.5 px-3 text-chrome cursor-pointer'
         onClick={clickTodayHandler}
       >
         сегодня
       </div>
       <div
-        className='text-xs mt-6 border rounded-2xl border-chrome text-center pb-0.5 px-3 text-chrome cursor-pointer'
+        className='text-xs mt-8 border rounded-2xl border-chrome text-center pb-0.5 px-3 text-chrome cursor-pointer'
         onClick={clickWeekendHandler}
       >
         выходные

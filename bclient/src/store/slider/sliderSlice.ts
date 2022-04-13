@@ -2,7 +2,7 @@ import { Slide } from '../../types/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { ThunkActionType } from '../index';
-import { fetchSlides } from '../../api/requests';
+import { asyncGetSlides } from './sliderThunk';
 
 type State = {
   slides: Slide[];
@@ -32,8 +32,7 @@ export default slider.reducer;
 
 export const getSlidesClientSide = (): ThunkActionType => async (dispatch) => {
   try {
-    const { data } = await fetchSlides();
-    dispatch(setSlides(data));
+    await asyncGetSlides(dispatch);
   } catch (e) {
     console.log('getSlidesClientSide', e);
   }
