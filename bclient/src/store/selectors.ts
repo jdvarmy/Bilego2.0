@@ -2,6 +2,9 @@ import { RootStoreType } from './index';
 
 const rootState = (state: RootStoreType) => state;
 
+// GLOBAL
+export const globalSelector = (state: RootStoreType) => rootState(state).global;
+
 // EVENTS
 export const eventsSelector = (state: RootStoreType) => rootState(state).events;
 

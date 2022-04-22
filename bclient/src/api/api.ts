@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { storageTokenName, User } from '../types/types';
-import { setToken, setUser } from '../store/user/userSlice';
+import { setToken } from '../store/user/userSlice';
 
 export const baseConfig = {
   baseURL: process.env.NEXT_PUBLIC_NEST_APP_API_ROOT,
@@ -17,8 +17,6 @@ instance.interceptors.request.use((request) => {
   if (typeof window !== 'undefined' && request.headers) {
     request.headers.Authorization = `Bearer ${localStorage.getItem(storageTokenName)}`;
   }
-
-  request.params = { ...request.params, c: 'petersburg' };
 
   return request;
 });

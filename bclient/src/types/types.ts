@@ -3,6 +3,7 @@ import { Term } from './enums';
 export const transitionTimingFunction = 'cubic-bezier(0, .9, .57, 1)' as const;
 export const modalSelector = 'bmodal' as const;
 export const storageTokenName = 'token' as const;
+export const localStorageCityKey = '_bilego_c' as const;
 
 export type User = {
   id: number;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginClientSide } from '../../src/store/user/userSlice';
+import { loginClientSide } from '../../../src/store/user/userSlice';
 
 const Login = () => {
   const dispatch = useDispatch();

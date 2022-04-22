@@ -1,4 +1,3 @@
-import { ThunkDispatchType } from '../index';
 import { fetchTaxonomies } from '../../api/requests';
 import { Term } from '../../types/enums';
 import { setCategory, setFeeling, setGenre, setSelection } from './taxonomySlice';

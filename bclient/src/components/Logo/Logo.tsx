@@ -1,9 +1,12 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import IconLogo from '../Icons/IconLogo';
+import { useTypeSelector } from '../../hooks/useTypeSelector';
+import { globalSelector } from '../../store/selectors';
 
 const Logo = () => {
   const router = useRouter();
+  const { city } = useTypeSelector(globalSelector);
 
   const handlerRouter = (href) => async () => {
     await router.push(href);
@@ -11,7 +14,7 @@ const Logo = () => {
 
   return (
     <div className='flex-grow-0 flex-shrink-0 basis-auto'>
-      <span onClick={handlerRouter('/')} className='cursor-pointer'>
+      <span onClick={handlerRouter(`/${city}`)} className='cursor-pointer'>
         <IconLogo />
       </span>
     </div>

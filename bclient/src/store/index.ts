@@ -13,27 +13,17 @@ const bindMiddleware = (middleware) => {
 
 const makeStore = combineReducers({ ...reducers });
 
-const store = (state, action) => {
+const reducer = (state, action) => {
   return makeStore(state, action);
-  // if (action.type === HYDRATE) {
-  //   const nextState = { ...state, ...action.payload };
-  //
-  //   if (state.count) {
-  //     nextState.count = state.count;
-  //   }
-  //
-  //   return nextState;
-  // } else {
-  //   return makeStore(state, action);
-  // }
+  // сравка: гидротация контента описывается в каждом редюсере отдельно в объекте extraReducers
 };
 
 const initStore = () => {
-  return createStore(store, bindMiddleware([thunkMiddleware]));
+  return createStore(reducer, bindMiddleware([thunkMiddleware]));
 };
 
 export type RootStoreType = ReturnType<typeof makeStore>;
 export type ThunkActionType<ReturnType = void> = ThunkAction<ReturnType, RootStoreType, unknown, Action<string>>;
 export type ThunkDispatchType = ThunkDispatch<RootStoreType, void, AnyAction>;
 
-export const wrapper = createWrapper<Store<RootStoreType>>(initStore, { debug: process.env.NODE_ENV !== 'production' });
+export const wrapper = createWrapper<Store<RootStoreType>>(initStore, { debug: false });

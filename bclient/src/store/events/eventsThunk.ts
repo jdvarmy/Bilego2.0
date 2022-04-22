@@ -1,7 +1,8 @@
-import { ThunkDispatchType } from '../index';
-import { fetchEventById, fetchEvents } from '../../api/requests';
+import { fetchEventById, fetchEvents, fetchEventsBlock } from '../../api/requests';
 import { setEvent, setEvents } from './eventsSlice';
+import { EventsBlockProps } from '../../components/Blocks/EventsBlock';
 
+// EVENTS
 export const asyncGetEvents = async (dispatch): Promise<void> => {
   try {
     const { data } = await fetchEvents();
@@ -14,6 +15,19 @@ export const asyncGetEvents = async (dispatch): Promise<void> => {
   }
 };
 
+export const asyncGetEventsBlock = async (params: EventsBlockProps['parameters']): Promise<Event[]> => {
+  try {
+    const { data } = await fetchEventsBlock(params);
+
+    console.log(data);
+
+    return [] as Event[];
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+// ONE EVENT
 export const asyncGetEventById = async (dispatch, id: string): Promise<void> => {
   try {
     if (!id) {

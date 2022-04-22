@@ -15,10 +15,10 @@ const Menu = ({ className }: Props) => {
   const { selection, category } = useTypeSelector(taxonomySelector);
 
   useEffect(() => {
-    if (!selection.length || !category.length) {
+    if (!category.length) {
       dispatch(getTaxonomiesClientSide());
     }
-  }, [dispatch, selection, category]);
+  }, [dispatch, category]);
 
   return (
     <>
@@ -35,17 +35,21 @@ const Menu = ({ className }: Props) => {
             ))}
         </div>
       </nav>
-      <nav className={`mt-8 ${className}`}>
-        <div className='text-turquoise'>формат</div>
-        <div className='text-xs'>
-          {category
-            .filter((item) => item.showInMenu)
-            .sort((a, b) => (a.sort && b.sort ? a.sort - b.sort : 0))
-            .map((item: Selection) => (
-              <MenuItem key={item.slug} title={item.name} href={`/events?category=[${item.slug}]`} />
-            ))}
-        </div>
-      </nav>
+      {category.length ? (
+        <nav className={`mt-8 ${className}`}>
+          <div className='text-turquoise'>формат</div>
+          <div className='text-xs'>
+            {category
+              .filter((item) => item.showInMenu)
+              .sort((a, b) => (a.sort && b.sort ? a.sort - b.sort : 0))
+              .map((item: Selection) => (
+                <MenuItem key={item.slug} title={item.name} href={`/events?category=[${item.slug}]`} />
+              ))}
+          </div>
+        </nav>
+      ) : (
+        <div />
+      )}
     </>
   );
 };

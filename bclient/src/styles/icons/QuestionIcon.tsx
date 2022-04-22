@@ -1,7 +1,7 @@
 import React from 'react';
 
 const QuestionIcon = React.forwardRef((props: React.ComponentProps<'svg'>, svgRef) => {
-  return /*#__PURE__*/ React.createElement(
+  return React.createElement(
     'svg',
     Object.assign(
       {

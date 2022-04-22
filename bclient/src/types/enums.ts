@@ -1,3 +1,8 @@
+export enum Cities {
+  moscow = 'moscow',
+  petersburg = 'petersburg',
+}
+
 export enum AppActions {
   events = 'events',
   items = 'items',
@@ -11,4 +16,10 @@ export enum Term {
   genre = 'genre',
   selection = 'selection',
   feeling = 'feeling',
+}
+
+export enum SortType {
+  desc = 'desc',
+  asc = 'asc',
+  popular = 'popular',
 }

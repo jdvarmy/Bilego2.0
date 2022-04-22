@@ -5,11 +5,15 @@ import { HYDRATE } from 'next-redux-wrapper';
 import { asyncGetEventById, asyncGetEvents } from './eventsThunk';
 
 type State = {
+  mainPageEventsWeekend: Event[];
+  mainPageEventsUpcoming: Event[];
   events: Event[];
   event: Event | null;
 };
 
 const initialState: State = {
+  mainPageEventsWeekend: [],
+  mainPageEventsUpcoming: [],
   events: [],
   event: null,
 };
@@ -18,6 +22,12 @@ const events = createSlice({
   initialState,
   name: 'events',
   reducers: {
+    setMainPageEventsWeekend: (state, action: PayloadAction<Event[]>) => {
+      state.mainPageEventsWeekend = action.payload;
+    },
+    setMainPageEventsUpcoming: (state, action: PayloadAction<Event[]>) => {
+      state.mainPageEventsUpcoming = action.payload;
+    },
     setEvents: (state, action: PayloadAction<Event[]>) => {
       state.events = action.payload;
     },
