@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store): an
   const dispatch = store.dispatch as ThunkDispatchType;
 
   try {
-    await Promise.all([initialAppPropsToStaticProps(dispatch, context), asyncGetSlides(dispatch)]);
+    await Promise.all([initialAppPropsToStaticProps(store, context), asyncGetSlides(dispatch)]);
 
     return { revalidate: 1800 };
   } catch (e) {

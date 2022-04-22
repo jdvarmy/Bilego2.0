@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ThunkDispatchType, wrapper } from '../src/store';
+import { RootStoreType, ThunkDispatchType, wrapper } from '../src/store';
 import Layout from '../src/layout/Layout';
 import '../public/output.css';
 import { Cities } from '../src/types/enums';
@@ -10,6 +10,7 @@ import { globalSelector } from '../src/store/selectors';
 import { localStorageCityKey } from '../src/types/types';
 import { useDispatch } from 'react-redux';
 import { asyncGetTaxonomy } from '../src/store/taxonomy/taxonomyThunk';
+import { Store } from 'redux';
 
 const WrappedContent = ({ children }: { children?: any }) => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const WrappedContent = ({ children }: { children?: any }) => {
         localStorage.setItem(localStorageCityKey, city);
       }
     }
-  }, []);
+  }, [city, dispatch]);
 
   console.log(`Это ${city} детка`);
 
@@ -40,7 +41,6 @@ const WrappedContent = ({ children }: { children?: any }) => {
 class WrappedApp extends App<AppInitialProps> {
   public static getInitialProps = wrapper.getInitialAppProps((store) => async ({ Component, ctx }) => {
     const dispatch = store.dispatch as ThunkDispatchType;
-
     const {
       taxonomy,
       global: { city },
@@ -78,10 +78,18 @@ class WrappedApp extends App<AppInitialProps> {
 
 export default wrapper.withRedux(WrappedApp);
 
-export const initialAppPropsToStaticProps = async (dispatch: ThunkDispatchType, context) => {
-  if (context?.params?.city) {
+export const initialAppPropsToStaticProps = async (store: Store<RootStoreType>, context) => {
+  const dispatch = store.dispatch as ThunkDispatchType;
+  const {
+    taxonomy,
+    global: { city },
+  } = store.getState();
+
+  if (context?.params?.city && !city) {
     dispatch(setCity(context.params.city as Cities));
   }
 
-  await asyncGetTaxonomy(dispatch);
+  if (!taxonomy.category.length) {
+    await asyncGetTaxonomy(dispatch);
+  }
 };
