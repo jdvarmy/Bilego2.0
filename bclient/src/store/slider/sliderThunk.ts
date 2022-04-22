@@ -2,7 +2,7 @@ import { fetchSlides } from '../../api/requests';
 import { setSlides } from './sliderSlice';
 import { Cities } from '../../types/enums';
 
-export const asyncGetSlides = async (dispatch, city?: Cities): Promise<void> => {
+export const asyncGetSlides = async (dispatch, city?: Cities | null): Promise<void> => {
   try {
     const { data } = await fetchSlides(city);
 

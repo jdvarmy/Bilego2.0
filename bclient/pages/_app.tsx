@@ -78,16 +78,22 @@ class WrappedApp extends App<AppInitialProps> {
 
 export default wrapper.withRedux(WrappedApp);
 
-export const initialAppPropsToStaticProps = async (store: Store<RootStoreType>, context) => {
+export const getAppPropCity = (store: Store<RootStoreType>, context): Cities | null | undefined => {
   const dispatch = store.dispatch as ThunkDispatchType;
   const {
-    taxonomy,
     global: { city },
   } = store.getState();
 
   if (context?.params?.city && !city) {
     dispatch(setCity(context.params.city as Cities));
+    return context.params.city;
   }
+
+  return city;
+};
+export const initialAppPropsToStaticProps = async (store: Store<RootStoreType>) => {
+  const dispatch = store.dispatch as ThunkDispatchType;
+  const { taxonomy } = store.getState();
 
   if (!taxonomy.category.length) {
     await asyncGetTaxonomy(dispatch);

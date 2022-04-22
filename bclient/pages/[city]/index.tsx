@@ -5,7 +5,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { ThunkDispatchType, wrapper } from '../../src/store';
 import { asyncGetSlides } from '../../src/store/slider/sliderThunk';
 import { Cities } from '../../src/types/enums';
-import { initialAppPropsToStaticProps } from '../_app';
+import { getAppPropCity, initialAppPropsToStaticProps } from '../_app';
 // import AppTicket from '../src/components/AppTicket/AppTicket';
 
 const Index = () => {
@@ -26,9 +26,10 @@ export default Index;
 
 export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store): any => async (context) => {
   const dispatch = store.dispatch as ThunkDispatchType;
+  const city = getAppPropCity(store, context);
 
   try {
-    await Promise.all([initialAppPropsToStaticProps(store, context), asyncGetSlides(dispatch)]);
+    await Promise.all([initialAppPropsToStaticProps(store), asyncGetSlides(dispatch, city)]);
 
     return { revalidate: 1800 };
   } catch (e) {

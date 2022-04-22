@@ -18,7 +18,7 @@ export const register = (data: RequestRegister) =>
 export const login = (data: RequestLogin) => requests.post<{ user: User; accessToken: string }>('auth/login', data);
 export const logout = () => requests.post<void>('auth/logout');
 
-export const fetchSlides = (city?: Cities) => requests.get<Slide[]>(`slides${city ? `?c=${city}` : ''}`);
+export const fetchSlides = (city?: Cities | null) => requests.get<Slide[]>(`slides${city ? `?c=${city}` : ''}`);
 
 export const fetchEventsBlock = (params: EventsBlockProps['parameters']) =>
   requests.get<Event[]>(`events/?${queryString.stringify(params)}`);
