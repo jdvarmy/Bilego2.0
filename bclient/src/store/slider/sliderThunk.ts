@@ -4,10 +4,10 @@ import { Cities } from '../../types/enums';
 
 export const asyncGetSlides = async (dispatch, city?: Cities | null): Promise<void> => {
   try {
-    const { data } = await fetchSlides(city);
+    const response = await fetchSlides(city);
 
-    if (data) {
-      dispatch(setSlides(data));
+    if (response?.data) {
+      dispatch(setSlides(response.data));
     }
   } catch (e) {
     throw new Error(e);

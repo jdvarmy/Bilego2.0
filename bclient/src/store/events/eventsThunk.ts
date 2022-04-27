@@ -5,10 +5,10 @@ import { Event, ParametersType } from '../../types/types';
 // EVENTS
 export const asyncGetEvents = async (dispatch): Promise<void> => {
   try {
-    const { data } = await fetchEvents();
+    const response = await fetchEvents();
 
-    if (data) {
-      dispatch(setEvents(data.posts));
+    if (response?.data?.posts) {
+      dispatch(setEvents(response.data.posts));
     }
   } catch (e) {
     console.log(e);
@@ -30,9 +30,11 @@ export const asyncGetEventsBlock = async (params: ParametersType): Promise<Event
   }
 
   try {
-    const { data } = await fetchEvents(parse(params));
+    const response = await fetchEvents(parse(params));
 
-    return data.posts;
+    if (response?.data?.posts) {
+      return response.data.posts;
+    }
   } catch (e) {
     console.log(e);
   }
@@ -45,10 +47,10 @@ export const asyncGetEventById = async (dispatch, id: string): Promise<void> => 
       new Error('event id is undefined');
     }
 
-    const { data } = await fetchEventById(id);
+    const response = await fetchEventById(id);
 
-    if (data) {
-      dispatch(setEvent(data.post));
+    if (response?.data?.post) {
+      dispatch(setEvent(response.data.post));
     }
   } catch (e) {
     console.log(e);

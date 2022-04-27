@@ -4,13 +4,13 @@ import { setCategory, setFeeling, setGenre, setSelection } from './taxonomySlice
 
 export const asyncGetTaxonomy = async (dispatch): Promise<void> => {
   try {
-    const { data } = await fetchTaxonomies();
+    const response = await fetchTaxonomies();
 
-    if (data) {
-      dispatch(setSelection(data?.[Term.selection]));
-      dispatch(setCategory(data?.[Term.category]));
-      dispatch(setGenre(data?.[Term.genre]));
-      dispatch(setFeeling(data?.[Term.feeling]));
+    if (response?.data) {
+      dispatch(setSelection(response?.data[Term.selection]));
+      dispatch(setCategory(response?.data[Term.category]));
+      dispatch(setGenre(response?.data[Term.genre]));
+      dispatch(setFeeling(response?.data[Term.feeling]));
     }
   } catch (e) {
     throw new Error(e);

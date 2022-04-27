@@ -25,7 +25,7 @@ instance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     if (
-      [401, 403].includes(error.response.status) &&
+      [401, 403].includes(error.response?.status) &&
       typeof window !== 'undefined' &&
       error.config &&
       !error.config._isRetry

@@ -1,6 +1,6 @@
 import React from 'react';
 import Slider from '../../src/components/Slider/Slider';
-import EventsBlock, { EventsBlockProps } from '../../src/components/Blocks/EventsBlock';
+// import EventsBlock, { EventsBlockProps } from '../../src/components/Blocks/EventsBlock';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ThunkDispatchType, wrapper } from '../../src/store';
 import { asyncGetSlides } from '../../src/store/slider/sliderThunk';
@@ -31,7 +31,7 @@ const Index = () => {
   return (
     <div className='flex-1'>
       <Slider />
-      <EventsBlock parameters={weekendParameters} events={mainPageEventsWeekend} isUseIntersection />
+      {/*<EventsBlock parameters={weekendParameters} events={mainPageEventsWeekend} isUseIntersection />*/}
       {/*<EventsBlock parameters={{}} events={mainPageEventsUpcoming} />*/}
       {/*<AppTicket />*/}
     </div>
