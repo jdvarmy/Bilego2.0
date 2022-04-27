@@ -32,6 +32,7 @@ module.exports = {
   //
   //   return config;
   // },
+  poweredByHeader: false,
   images: {
     domains: ['chekisu6.bget.ru'],
   },
