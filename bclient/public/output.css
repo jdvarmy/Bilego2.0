@@ -517,6 +517,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   left: 0px;
 }
 
+.bottom-8 {
+  bottom: 2rem;
+}
+
 .left-0 {
   left: 0px;
 }
@@ -622,6 +626,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 0.75rem;
 }
 
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+
+.ml-5 {
+  margin-left: 1.25rem;
+}
+
 .mt-6 {
   margin-top: 1.5rem;
 }
@@ -640,10 +652,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .mt-14 {
   margin-top: 3.5rem;
-}
-
-.mb-3 {
-  margin-bottom: 0.75rem;
 }
 
 .ml-menu {
@@ -706,8 +714,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: grid;
 }
 
+.hidden {
+  display: none;
+}
+
 .h-screen {
   height: 100vh;
+}
+
+.h-event-block {
+  height: 328px;
 }
 
 .h-5 {
@@ -724,10 +740,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-9 {
   height: 2.25rem;
-}
-
-.h-event {
-  height: 328px;
 }
 
 .h-full {
@@ -770,6 +782,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 100vw;
 }
 
+.w-event-block {
+  width: 470px;
+}
+
+.w-full {
+  width: 100%;
+}
+
 .w-5 {
   width: 1.25rem;
 }
@@ -790,8 +810,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 280px;
 }
 
-.w-full {
-  width: 100%;
+.w-\[calc\(100\%_-_280px\)\] {
+  width: calc(100% - 280px);
 }
 
 .w-96 {
@@ -836,6 +856,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-3 {
   width: 0.75rem;
+}
+
+.min-w-event-block {
+  min-width: 470px;
 }
 
 .max-w-md {
@@ -977,6 +1001,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .overflow-y-auto {
   overflow-y: auto;
+}
+
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
+.rounded-4xl {
+  border-radius: 2rem;
 }
 
 .rounded-3xl {
@@ -1198,7 +1234,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 .text-h3 {
-  font-size: 1.125rem;
+  font-size: 1.75rem;
   line-height: 1.75rem;
 }
 
@@ -1210,11 +1246,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-h1 {
   font-size: 4.5rem;
   line-height: 1;
-}
-
-.text-h2 {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
 }
 
 .font-bold {
@@ -1243,6 +1274,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(0 227 181 / var(--tw-text-opacity));
 }
 
+.text-chrome {
+  --tw-text-opacity: 1;
+  color: rgb(199 199 222 / var(--tw-text-opacity));
+}
+
 .text-raspberry {
   --tw-text-opacity: 1;
   color: rgb(255 51 109 / var(--tw-text-opacity));
@@ -1251,11 +1287,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-purple {
   --tw-text-opacity: 1;
   color: rgb(123 123 171 / var(--tw-text-opacity));
-}
-
-.text-chrome {
-  --tw-text-opacity: 1;
-  color: rgb(199 199 222 / var(--tw-text-opacity));
 }
 
 .text-blue-800 {
@@ -1323,6 +1354,21 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.react-horizontal-scrolling-menu--scroll-container {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.react-horizontal-scrolling-menu--separator {
+  margin-right: 30px;
 }
 
 @media (min-width: 640px) {

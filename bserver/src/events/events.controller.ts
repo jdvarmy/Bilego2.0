@@ -1,27 +1,40 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { EventsService } from './events.service';
-import { ECity, ETermType } from '../types/enums';
+import { City, SortType, TermType } from '../types/enums';
+import { EventRequestPropType } from '../types/types';
 
-@Controller('/events')
+@Controller('')
 export class EventsController {
   constructor(private readonly eventService: EventsService) {}
 
-  @Get()
+  @Get('/events')
   getFilteredEvents(
-    @Query('c') city?: ECity,
-    @Query('category') categories?: ETermType | ETermType[],
-    @Query('count') count?: number,
+    @Query('city') city?: City,
     @Query('offset') offset?: number,
+    @Query('count') count?: number,
+    @Query('sort') sort?: SortType,
+    @Query('weekends') weekends?: boolean,
+    @Query('include') include?: string,
+    @Query('exclude') exclude?: string,
   ) {
-    return this.eventService.getFilteredEvents({
+    const props: any = {
       city,
-      category: categories || [],
-      count: count ?? 10,
       offset: offset ?? 0,
-    });
+      count: count ?? 10,
+      sort: sort ?? SortType.asc,
+      weekends: weekends ?? false,
+    };
+    if (include) {
+      props.include = include;
+    }
+    if (exclude) {
+      props.exclude = exclude;
+    }
+
+    return this.eventService.getFilteredEvents(props);
   }
 
-  @Get(':slug')
+  @Get('/events/:slug')
   getEvent(@Param('slug') slug: string) {
     return this.eventService.getEvent(slug);
   }

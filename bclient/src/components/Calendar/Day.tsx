@@ -25,15 +25,15 @@ const Day = ({ day, selectedDate, dayOfWeek, isHover, setIsHover }: Props) => {
     [day, selectedDate],
   );
 
-  const handlerOver = useCallback(() => {
+  const handleOver = useCallback(() => {
     setActive(true);
     setIsHover(true);
   }, [setIsHover]);
-  const handlerLeave = useCallback(() => {
+  const handleLeave = useCallback(() => {
     setActive(false);
     setIsHover(false);
   }, [setIsHover]);
-  const handlerClick = useCallback(() => {
+  const handleClick = useCallback(() => {
     const today = new Date();
     if (isBefore(day, new Date(today.getFullYear(), today.getMonth(), today.getDate()))) {
       return undefined;
@@ -44,9 +44,9 @@ const Day = ({ day, selectedDate, dayOfWeek, isHover, setIsHover }: Props) => {
 
   return (
     <div
-      onMouseOver={handlerOver}
-      onMouseLeave={handlerLeave}
-      onClick={handlerClick}
+      onMouseOver={handleOver}
+      onMouseLeave={handleLeave}
+      onClick={handleClick}
       className={`${css.Day} ${
         (isHover ? active : isSelectedDay) && css.Active
       } flex flex-col items-center cursor-pointer relative w-8 select-none`}

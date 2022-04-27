@@ -1,6 +1,6 @@
-import { fetchEventById, fetchEvents, fetchEventsBlock } from '../../api/requests';
+import { fetchEventById, fetchEvents } from '../../api/requests';
 import { setEvent, setEvents } from './eventsSlice';
-import { EventsBlockProps } from '../../components/Blocks/EventsBlock';
+import { Event, ParametersType } from '../../types/types';
 
 // EVENTS
 export const asyncGetEvents = async (dispatch): Promise<void> => {
@@ -11,19 +11,30 @@ export const asyncGetEvents = async (dispatch): Promise<void> => {
       dispatch(setEvents(data.posts));
     }
   } catch (e) {
-    throw new Error(e);
+    console.log(e);
   }
 };
 
-export const asyncGetEventsBlock = async (params: EventsBlockProps['parameters']): Promise<Event[]> => {
+export const asyncGetEventsBlock = async (params: ParametersType): Promise<Event[] | undefined> => {
+  function parse(props) {
+    const inc = props.include;
+    const ex = props.exclude;
+    let newObj = { ...props };
+    if (inc) {
+      newObj = { ...newObj, include: JSON.stringify(inc) };
+    }
+    if (ex) {
+      newObj = { ...newObj, exclude: JSON.stringify(ex) };
+    }
+    return newObj;
+  }
+
   try {
-    const { data } = await fetchEventsBlock(params);
+    const { data } = await fetchEvents(parse(params));
 
-    console.log(data);
-
-    return [] as Event[];
+    return data.posts;
   } catch (e) {
-    throw new Error(e);
+    console.log(e);
   }
 };
 
@@ -40,6 +51,6 @@ export const asyncGetEventById = async (dispatch, id: string): Promise<void> => 
       dispatch(setEvent(data.post));
     }
   } catch (e) {
-    throw new Error(e);
+    console.log(e);
   }
 };

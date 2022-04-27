@@ -32,7 +32,7 @@ const Slider = () => {
         bullets={false}
         organicArrows={false}
         startupScreen={<SkeletonSlider />}
-        className='mt-9 h-slider rounded-3xl overflow-hidden'
+        className='mt-9 h-slider rounded-4xl overflow-hidden'
         cssModule={[AnimationStyles]}
       >
         {slides.map((slide: Slide) => (
@@ -52,7 +52,7 @@ const Slider = () => {
               </div>
               <p className='text-h1 font-bold'>{slide.title}</p>
             </div>
-            <Button link={`events/${slide.slug}`} className='absolute bottom-24 text-h2 left-14'>
+            <Button link={`events/${slide.slug}`} className='absolute bottom-24 text-h3 left-14'>
               ГОУ
             </Button>
           </div>

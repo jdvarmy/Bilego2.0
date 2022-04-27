@@ -1,11 +1,11 @@
-export enum EPostType {
+export enum PostType {
   ticketObject = 'bilego_ticket_object',
   event = 'bilego_event_post',
   item = 'bilego_item_post',
   artist = 'bilego_artist_post',
 }
 
-export enum EPostStatus {
+export enum PostStatus {
   publish = 'publish', // - опубликованный пост.
   pending = 'pending', // - пост на модерации.
   draft = 'draft', // - черновик.
@@ -16,19 +16,25 @@ export enum EPostStatus {
   trash = 'trash', // - удаленный пост (в корзине)
 }
 
-export enum ECity {
+export enum City {
   moscow = 'moscow',
   petersburg = 'petersburg',
 }
 
-export enum EUserRoles {
+export enum UserRoles {
   subscriber = 'subscriber',
 }
 
-export enum ETermType {
+export enum TermType {
   eventCategory = 'category',
   eventGenre = 'genre',
   eventSelection = 'selection',
   eventFeeling = 'feeling',
   itemType = 'type',
+}
+
+export enum SortType {
+  desc = 'desc',
+  asc = 'asc',
+  popular = 'popular',
 }

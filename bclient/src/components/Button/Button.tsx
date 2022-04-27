@@ -11,7 +11,7 @@ type Props = {
 const Button = ({ link, children, className }: Props) => {
   const buttonRef = useRef<HTMLDivElement>(null);
 
-  const handlerClick = (event) => {
+  const handleClick = (event) => {
     const box = event.target.getBoundingClientRect();
     const x = event.pageX - box.left + window.pageYOffset - event.target.clientLeft;
     const y = event.pageY - box.top + window.pageYOffset - event.target.clientTop;
@@ -31,7 +31,7 @@ const Button = ({ link, children, className }: Props) => {
 
   const html = (
     <div
-      onClick={handlerClick}
+      onClick={handleClick}
       ref={buttonRef}
       className={`${className} ${css.button} bg-raspberry rounded-3xl px-16 py-2 cursor-pointer overflow-hidden`}
     >

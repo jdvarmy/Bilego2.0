@@ -9,7 +9,7 @@ export const useIconClickEffect = () => {
   const [coords, setCoords] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const timer = useRef<NodeJS.Timeout | null>(null);
 
-  const handlerClick = (event: MouseEvent<HTMLElement> | undefined): void => {
+  const handleClick = (event: MouseEvent<HTMLElement> | undefined): void => {
     setShow(true);
     // @ts-ignore
     const clientRect: DOMRect = event?.target.getBoundingClientRect();
@@ -28,5 +28,5 @@ export const useIconClickEffect = () => {
     };
   }, [show]);
 
-  return { show, coords, handlerClick };
+  return { show, coords, handleClick };
 };

@@ -14,10 +14,10 @@ const Icon = ({ fill }: { fill?: string }) => {
 };
 
 const IconVk = () => {
-  const { show, coords, handlerClick } = useIconClickEffect();
+  const { show, coords, handleClick } = useIconClickEffect();
 
   return (
-    <span className='cursor-pointer' onClick={handlerClick}>
+    <span className='cursor-pointer' onClick={handleClick}>
       <Icon />
       {Array(AMOUNT)
         .fill(1)

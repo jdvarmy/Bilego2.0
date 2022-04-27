@@ -78,7 +78,7 @@ class WrappedApp extends App<AppInitialProps> {
 
 export default wrapper.withRedux(WrappedApp);
 
-export const getAppPropCity = (store: Store<RootStoreType>, context): Cities | null | undefined => {
+export const getAppPropCity = async (store: Store<RootStoreType>, context): Promise<Cities | null | undefined> => {
   const dispatch = store.dispatch as ThunkDispatchType;
   const {
     global: { city },

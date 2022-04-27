@@ -64,12 +64,12 @@ const RenderMonths = ({ date, month, index }: { date: Date | number; month: stri
 };
 
 const Month = ({ date, setDay, setWeek }: Props) => {
-  const handlerClickForward = () => {
+  const handleClickForward = () => {
     const nextWeek = addWeeks(date, 1);
     setDay(nextWeek);
     setWeek(getWeek(nextWeek));
   };
-  const handlerClickBack = () => {
+  const handleClickBack = () => {
     const nextWeek = subWeeks(date, 1);
     setDay(nextWeek);
     setWeek(getWeek(nextWeek));
@@ -86,13 +86,10 @@ const Month = ({ date, setDay, setWeek }: Props) => {
         {isBefore(startOfWeek(new Date()), startOfWeek(date)) && (
           <ChevronLeftIcon
             className='h-6 w-6 inline-block text-turquoise cursor-pointer stroke-0'
-            onClick={handlerClickBack}
+            onClick={handleClickBack}
           />
         )}
-        <ChevronRightIcon
-          className='h-6 w-6 inline-block text-turquoise cursor-pointer'
-          onClick={handlerClickForward}
-        />
+        <ChevronRightIcon className='h-6 w-6 inline-block text-turquoise cursor-pointer' onClick={handleClickForward} />
       </div>
     </div>
   );

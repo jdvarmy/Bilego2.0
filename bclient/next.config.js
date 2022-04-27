@@ -32,4 +32,7 @@ module.exports = {
   //
   //   return config;
   // },
+  images: {
+    domains: ['chekisu6.bget.ru'],
+  },
 };

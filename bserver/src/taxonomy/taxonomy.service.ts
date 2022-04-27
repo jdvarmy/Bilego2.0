@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ApiService } from '../api/api.service';
-import { ETermType } from '../types/enums';
+import { TermType } from '../types/enums';
 import {
   TermCategory,
   TermFeeling,
@@ -9,10 +9,10 @@ import {
 } from '../types/types';
 
 type Taxonomies = {
-  [ETermType.eventCategory]: TermCategory[];
-  [ETermType.eventGenre]: TermGenre[];
-  [ETermType.eventFeeling]: TermFeeling[];
-  [ETermType.eventSelection]: TermSelection[];
+  [TermType.eventCategory]: TermCategory[];
+  [TermType.eventGenre]: TermGenre[];
+  [TermType.eventFeeling]: TermFeeling[];
+  [TermType.eventSelection]: TermSelection[];
 };
 
 @Injectable()

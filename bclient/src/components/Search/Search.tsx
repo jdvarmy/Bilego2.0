@@ -12,32 +12,32 @@ const Search = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
 
-  const handlerCloseModal = useCallback(() => {
+  const handleCloseModal = useCallback(() => {
     setIsOpen(false);
   }, []);
-  const handlerOpenModal = useCallback(() => {
+  const handleOpenModal = useCallback(() => {
     setIsOpen(true);
   }, []);
-  const handlerFocus = useCallback(() => {
+  const handleFocus = useCallback(() => {
     inputRef.current?.focus();
   }, []);
-  const handlerSearchValue = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleSearchValue = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
   };
-  const handlerRemoveSearchValue = () => {
+  const handleRemoveSearchValue = () => {
     setSearchValue('');
-    handlerFocus();
+    handleFocus();
     setIsOpen(true);
   };
-  const handlerSearch = (event: KeyboardEvent<HTMLInputElement>) => {
+  const handleSearch = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' || event.keyCode === 13) {
       alert('search');
     }
   };
-  const handlerSearchIconClick = () => {
+  const handleSearchIconClick = () => {
     if (!searchValue) {
-      handlerFocus();
-      handlerOpenModal();
+      handleFocus();
+      handleOpenModal();
     } else {
       alert('search');
     }
@@ -49,7 +49,7 @@ const Search = () => {
         <span>
           <SearchCircleIcon
             className='absolute top-1.5 left-3.5 h-6 w-6 inline-block text-blue-800 cursor-pointer stroke-1'
-            onClick={handlerSearchIconClick}
+            onClick={handleSearchIconClick}
           />
         </span>
         <input
@@ -57,9 +57,9 @@ const Search = () => {
           type='text'
           className='h-9 ml-12 w-72 text-blue-800 border-none outline-none'
           value={searchValue}
-          onClick={handlerOpenModal}
-          onKeyUp={handlerSearch}
-          onChange={handlerSearchValue}
+          onClick={handleOpenModal}
+          onKeyUp={handleSearch}
+          onChange={handleSearchValue}
         />
         <Transition
           show={!!searchValue}
@@ -73,11 +73,11 @@ const Search = () => {
         >
           <XIcon
             className='absolute top-2 right-2 h-5 w-5 inline-block text-blue-800 cursor-pointer transition-all stroke-1'
-            onClick={handlerRemoveSearchValue}
+            onClick={handleRemoveSearchValue}
           />
         </Transition>
       </div>
-      <ModalWindow isOpen={isOpen} closeModal={handlerCloseModal} ref={wrapperRef}>
+      <ModalWindow isOpen={isOpen} closeModal={handleCloseModal} ref={wrapperRef}>
         <div className='absolute left-90 top-22 w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl'>
           <h3 className='text-h3 text-purple'>Поиск</h3>
           <div className='mt-2'>
@@ -87,7 +87,7 @@ const Search = () => {
             <button
               type='button'
               className='inline-flex justify-center px-4 py-2 text-xs text-purple border rounded-md border-purple'
-              onClick={handlerCloseModal}
+              onClick={handleCloseModal}
             >
               Ясно, спасибо!
             </button>

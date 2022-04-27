@@ -1,4 +1,4 @@
-import { ECity, ETermType } from './enums';
+import { City, TermType } from './enums';
 
 export const CookieTokenName = 'refreshToken' as const;
 
@@ -14,7 +14,7 @@ interface Post {
 
 export interface Event extends Post {
   age?: number;
-  city: ECity;
+  city: City;
   artist?: Artist;
   item?: Item;
   manager?: Manager;
@@ -130,3 +130,10 @@ export interface Slide {
   date?: Date;
   terms?: string[];
 }
+
+export type EventRequestPropType = {
+  [TermType.eventCategory]?: string[] | 'all';
+  [TermType.eventGenre]?: string[] | 'all';
+  [TermType.eventFeeling]?: string[] | 'all';
+  [TermType.eventSelection]?: string[] | 'all';
+};

@@ -14,14 +14,14 @@ const User = () => {
   const [login, setLogin] = useState('jdvarmy1@gmail.com');
   const [pass, setPass] = useState('');
 
-  const handlerCloseLogin = useCallback(() => {
+  const handleCloseLogin = useCallback(() => {
     setIsOpen(false);
   }, []);
   const handleShowLogin = useCallback(() => {
     setIsOpen(true);
   }, []);
 
-  const handlerLogin = () => {
+  const handleLogin = () => {
     dispatch(loginClientSide({ email: login, password: pass }));
   };
   const handleLogout = () => {
@@ -40,7 +40,7 @@ const User = () => {
         <>
           <div onClick={handleShowLogin}>Login</div>
           <Transition appear show={isOpen} as={Fragment}>
-            <Dialog as='div' className='fixed inset-0 z-10 overflow-y-auto' onClose={handlerCloseLogin}>
+            <Dialog as='div' className='fixed inset-0 z-10 overflow-y-auto' onClose={handleCloseLogin}>
               <div className='min-h-screen px-4 text-center'>
                 <Transition.Child
                   as={Fragment}
@@ -93,7 +93,7 @@ const User = () => {
                       <button
                         type='button'
                         className='inline-flex justify-center px-4 py-2 text-xs font-medium border rounded-md'
-                        onClick={handlerLogin}
+                        onClick={handleLogin}
                       >
                         Залогиниться
                       </button>

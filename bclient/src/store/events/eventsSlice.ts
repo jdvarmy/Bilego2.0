@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Event } from '../../types/types';
+import { Event, ParametersType } from '../../types/types';
 import { ThunkActionType } from '../index';
 import { HYDRATE } from 'next-redux-wrapper';
-import { asyncGetEventById, asyncGetEvents } from './eventsThunk';
+import { asyncGetEventById, asyncGetEvents, asyncGetEventsBlock } from './eventsThunk';
+import { Dispatch, SetStateAction } from 'react';
 
 type State = {
   mainPageEventsWeekend: Event[];
@@ -42,7 +43,7 @@ const events = createSlice({
   },
 });
 
-export const { setEvents, setEvent } = events.actions;
+export const { setEvents, setEvent, setMainPageEventsWeekend, setMainPageEventsUpcoming } = events.actions;
 export default events.reducer;
 
 export const getEventsClientSide = (): ThunkActionType => async (dispatch) => {
@@ -52,6 +53,25 @@ export const getEventsClientSide = (): ThunkActionType => async (dispatch) => {
     console.log('getEventsClientSide', e);
   }
 };
+
+export const getEventsBlockClientSide =
+  (reactDispatch: Dispatch<SetStateAction<Event[] | null>>, parameters: ParametersType): ThunkActionType =>
+  async () => {
+    try {
+      const events = await asyncGetEventsBlock(parameters);
+
+      if (events?.length) {
+        reactDispatch((prev) => {
+          if (prev) {
+            return [...prev, ...events];
+          }
+          return events;
+        });
+      }
+    } catch (e) {
+      console.log('getEventsClientSide', e);
+    }
+  };
 
 export const getEventByIdClientSide =
   (id: string): ThunkActionType =>

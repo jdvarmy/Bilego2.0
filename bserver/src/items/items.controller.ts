@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ItemsService } from './items.service';
-import { ECity, ETermType } from '../types/enums';
+import { City, TermType } from '../types/enums';
 
 @Controller('/items')
 export class ItemsController {
@@ -8,8 +8,8 @@ export class ItemsController {
 
   @Get()
   getFilteredItems(
-    @Query('city') city?: ECity,
-    @Query('category') categories?: ETermType | ETermType[],
+    @Query('city') city?: City,
+    @Query('category') categories?: TermType | TermType[],
     @Query('count') count?: number,
     @Query('offset') offset?: number,
   ) {

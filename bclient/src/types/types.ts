@@ -1,4 +1,4 @@
-import { Term } from './enums';
+import { Cities, SortType, Term } from './enums';
 
 export const transitionTimingFunction = 'cubic-bezier(0, .9, .57, 1)' as const;
 export const modalSelector = 'bmodal' as const;
@@ -30,11 +30,34 @@ export type ResponsePostType<T> = {
 };
 
 interface Entry {
+  id: number;
   title: string;
   slug: string;
 }
 
-export interface Event extends Entry {}
+export interface EventMeta {}
+
+export interface Event extends Entry {
+  club?: Item;
+  categories?: { [key in Term]: string | null };
+  dates?: { dateFrom: string; dateTo: string };
+  image?: string;
+  meta?: EventMeta;
+}
+
+export type ParametersType = {
+  city?: Cities | null;
+  offset: number;
+  count: number;
+  sort?: SortType;
+  weekends?: boolean;
+  include?: {
+    [key in Term]?: string[] | 'all';
+  };
+  exclude?: {
+    [key in Term]?: string[] | 'all';
+  };
+};
 
 export interface Item extends Entry {}
 
