@@ -6,11 +6,7 @@ import { useDispatch } from 'react-redux';
 import { getTaxonomiesClientSide } from '../../store/taxonomy/taxonomySlice';
 import { Selection } from '../../types/types';
 
-type Props = {
-  className?: string;
-};
-
-const Menu = ({ className }: Props) => {
+const Menu = () => {
   const dispatch = useDispatch();
   const { selection, category } = useTypeSelector(taxonomySelector);
 
@@ -22,7 +18,7 @@ const Menu = ({ className }: Props) => {
 
   return (
     <>
-      <nav className={`mt-14 ${className}`}>
+      <nav className='mt-14'>
         <div className='text-turquoise'>подборки</div>
         <div className='text-xs'>
           <MenuItem title='выходные' href='/events?holy=1' />
@@ -36,7 +32,7 @@ const Menu = ({ className }: Props) => {
         </div>
       </nav>
       {category.length ? (
-        <nav className={`mt-8 ${className}`}>
+        <nav className='mt-8'>
           <div className='text-turquoise'>формат</div>
           <div className='text-xs'>
             {category
