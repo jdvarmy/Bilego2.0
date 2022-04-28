@@ -15,7 +15,10 @@ const instance = axios.create(baseConfig);
 
 instance.interceptors.request.use((request) => {
   if (typeof window !== 'undefined' && request.headers) {
-    request.headers.Authorization = `Bearer ${localStorage.getItem(storageTokenName)}`;
+    const token = localStorage.getItem(storageTokenName);
+    if (token) {
+      request.headers.Authorization = `Bearer ${token}`;
+    }
   }
 
   return request;

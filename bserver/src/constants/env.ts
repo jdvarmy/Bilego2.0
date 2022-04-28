@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 export const APP_VERSION = process.env.APP_VERSION || '0.0.1';
 export const PORT = process.env.PORT || '3001';
 export const BILEGO_URL =
