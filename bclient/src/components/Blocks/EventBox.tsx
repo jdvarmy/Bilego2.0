@@ -58,7 +58,7 @@ const EventBox = ({
       const observer = new IntersectionObserver(callback, {});
       observer.observe(ref.current);
     }
-  }, [isLastItem, ref.current, isUseIntersection, requestParameters, setEvents, dispatch]);
+  }, [isLastItem, isUseIntersection, requestParameters, setEvents, dispatch]);
 
   // todo: добавить дефолтный изображение image || ''
   return (

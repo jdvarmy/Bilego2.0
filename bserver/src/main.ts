@@ -2,13 +2,17 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
+import { CLIENT_URL, PORT } from './constants/env';
 
 async function bootstrap() {
   try {
-    const PORT = process.env.PORT || 3000;
+    const port = PORT || 3000;
     const app = await NestFactory.create(AppModule);
     app.getHttpAdapter().getInstance().disable('x-powered-by');
-    app.enableCors({ credentials: true, origin: process.env.CLIENT_URL });
+    app.enableCors({
+      credentials: true,
+      origin: CLIENT_URL,
+    });
 
     app.use(cookieParser());
     app.useGlobalPipes(
@@ -17,7 +21,7 @@ async function bootstrap() {
       }),
     );
 
-    await app.listen(PORT, async () => {
+    await app.listen(port, async () => {
       console.log(`Server start on port ${await app.getUrl()}`);
     });
   } catch (e) {

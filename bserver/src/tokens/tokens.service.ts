@@ -2,6 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { Id, User } from '../types/types';
 import { ApiService } from '../api/api.service';
 import { JwtService } from '@nestjs/jwt';
+import {
+  JWT_ACCESS_EXPIRES,
+  JWT_ACCESS_SECRET,
+  JWT_REFRESH_EXPIRES,
+  JWT_REFRESH_SECRET,
+} from '../constants/env';
 
 @Injectable()
 export class TokensService {
@@ -31,12 +37,12 @@ export class TokensService {
   generateTokens(payload: User): { accessToken: string; refreshToken: string } {
     return {
       accessToken: this.jwtService.sign(payload, {
-        secret: process.env.JWT_ACCESS_SECRET,
-        expiresIn: process.env.JWT_ACCESS_EXPIRES,
+        secret: JWT_ACCESS_SECRET,
+        expiresIn: JWT_ACCESS_EXPIRES,
       }),
       refreshToken: this.jwtService.sign(payload, {
-        secret: process.env.JWT_REFRESH_SECRET,
-        expiresIn: process.env.JWT_REFRESH_EXPIRES,
+        secret: JWT_REFRESH_SECRET,
+        expiresIn: JWT_REFRESH_EXPIRES,
       }),
     };
   }

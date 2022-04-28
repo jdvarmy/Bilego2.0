@@ -3,6 +3,7 @@ import { LoginUser, RegisterUser, User, UserTokens } from 'src/types/types';
 import { checkWPErrorResponse } from '../utils';
 import { ApiService } from '../api/api.service';
 import { TokensService } from '../tokens/tokens.service';
+import { JWT_REFRESH_SECRET } from '../constants/env';
 
 @Injectable()
 export class AuthService {
@@ -50,7 +51,7 @@ export class AuthService {
 
     const user = this.tokensService.verifyToken(
       refreshToken,
-      process.env.JWT_REFRESH_SECRET,
+      JWT_REFRESH_SECRET,
     );
     const userIdFromBd = await this.tokensService.findToken(refreshToken);
 
