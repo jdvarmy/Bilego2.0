@@ -1,7 +1,6 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { EventsService } from './events.service';
-import { City, SortType, TermType } from '../types/enums';
-import { EventRequestPropType } from '../types/types';
+import { City, SortType } from '../types/enums';
 
 @Controller('')
 export class EventsController {

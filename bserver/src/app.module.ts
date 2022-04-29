@@ -12,6 +12,8 @@ import { TicketsModule } from './tickets/tickets.module';
 import { UsersModule } from './users/users.module';
 import { SlidesModule } from './slides/slides.module';
 import { TaxonomyModule } from './taxonomy/taxonomy.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ErrorsInterceptor } from './errors/errors.interceptor';
 
 @Module({
   imports: [
@@ -27,6 +29,12 @@ import { TaxonomyModule } from './taxonomy/taxonomy.module';
     TaxonomyModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ErrorsInterceptor,
+    },
+  ],
 })
 export class AppModule {}
