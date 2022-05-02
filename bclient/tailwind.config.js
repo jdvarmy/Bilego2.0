@@ -101,6 +101,7 @@ module.exports = {
       screen: '100vw',
       menu: '280px',
       'event-block': '470px',
+      'event-selective': '220px',
     }),
     minWidth: (theme) => ({
       'event-block': '470px',
@@ -113,6 +114,7 @@ module.exports = {
       screen: '100vh',
       slider: '509px',
       'event-block': '328px',
+      'event-selective': '302px',
     }),
     padding: (theme) => ({
       ...theme('spacing'),

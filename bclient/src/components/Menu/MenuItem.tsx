@@ -16,7 +16,7 @@ const MenuItem = ({ title, href }: Props) => {
   const moveHandler = (event) => {
     setCoords({
       x: event.pageX - (buttonRef.current?.offsetLeft || 0),
-      y: event.pageY - (buttonRef.current?.offsetTop || 0) - 75,
+      y: event.pageY - (buttonRef.current?.offsetTop || 0),
     });
   };
   const clickHandler = () => {

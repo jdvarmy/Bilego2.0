@@ -63,7 +63,10 @@ export const getEventsBlockClientSide =
       if (events?.length) {
         reactDispatch((prev) => {
           if (prev) {
-            return [...prev, ...events];
+            const oldIds = prev.map((elem) => elem.id);
+            const filtererEvents = events.filter((elem) => !oldIds.includes(elem.id));
+
+            return [...prev, ...filtererEvents];
           }
           return events;
         });

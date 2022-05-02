@@ -1,7 +1,8 @@
 import React from 'react';
 import Slider from '../../src/components/Slider/Slider';
-import EventsBlock from '../../src/components/Blocks/EventsBlock';
+import EventsBlock from '../../src/components/Blocks/EventsBlock/EventsBlock';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Image from 'next/image';
 import { ThunkDispatchType, wrapper } from '../../src/store';
 import { asyncGetSlides } from '../../src/store/slider/sliderThunk';
 import { Cities, SortType, Term } from '../../src/types/enums';
@@ -11,6 +12,7 @@ import { setMainPageEventsUpcoming, setMainPageEventsWeekend } from '../../src/s
 import { useTypeSelector } from '../../src/hooks/useTypeSelector';
 import { eventsSelector } from '../../src/store/selectors';
 import { ParametersType } from '../../src/types/types';
+import ForSelectiveViewers from '../../src/components/Blocks/ForSelectiveViewers/ForSelectiveViewers';
 // import AppTicket from '../src/components/AppTicket/AppTicket';
 
 const weekendParameters: ParametersType = {
@@ -23,7 +25,9 @@ const weekendParameters: ParametersType = {
 const upcomingParameters: ParametersType = {
   sort: SortType.asc,
   offset: 0,
-  count: 4,
+  count: 2,
+  weekends: false,
+  include: { [Term.category]: 'all' },
 };
 
 const Index = () => {
@@ -31,8 +35,24 @@ const Index = () => {
   return (
     <div className='flex-1'>
       <Slider />
-      <EventsBlock parameters={weekendParameters} events={mainPageEventsWeekend} isUseIntersection />
-      {/*<EventsBlock parameters={{}} events={mainPageEventsUpcoming} />*/}
+      <EventsBlock
+        title='На выходные'
+        parameters={weekendParameters}
+        events={mainPageEventsWeekend}
+        isUseIntersection
+      />
+      <div className='flex'>
+        <div className='flex items-center bg-purple w-full h-32 mt-36 mb-32 rounded-4xl'>
+          <span className='text-h2 ml-12'>Скидки на билеты</span>
+        </div>
+      </div>
+      <EventsBlock
+        title='Ближайшие'
+        parameters={upcomingParameters}
+        events={mainPageEventsUpcoming}
+        isUseIntersection
+      />
+      <ForSelectiveViewers />
       {/*<AppTicket />*/}
     </div>
   );
@@ -49,20 +69,20 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps((store): an
       new Error('City is empty');
     }
 
-    const [_, __, weekendEvents] = await Promise.all([
+    const [_, __, weekendEvents, upcomingEvents] = await Promise.all([
       initialAppPropsToStaticProps(store),
       asyncGetSlides(dispatch, city),
       asyncGetEventsBlock({ ...weekendParameters, city }),
-      // asyncGetEventsBlock({ ...upcomingParameters, city }),
+      asyncGetEventsBlock({ ...upcomingParameters, city }),
     ]);
 
     if (weekendEvents) {
       dispatch(setMainPageEventsWeekend(weekendEvents));
     }
 
-    // if (upcomingEvents) {
-    //   dispatch(setMainPageEventsUpcoming(upcomingEvents));
-    // }
+    if (upcomingEvents) {
+      dispatch(setMainPageEventsUpcoming(upcomingEvents));
+    }
 
     return { revalidate: 1800 };
   } catch (e) {
