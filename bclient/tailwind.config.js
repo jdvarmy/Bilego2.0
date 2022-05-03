@@ -115,6 +115,7 @@ module.exports = {
       slider: '509px',
       'event-block': '328px',
       'event-selective': '302px',
+      'event-selection': '504px',
     }),
     padding: (theme) => ({
       ...theme('spacing'),

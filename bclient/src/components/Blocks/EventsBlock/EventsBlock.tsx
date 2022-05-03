@@ -1,7 +1,7 @@
 import React, { useState, ContextType, useEffect } from 'react';
 import SkeletonEvents from '../../Skeletons/SkeletonEvents';
 import { Event, ParametersType } from '../../../types/types';
-import EventBox from '../EventBox';
+import EventBox from '../conponents/EventBox';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import useDrag from '../../../hooks/useDrag';
 import { useTypeSelector } from '../../../hooks/useTypeSelector';
@@ -42,7 +42,7 @@ const EventsBlock = ({ title, events, parameters, isUseIntersection = false }: E
 
   return (
     <div className='mt-10 w-full'>
-      {localEvents && localEvents?.length ? (
+      {localEvents && localEvents.length ? (
         <>
           <TitleBlock title={title} />
           <div onMouseLeave={dragStop}>

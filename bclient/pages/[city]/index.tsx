@@ -13,6 +13,7 @@ import { useTypeSelector } from '../../src/hooks/useTypeSelector';
 import { eventsSelector } from '../../src/store/selectors';
 import { ParametersType } from '../../src/types/types';
 import ForSelectiveViewers from '../../src/components/Blocks/ForSelectiveViewers/ForSelectiveViewers';
+import Selections from '../../src/components/Blocks/Selections/Selections';
 // import AppTicket from '../src/components/AppTicket/AppTicket';
 
 const weekendParameters: ParametersType = {
@@ -53,6 +54,7 @@ const Index = () => {
         isUseIntersection
       />
       <ForSelectiveViewers />
+      <Selections />
       {/*<AppTicket />*/}
     </div>
   );
