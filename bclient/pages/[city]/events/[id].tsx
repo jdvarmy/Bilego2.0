@@ -16,8 +16,9 @@ const SingleEvent = () => {
   const { event } = useTypeSelector(eventsSelector);
 
   console.log(event);
-  const { club, dates, categories, visitorAge } = useMemo(
+  const { excerpt, club, dates, categories, visitorAge } = useMemo(
     () => ({
+      excerpt: event?.excerpt,
       club: event?.club,
       dates: event?.dates,
       categories: event?.categories,
@@ -53,7 +54,7 @@ const SingleEvent = () => {
               )}
             </div>
           </div>
-          <div>otrivok</div>
+          <div className='text-chrome w-[calc(565px_+_0px)] mt-8'>{excerpt}</div>
           <div>map</div>
           <div>info</div>
           <div>gallery</div>

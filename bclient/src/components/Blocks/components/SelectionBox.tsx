@@ -12,7 +12,7 @@ const SelectionBox = ({ name, slug, image }: Props) => {
   // todo: добавить дефолтный изображение image || ''
   return (
     <div className={`${css.background} rounded-4xl overflow-hidden h-event-selection relative`}>
-      <Image src={image || ''} layout='fill' alt={slug} className={`${css.position}  ${css.image}`} />
+      <Image src={image || '/sold.png'} layout='fill' alt={slug} className={`${css.position}  ${css.image}`} />
     </div>
   );
 };

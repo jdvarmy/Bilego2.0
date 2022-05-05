@@ -60,6 +60,7 @@ export interface EventMeta {
 }
 
 export interface Event extends Entry {
+  excerpt: string;
   club?: Item;
   categories?: { [key in Term]: Category[] | Genre[] | Feeling[] | Selection[] | null };
   dates?: { dateFrom: string; dateTo: string };

@@ -64,7 +64,7 @@ const EventBox = ({
   return (
     <div ref={ref} className={`${css.last} w-event-block min-w-event-block mb-3`}>
       <div className={`${css.background} rounded-4xl overflow-hidden w-event-block h-event-block relative`}>
-        <Image src={image || ''} layout='fill' alt={slug} className={`${css.position}  ${css.image}`} />
+        <Image src={image || '/sold.png'} layout='fill' alt={slug} className={`${css.position}  ${css.image}`} />
         <div className={`${css.position}  ${css.gradient} cursor-pointer`} onClick={handleRouter(`events/${slug}`)} />
         <div className={`${css.date} absolute bottom-8 left-0 text-turquoise text-h3 flex items-center`}>
           {startDate ? format(startDate, 'dd MMM', { locale: ru }).slice(0, 6) : ''}

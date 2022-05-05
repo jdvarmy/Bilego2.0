@@ -134,10 +134,10 @@ module.exports = {
     },
     fontSize: {
       xs: ['0.875rem', { lineHeight: '1.25rem' }],
-      base: ['1rem', { lineHeight: '1.5rem' }],
-      h3: ['1.75rem', { lineHeight: '1.75rem' }],
-      h2: ['3.125rem', { lineHeight: '1.75rem' }],
-      h1: ['4.5rem', { lineHeight: '1' }],
+      base: ['1rem', { lineHeight: '1.85rem' }],
+      h3: ['1.75rem', { lineHeight: '1.9rem' }],
+      h2: ['3.125rem', { lineHeight: '1.9rem' }],
+      h1: ['4.5rem', { lineHeight: '4.2rem' }],
     },
     fontWeight: {
       light: '300',

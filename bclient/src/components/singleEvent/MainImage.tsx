@@ -12,7 +12,7 @@ const formatString = 'dd MMMM, iiii / HH:mm';
 
 const Term = ({ term }: { term: Category | Genre | Feeling | Selection }) => {
   return (
-    <span className='inline-block text-xs border border-chrome rounded-2xl py-1 px-3 lowercase text-chrome'>
+    <span className='inline-block text-xs border border-chrome rounded-2xl py-1 px-3 lowercase text-chrome mr-2 last:mr-0'>
       {term.name}
     </span>
   );
@@ -24,7 +24,7 @@ const MainImage = ({ city, image, title, date, club, categories, visitorAge }: E
 
   return (
     <>
-      <Image src={image || ''} layout='fill' alt={title} className={`${css.position}  ${css.image}`} />
+      <Image src={image || '/sold.png'} layout='fill' alt={title} className={`${css.position}  ${css.image}`} />
       <div className={`${css.position}  ${css.gradient}`} />
       <div className='absolute bottom-80 left-20 text-h3 font-light'>
         {localDate && <div className='mb-4'>{format(localDate, formatString, { locale: ru })}</div>}
