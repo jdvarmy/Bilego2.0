@@ -6,7 +6,7 @@ import City from './City/City';
 
 const Header = () => {
   return (
-    <div className='flex justify-between'>
+    <div className='flex justify-between relative z-20'>
       <div className='flex items-center justify-center'>
         <Search />
         <PreferenceMode />

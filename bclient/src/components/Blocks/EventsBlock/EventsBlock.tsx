@@ -1,7 +1,7 @@
 import React, { useState, ContextType, useEffect } from 'react';
 import SkeletonEvents from '../../Skeletons/SkeletonEvents';
 import { Event, ParametersType } from '../../../types/types';
-import EventBox from '../conponents/EventBox';
+import EventBox from '../components/EventBox';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import useDrag from '../../../hooks/useDrag';
 import { useTypeSelector } from '../../../hooks/useTypeSelector';
@@ -10,7 +10,7 @@ import { ChevronRightIcon } from '@heroicons/react/solid';
 import { useDispatch } from 'react-redux';
 import { asyncGetEventsBlock } from '../../../store/events/eventsThunk';
 import { getEventsBlockClientSide } from '../../../store/events/eventsSlice';
-import TitleBlock from '../conponents/TitleBlock';
+import TitleBlock from '../components/TitleBlock';
 
 export type EventsBlockProps = {
   title: string;

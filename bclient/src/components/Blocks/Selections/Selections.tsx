@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import TitleBlock from '../conponents/TitleBlock';
-import SelectionBox from '../conponents/SelectionBox';
+import TitleBlock from '../components/TitleBlock';
+import SelectionBox from '../components/SelectionBox';
 import { useTypeSelector } from '../../../hooks/useTypeSelector';
 import { taxonomySelector } from '../../../store/selectors';
 import { Selection } from '../../../types/types';

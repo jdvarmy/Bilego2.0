@@ -1,5 +1,5 @@
 import React from 'react';
-import TitleBlock from '../conponents/TitleBlock';
+import TitleBlock from '../components/TitleBlock';
 
 const ForSelectiveViewers = () => {
   return (

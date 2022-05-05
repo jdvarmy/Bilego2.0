@@ -1,4 +1,4 @@
-import { Cities, SortType, Term } from './enums';
+import { Cities, HeaderType, SortType, Term } from './enums';
 
 export const transitionTimingFunction = 'cubic-bezier(0, .9, .57, 1)' as const;
 export const modalSelector = 'bmodal' as const;
@@ -35,11 +35,33 @@ interface Entry {
   slug: string;
 }
 
-export interface EventMeta {}
+export type EventHeaderType = {
+  colors?: { title?: string; subtitle?: string };
+  image?: string;
+  imageId?: number;
+  mobileImage?: string;
+  mobileImageId?: number;
+  subtitle?: string;
+  title?: string;
+  type?: HeaderType;
+  video?: string;
+};
+
+export interface EventMeta {
+  visitorAge?: number;
+  artist?: any;
+  city?: Cities;
+  header?: EventHeaderType;
+  isMainSlider?: boolean;
+  organizer?: { id?: number; trade?: number; info?: string };
+  place?: number;
+  yamusic?: string;
+  youtube?: string;
+}
 
 export interface Event extends Entry {
   club?: Item;
-  categories?: { [key in Term]: string | null };
+  categories?: { [key in Term]: Category[] | Genre[] | Feeling[] | Selection[] | null };
   dates?: { dateFrom: string; dateTo: string };
   image?: string;
   meta?: EventMeta;

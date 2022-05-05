@@ -23,3 +23,8 @@ export enum SortType {
   asc = 'asc',
   popular = 'popular',
 }
+
+export enum HeaderType {
+  image = 'image',
+  video = 'video',
+}
