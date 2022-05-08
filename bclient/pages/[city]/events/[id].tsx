@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { ThunkDispatchType, wrapper } from '../../../src/store';
 import EventHeader from '../../../src/components/singleEvent/EventHeader';
+import AppTicket from '../../../src/components/AppTicket/AppTicket';
+import EventContent from '../../../src/components/singleEvent/EventContent';
 
 const SingleEvent = () => {
   const dispatch = useDispatch();
@@ -50,18 +52,21 @@ const SingleEvent = () => {
                   visitorAge={visitorAge}
                 />
               ) : (
-                'что-то базовое'
+                'todo: что-то базовое'
               )}
             </div>
           </div>
-          <div className='text-chrome w-[calc(565px_+_0px)] mt-8'>{excerpt}</div>
-          <div>map</div>
-          <div>info</div>
-          <div>gallery</div>
-          <div>address</div>
-          <div>raspisanie</div>
-          <div>nedavno smotreli</div>
-          <div>chtoto esho</div>
+          <div className='text-chrome w-[calc(565px_+_0px)] mt-8 mb-12'>{excerpt}</div>
+          <div className='h-[calc(690px_+_0px)] mb-32'>
+            <AppTicket />
+          </div>
+          <EventContent text={event?.content || ''} />
+          <div>галерея с видео</div>
+          <div>адрес</div>
+          <div>расписание</div>
+          <div>недавно смотрели</div>
+          <div>что-то еще</div>
+          <div>хлебные крошки</div>
         </>
       ) : (
         ''

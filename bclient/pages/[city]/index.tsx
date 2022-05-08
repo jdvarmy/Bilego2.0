@@ -2,7 +2,6 @@ import React from 'react';
 import Slider from '../../src/components/Slider/Slider';
 import EventsBlock from '../../src/components/Blocks/EventsBlock/EventsBlock';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import Image from 'next/image';
 import { ThunkDispatchType, wrapper } from '../../src/store';
 import { asyncGetSlides } from '../../src/store/slider/sliderThunk';
 import { Cities, SortType, Term } from '../../src/types/enums';
@@ -14,7 +13,6 @@ import { eventsSelector } from '../../src/store/selectors';
 import { ParametersType } from '../../src/types/types';
 import ForSelectiveViewers from '../../src/components/Blocks/ForSelectiveViewers/ForSelectiveViewers';
 import Selections from '../../src/components/Blocks/Selections/Selections';
-// import AppTicket from '../src/components/AppTicket/AppTicket';
 
 const weekendParameters: ParametersType = {
   sort: SortType.asc,
@@ -55,7 +53,6 @@ const Index = () => {
       />
       <ForSelectiveViewers />
       <Selections />
-      {/*<AppTicket />*/}
     </div>
   );
 };

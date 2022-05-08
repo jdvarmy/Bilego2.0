@@ -66,6 +66,7 @@ export interface Event extends Entry {
   dates?: { dateFrom: string; dateTo: string };
   image?: string;
   meta?: EventMeta;
+  content?: string;
 }
 
 export type ParametersType = {

@@ -23,9 +23,14 @@ const AppTicket = () => {
   }, []);
 
   return (
-    <div>
-      <iframe ref={frameRef} frameBorder={0} src={process.env.NEXT_PUBLIC_CRA_APP_API_ROOT} />
-    </div>
+    <iframe
+      className='w-full h-full'
+      width='100%'
+      height='100%'
+      ref={frameRef}
+      frameBorder={0}
+      src={process.env.NEXT_PUBLIC_CRA_APP_API_ROOT}
+    />
   );
 };
 
