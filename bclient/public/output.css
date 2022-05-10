@@ -613,6 +613,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   z-index: 10;
 }
 
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+
 .-m-3 {
   margin: -0.75rem;
 }
@@ -675,6 +679,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 0.75rem;
 }
 
+.mr-3 {
+  margin-right: 0.75rem;
+}
+
 .-mr-1 {
   margin-right: -0.25rem;
 }
@@ -719,16 +727,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: 0.75rem;
 }
 
+.mb-20 {
+  margin-bottom: 5rem;
+}
+
 .mr-2 {
   margin-right: 0.5rem;
 }
 
 .mb-4 {
   margin-bottom: 1rem;
-}
-
-.mr-3 {
-  margin-right: 0.75rem;
 }
 
 .mt-10 {
@@ -865,6 +873,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-12 {
   height: 3rem;
+}
+
+.h-\[calc\(396px_\+_0px\)\] {
+  height: calc(396px + 0px);
 }
 
 .h-event-selective {
@@ -1073,6 +1085,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .grid-rows-2 {
@@ -1303,6 +1319,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-bottom: 0.25rem;
 }
 
+.px-12 {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
 .pt-7 {
   padding-top: 1.75rem;
 }
@@ -1329,6 +1350,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .pl-4 {
   padding-left: 1rem;
+}
+
+.pt-16 {
+  padding-top: 4rem;
+}
+
+.pb-3 {
+  padding-bottom: 0.75rem;
 }
 
 .pt-20 {
@@ -1503,6 +1532,29 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-right: 30px;
 }
 
+a {
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #ff336d;
+}
+
+.after\:ml-3::after {
+  content: var(--tw-content);
+  margin-left: 0.75rem;
+}
+
+.after\:content-\[\"\>\"\]::after {
+  --tw-content: ">";
+  content: var(--tw-content);
+}
+
 .last\:mr-0:last-child {
   margin-right: 0px;
+}
+
+.last\:after\:content-\[\"\"\]:last-child::after {
+  --tw-content: "";
+  content: var(--tw-content);
 }

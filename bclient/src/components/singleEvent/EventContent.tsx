@@ -3,9 +3,14 @@ import EventTitleBlock from './components/EventTitleBlock';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import css from './sengleEvent.module.css';
 
+type Props = {
+  text: string;
+  className?: string;
+};
+
 const charLimit = 255;
 
-const EventContent = ({ text }: { text: string }) => {
+const EventContent = ({ text, className }: Props) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const html = useMemo(() => {
@@ -21,7 +26,7 @@ const EventContent = ({ text }: { text: string }) => {
   };
 
   return (
-    <div>
+    <div className={className}>
       <EventTitleBlock title='О концерте' />
       <div className={`inline ${isOpen ? css.inline : ''}`} dangerouslySetInnerHTML={{ __html: html }} />
       {isOpen && (

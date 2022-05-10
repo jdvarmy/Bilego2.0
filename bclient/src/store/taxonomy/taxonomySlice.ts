@@ -1,14 +1,14 @@
-import { Category, Feeling, Genre, Selection } from '../../types/types';
+import { CategoryTax, FeelingTax, GenreTax, SelectionTax } from '../../types/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { ThunkActionType } from '../index';
 import { asyncGetTaxonomy } from './taxonomyThunk';
 
 type State = {
-  selection: Selection[];
-  category: Category[];
-  genre: Genre[];
-  feeling: Feeling[];
+  selection: SelectionTax[];
+  category: CategoryTax[];
+  genre: GenreTax[];
+  feeling: FeelingTax[];
 };
 
 const initialState: State = {
@@ -22,16 +22,16 @@ const taxonomy = createSlice({
   name: 'taxonomy',
   initialState,
   reducers: {
-    setSelection: (state, action: PayloadAction<Selection[]>) => {
+    setSelection: (state, action: PayloadAction<SelectionTax[]>) => {
       state.selection = action.payload;
     },
-    setCategory: (state, action: PayloadAction<Category[]>) => {
+    setCategory: (state, action: PayloadAction<CategoryTax[]>) => {
       state.category = action.payload;
     },
-    setGenre: (state, action: PayloadAction<Genre[]>) => {
+    setGenre: (state, action: PayloadAction<GenreTax[]>) => {
       state.genre = action.payload;
     },
-    setFeeling: (state, action: PayloadAction<Feeling[]>) => {
+    setFeeling: (state, action: PayloadAction<FeelingTax[]>) => {
       state.feeling = action.payload;
     },
   },

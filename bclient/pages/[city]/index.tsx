@@ -4,7 +4,7 @@ import EventsBlock from '../../src/components/Blocks/EventsBlock/EventsBlock';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ThunkDispatchType, wrapper } from '../../src/store';
 import { asyncGetSlides } from '../../src/store/slider/sliderThunk';
-import { Cities, SortType, Term } from '../../src/types/enums';
+import { Cities, SortType, EventTerm } from '../../src/types/enums';
 import { getAppPropCity, initialAppPropsToStaticProps } from '../_app';
 import { asyncGetEventsBlock } from '../../src/store/events/eventsThunk';
 import { setMainPageEventsUpcoming, setMainPageEventsWeekend } from '../../src/store/events/eventsSlice';
@@ -19,14 +19,14 @@ const weekendParameters: ParametersType = {
   offset: 0,
   count: 2,
   weekends: true,
-  include: { [Term.category]: 'all' },
+  include: { [EventTerm.category]: 'all' },
 };
 const upcomingParameters: ParametersType = {
   sort: SortType.asc,
   offset: 0,
   count: 2,
   weekends: false,
-  include: { [Term.category]: 'all' },
+  include: { [EventTerm.category]: 'all' },
 };
 
 const Index = () => {

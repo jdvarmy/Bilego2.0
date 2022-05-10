@@ -5,12 +5,12 @@ import { format, parseISO } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import Link from 'next/link';
 import Button from '../Button/Button';
-import { Category, Feeling, Genre, Selection } from '../../types/types';
+import { CategoryTax, FeelingTax, GenreTax, SelectionTax } from '../../types/types';
 import { EventHeaderComponentProps } from './EventHeader';
 
 const formatString = 'dd MMMM, iiii / HH:mm';
 
-const Term = ({ term }: { term: Category | Genre | Feeling | Selection }) => {
+const Term = ({ term }: { term: CategoryTax | GenreTax | FeelingTax | SelectionTax }) => {
   return (
     <span className='inline-block text-xs border border-chrome rounded-2xl py-1 px-3 lowercase text-chrome mr-2 last:mr-0'>
       {term.name}
@@ -41,7 +41,7 @@ const MainImage = ({ city, image, title, date, club, categories, visitorAge }: E
           {visitorAge ? <span className='mr-3'>{`+${visitorAge}`}</span> : ''}{' '}
           {categories &&
             Object.values(categories).map(
-              (category: Category[] | Genre[] | Feeling[] | Selection[] | null) =>
+              (category: CategoryTax[] | GenreTax[] | FeelingTax[] | SelectionTax[] | null) =>
                 category && category.map((term) => <Term key={term.slug} term={term} />),
             )}
         </div>

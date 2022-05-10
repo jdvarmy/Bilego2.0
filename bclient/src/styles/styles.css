@@ -32,3 +32,10 @@
 .react-horizontal-scrolling-menu--separator {
   margin-right: 30px;
 }
+
+a {
+  transition: color 0.3s;
+}
+a:hover {
+  color: #ff336d;
+}

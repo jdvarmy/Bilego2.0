@@ -3,12 +3,12 @@ import TitleBlock from '../components/TitleBlock';
 import SelectionBox from '../components/SelectionBox';
 import { useTypeSelector } from '../../../hooks/useTypeSelector';
 import { taxonomySelector } from '../../../store/selectors';
-import { Selection } from '../../../types/types';
+import { SelectionTax } from '../../../types/types';
 import SkeletonSelections from '../../Skeletons/SkeletonSelections';
 
 const Selections = () => {
   const { selection } = useTypeSelector(taxonomySelector);
-  const localSelection = useMemo(() => selection.filter((item: Selection) => item.showInMainPage), [selection]);
+  const localSelection = useMemo(() => selection.filter((item: SelectionTax) => item.showInMainPage), [selection]);
 
   return (
     <div className='mt-24 w-full'>

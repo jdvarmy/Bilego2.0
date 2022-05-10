@@ -4,7 +4,7 @@ import { useTypeSelector } from '../../hooks/useTypeSelector';
 import { taxonomySelector } from '../../store/selectors';
 import { useDispatch } from 'react-redux';
 import { getTaxonomiesClientSide } from '../../store/taxonomy/taxonomySlice';
-import { Selection } from '../../types/types';
+import { SelectionTax } from '../../types/types';
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const Menu = () => {
           {selection
             .filter((item) => item.showInMenu)
             .sort((a, b) => (a.sort && b.sort ? a.sort - b.sort : 0))
-            .map((item: Selection) => (
+            .map((item: SelectionTax) => (
               <MenuItem key={item.slug} title={item.name} href={`/events?selection=[${item.slug}]`} />
             ))}
         </div>
@@ -38,7 +38,7 @@ const Menu = () => {
             {category
               .filter((item) => item.showInMenu)
               .sort((a, b) => (a.sort && b.sort ? a.sort - b.sort : 0))
-              .map((item: Selection) => (
+              .map((item: SelectionTax) => (
                 <MenuItem key={item.slug} title={item.name} href={`/events?category=[${item.slug}]`} />
               ))}
           </div>

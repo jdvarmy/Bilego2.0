@@ -10,6 +10,8 @@ import { ThunkDispatchType, wrapper } from '../../../src/store';
 import EventHeader from '../../../src/components/singleEvent/EventHeader';
 import AppTicket from '../../../src/components/AppTicket/AppTicket';
 import EventContent from '../../../src/components/singleEvent/EventContent';
+import EventAddress from '../../../src/components/singleEvent/EventAddress';
+import Breadcrumb from '../../../src/components/Breadcrumb/Breadcrumb';
 
 const SingleEvent = () => {
   const dispatch = useDispatch();
@@ -18,13 +20,15 @@ const SingleEvent = () => {
   const { event } = useTypeSelector(eventsSelector);
 
   console.log(event);
-  const { excerpt, club, dates, categories, visitorAge } = useMemo(
+  const { title, excerpt, club, dates, categories, visitorAge, content } = useMemo(
     () => ({
+      title: event?.title,
       excerpt: event?.excerpt,
       club: event?.club,
       dates: event?.dates,
       categories: event?.categories,
       visitorAge: event?.meta?.visitorAge,
+      content: event?.content,
     }),
     [event],
   );
@@ -60,13 +64,13 @@ const SingleEvent = () => {
           <div className='h-[calc(690px_+_0px)] mb-32'>
             <AppTicket />
           </div>
-          <EventContent text={event?.content || ''} />
-          <div>галерея с видео</div>
-          <div>адрес</div>
-          <div>расписание</div>
-          <div>недавно смотрели</div>
-          <div>что-то еще</div>
-          <div>хлебные крошки</div>
+          <EventContent className='mb-32' text={content || ''} />
+          <div className='mb-32'>галерея с видео</div>
+          {club && <EventAddress className='mb-32' item={club} />}
+          <div className='mb-32'>расписание</div>
+          <div className='mb-32'>недавно смотрели</div>
+          <div className='mb-32'>что-то еще</div>
+          <Breadcrumb title={title} />
         </>
       ) : (
         ''

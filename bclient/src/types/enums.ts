@@ -11,11 +11,15 @@ export enum AppActions {
   user = 'user',
 }
 
-export enum Term {
+export enum EventTerm {
   category = 'category',
   genre = 'genre',
   selection = 'selection',
   feeling = 'feeling',
+}
+
+export enum ItemTerm {
+  type = 'type',
 }
 
 export enum SortType {

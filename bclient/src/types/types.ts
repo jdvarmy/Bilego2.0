@@ -1,4 +1,4 @@
-import { Cities, HeaderType, SortType, Term } from './enums';
+import { Cities, HeaderType, SortType, EventTerm, ItemTerm } from './enums';
 
 export const transitionTimingFunction = 'cubic-bezier(0, .9, .57, 1)' as const;
 export const modalSelector = 'bmodal' as const;
@@ -47,6 +47,16 @@ export type EventHeaderType = {
   video?: string;
 };
 
+export interface Event extends Entry {
+  excerpt: string;
+  club?: Item;
+  categories?: { [key in EventTerm]: CategoryTax[] | GenreTax[] | FeelingTax[] | SelectionTax[] | null };
+  dates?: { dateFrom: string; dateTo: string };
+  image?: string;
+  meta?: EventMeta;
+  content?: string;
+}
+
 export interface EventMeta {
   visitorAge?: number;
   artist?: any;
@@ -59,16 +69,6 @@ export interface EventMeta {
   youtube?: string;
 }
 
-export interface Event extends Entry {
-  excerpt: string;
-  club?: Item;
-  categories?: { [key in Term]: Category[] | Genre[] | Feeling[] | Selection[] | null };
-  dates?: { dateFrom: string; dateTo: string };
-  image?: string;
-  meta?: EventMeta;
-  content?: string;
-}
-
 export type ParametersType = {
   city?: Cities | null;
   offset: number;
@@ -76,14 +76,31 @@ export type ParametersType = {
   sort?: SortType;
   weekends?: boolean;
   include?: {
-    [key in Term]?: string[] | 'all';
+    [key in EventTerm]?: string[] | 'all';
   };
   exclude?: {
-    [key in Term]?: string[] | 'all';
+    [key in EventTerm]?: string[] | 'all';
   };
 };
 
-export interface Item extends Entry {}
+export interface Item extends Entry {
+  categories: { [key in ItemTerm]: ItemTax[] | null };
+  content?: string;
+  id: number;
+  image?: string;
+  meta: ItemMeta;
+  slug: string;
+  title: string;
+}
+
+export interface ItemMeta {
+  address: string;
+  city: string;
+  latitude: number;
+  longitude: number;
+  metro: { [index: string]: string };
+  swzoom: number;
+}
 
 export interface Artist extends Entry {}
 
@@ -94,32 +111,36 @@ export interface Taxonomy {
   description?: string;
 }
 
-export interface Category extends Taxonomy {
+export interface CategoryTax extends Taxonomy {
   showInMenu: boolean;
   sort?: number;
   icon?: string;
 }
 
-export interface Genre extends Taxonomy {
+export interface GenreTax extends Taxonomy {
   icon?: string;
 }
 
-export interface Selection extends Taxonomy {
+export interface SelectionTax extends Taxonomy {
   showInMainPage: boolean;
   showInMenu: boolean;
   sort?: number;
   image?: string;
 }
 
-export interface Feeling extends Taxonomy {
+export interface FeelingTax extends Taxonomy {
   icon?: string;
 }
 
+export interface ItemTax extends Taxonomy {
+  image?: string;
+}
+
 export type ResponseTaxonomies = {
-  [Term.category]: Category[];
-  [Term.genre]: Genre[];
-  [Term.feeling]: Feeling[];
-  [Term.selection]: Selection[];
+  [EventTerm.category]: CategoryTax[];
+  [EventTerm.genre]: GenreTax[];
+  [EventTerm.feeling]: FeelingTax[];
+  [EventTerm.selection]: SelectionTax[];
 };
 
 // SLIDER //
