@@ -52,6 +52,7 @@ export interface Event extends Entry {
   club?: Item;
   categories?: { [key in EventTerm]: CategoryTax[] | GenreTax[] | FeelingTax[] | SelectionTax[] | null };
   dates?: { dateFrom: string; dateTo: string };
+  recurring?: Event['dates'][];
   image?: string;
   meta?: EventMeta;
   content?: string;

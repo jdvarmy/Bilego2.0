@@ -5,12 +5,11 @@ import css from './sengleEvent.module.css';
 
 type Props = {
   text: string;
-  className?: string;
 };
 
 const charLimit = 255;
 
-const EventContent = ({ text, className }: Props) => {
+const EventContent = ({ text }: Props) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const html = useMemo(() => {
@@ -26,7 +25,7 @@ const EventContent = ({ text, className }: Props) => {
   };
 
   return (
-    <div className={className}>
+    <div>
       <EventTitleBlock title='О концерте' />
       <div className={`inline ${isOpen ? css.inline : ''}`} dangerouslySetInnerHTML={{ __html: html }} />
       {isOpen && (

@@ -12,6 +12,7 @@ import AppTicket from '../../../src/components/AppTicket/AppTicket';
 import EventContent from '../../../src/components/singleEvent/EventContent';
 import EventAddress from '../../../src/components/singleEvent/EventAddress';
 import Breadcrumb from '../../../src/components/Breadcrumb/Breadcrumb';
+import EventSchedule from '../../../src/components/singleEvent/EventSchedule';
 
 const SingleEvent = () => {
   const dispatch = useDispatch();
@@ -20,12 +21,14 @@ const SingleEvent = () => {
   const { event } = useTypeSelector(eventsSelector);
 
   console.log(event);
-  const { title, excerpt, club, dates, categories, visitorAge, content } = useMemo(
+  const { id, title, excerpt, club, dates, recurring, categories, visitorAge, content } = useMemo(
     () => ({
+      id: event?.id,
       title: event?.title,
       excerpt: event?.excerpt,
       club: event?.club,
       dates: event?.dates,
+      recurring: event?.recurring,
       categories: event?.categories,
       visitorAge: event?.meta?.visitorAge,
       content: event?.content,
@@ -61,15 +64,17 @@ const SingleEvent = () => {
             </div>
           </div>
           <div className='text-chrome w-[calc(565px_+_0px)] mt-8 mb-12'>{excerpt}</div>
-          <div className='h-[calc(690px_+_0px)] mb-32'>
-            <AppTicket />
+          <div className='grid grid-cols-1 gap-y-32'>
+            <div className='h-[calc(690px_+_0px)]'>
+              <AppTicket />
+            </div>
+            {content && <EventContent text={content} />}
+            <div>галерея с видео</div>
+            {club && <EventAddress item={club} />}
+            {recurring && recurring.length > 1 && id && <EventSchedule artistId={id} />}
+            <div>недавно смотрели</div>
+            <div>что-то еще</div>
           </div>
-          <EventContent className='mb-32' text={content || ''} />
-          <div className='mb-32'>галерея с видео</div>
-          {club && <EventAddress className='mb-32' item={club} />}
-          <div className='mb-32'>расписание</div>
-          <div className='mb-32'>недавно смотрели</div>
-          <div className='mb-32'>что-то еще</div>
           <Breadcrumb title={title} />
         </>
       ) : (
