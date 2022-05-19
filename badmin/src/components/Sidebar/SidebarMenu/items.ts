@@ -16,6 +16,8 @@ import CorporateFareTwoToneIcon from '@mui/icons-material/CorporateFareTwoTone';
 import BabyChangingStationTwoToneIcon from '@mui/icons-material/BabyChangingStationTwoTone';
 import BathtubTwoToneIcon from '@mui/icons-material/BathtubTwoTone';
 import SupervisedUserCircleTwoToneIcon from '@mui/icons-material/SupervisedUserCircleTwoTone';
+import CurrencyExchangeTwoToneIcon from '@mui/icons-material/CurrencyExchangeTwoTone';
+import LoyaltyTwoToneIcon from '@mui/icons-material/LoyaltyTwoTone';
 
 export interface MenuItem {
   link: string;
@@ -70,6 +72,21 @@ const menuItems: MenuItems[] = [
             icon: FormatListNumberedTwoToneIcon,
           },
         ],
+      },
+    ],
+  },
+  {
+    heading: 'Скидки и купоны',
+    items: [
+      {
+        name: 'Скидки',
+        link: '/coupons',
+        icon: CurrencyExchangeTwoToneIcon,
+      },
+      {
+        name: 'Добавить купон',
+        link: '/coupons/create',
+        icon: LoyaltyTwoToneIcon,
       },
     ],
   },

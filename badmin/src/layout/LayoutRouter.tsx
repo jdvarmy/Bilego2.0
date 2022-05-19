@@ -6,6 +6,7 @@ import Layout from './Layout';
 import { routerSuspense } from '../hof/routerSuspense';
 
 const EventsRouter = routerSuspense(lazy(() => import('../pages/Events/EventsRouter')));
+const CouponsRouter = routerSuspense(lazy(() => import('../pages/Coupons/CouponsRouter')));
 const ItemsRouter = routerSuspense(lazy(() => import('../pages/Items/ItemsRouter')));
 const ArtistsRouter = routerSuspense(lazy(() => import('../pages/Artists/ArtistsRouter')));
 const OrganizersRouter = routerSuspense(lazy(() => import('../pages/Organizers/OrganizersRouter')));
@@ -20,6 +21,7 @@ const LayoutRouter = () => {
       <Route path='/' element={<Layout />}>
         <Route index element={<Home />} />
         <Route path='events/*' element={EventsRouter} />
+        <Route path='coupons/*' element={CouponsRouter} />
         <Route path='items/*' element={ItemsRouter} />
         <Route path='artists/*' element={ArtistsRouter} />
         <Route path='organizers/*' element={OrganizersRouter} />
