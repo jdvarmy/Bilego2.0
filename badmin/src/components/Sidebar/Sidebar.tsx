@@ -57,7 +57,9 @@ function Sidebar() {
         <Drawer anchor='left' open={isShow} onClose={handleClose} variant='temporary' elevation={9}>
           <SidebarWrapper>
             <Scrollbars autoHide>
-              <TopSection>something</TopSection>
+              <TopSection>
+                <Logo />
+              </TopSection>
               <SidebarMenu />
             </Scrollbars>
           </SidebarWrapper>

@@ -6,7 +6,6 @@ import { formatDistance, subDays } from 'date-fns';
 
 const NotificationsBadge = styled(Badge)(
   ({ theme }) => `
-    
     .MuiBadge-badge {
         background-color: ${alpha(theme.palette.error.main, 0.1)};
         color: ${theme.palette.error.main};
@@ -42,7 +41,7 @@ function HeaderNotifications() {
 
   return (
     <>
-      <Tooltip arrow title='Notifications'>
+      <Tooltip arrow title='Оповещалки'>
         <IconButton color='primary' ref={ref} onClick={handleOpen}>
           <NotificationsBadge
             badgeContent={1}
@@ -69,14 +68,14 @@ function HeaderNotifications() {
         }}
       >
         <Box sx={{ p: 2 }} display='flex' alignItems='center' justifyContent='space-between'>
-          <Typography variant='h5'>Notifications</Typography>
+          <Typography variant='h5'>Оповещения</Typography>
         </Box>
         <Divider />
         <List sx={{ p: 0 }}>
           <ListItem sx={{ p: 2, minWidth: 350, display: { xs: 'block', sm: 'flex' } }}>
             <Box flex='1'>
               <Box display='flex' justifyContent='space-between'>
-                <Typography sx={{ fontWeight: 'bold' }}>Messaging Platform</Typography>
+                <Typography sx={{ fontWeight: 'bold' }}>Платформа для оповещений</Typography>
                 <Typography variant='caption' sx={{ textTransform: 'none' }}>
                   {formatDistance(subDays(new Date(), 3), new Date(), {
                     addSuffix: true,
@@ -85,7 +84,7 @@ function HeaderNotifications() {
               </Box>
               <Typography component='span' variant='body2' color='text.secondary'>
                 {' '}
-                new messages in your inbox
+                Здесь будут отображаться повещения. Нужно будет продумать логику оповещений
               </Typography>
             </Box>
           </ListItem>

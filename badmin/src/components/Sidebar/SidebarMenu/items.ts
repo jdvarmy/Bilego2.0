@@ -12,6 +12,10 @@ import QueueMusicTwoToneIcon from '@mui/icons-material/QueueMusicTwoTone';
 import TheaterComedyTwoToneIcon from '@mui/icons-material/TheaterComedyTwoTone';
 import FormatListNumberedTwoToneIcon from '@mui/icons-material/FormatListNumberedTwoTone';
 import FloodTwoToneIcon from '@mui/icons-material/FloodTwoTone';
+import CorporateFareTwoToneIcon from '@mui/icons-material/CorporateFareTwoTone';
+import BabyChangingStationTwoToneIcon from '@mui/icons-material/BabyChangingStationTwoTone';
+import BathtubTwoToneIcon from '@mui/icons-material/BathtubTwoTone';
+import SupervisedUserCircleTwoToneIcon from '@mui/icons-material/SupervisedUserCircleTwoTone';
 
 export interface MenuItem {
   link: string;
@@ -101,6 +105,36 @@ const menuItems: MenuItems[] = [
         name: 'Добавить нового',
         link: '/artists/create',
         icon: FaceRetouchingNaturalTwoToneIcon,
+      },
+    ],
+  },
+  {
+    heading: 'Организаторы',
+    items: [
+      {
+        name: 'Организаторы',
+        link: '/organizers',
+        icon: CorporateFareTwoToneIcon,
+      },
+      {
+        name: 'Добавить нового',
+        link: '/organizers/create',
+        icon: SupervisedUserCircleTwoToneIcon,
+      },
+    ],
+  },
+  {
+    heading: 'Пользователи',
+    items: [
+      {
+        name: 'Пользователи',
+        link: '/users',
+        icon: BabyChangingStationTwoToneIcon,
+      },
+      {
+        name: 'Добавить нового',
+        link: '/users/create',
+        icon: BathtubTwoToneIcon,
       },
     ],
   },

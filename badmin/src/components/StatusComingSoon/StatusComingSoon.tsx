@@ -81,7 +81,7 @@ function StatusComingSoon() {
       }
 
       timerComponents.push(
-        <Box textAlign='center' px={3}>
+        <Box key={interval} textAlign='center' px={3}>
           <TypographyH1 variant='h1'>{timeLeft[interval as keyof TimeLeftType]}</TypographyH1>
           <TypographyH3 variant='h3'>{timeMap[interval as keyof TimeLeftType]}</TypographyH3>
         </Box>,

@@ -8,6 +8,11 @@ import { routerSuspense } from '../hof/routerSuspense';
 const EventsRouter = routerSuspense(lazy(() => import('../pages/Events/EventsRouter')));
 const ItemsRouter = routerSuspense(lazy(() => import('../pages/Items/ItemsRouter')));
 const ArtistsRouter = routerSuspense(lazy(() => import('../pages/Artists/ArtistsRouter')));
+const OrganizersRouter = routerSuspense(lazy(() => import('../pages/Organizers/OrganizersRouter')));
+const UsersRouter = routerSuspense(lazy(() => import('../pages/Users/UsersRouter')));
+
+const TicketsRouter = routerSuspense(lazy(() => import('../pages/Tickets/TicketsRouter')));
+const OrdersRouter = routerSuspense(lazy(() => import('../pages/Orders/OrdersRouter')));
 
 const LayoutRouter = () => {
   return (
@@ -17,6 +22,10 @@ const LayoutRouter = () => {
         <Route path='events/*' element={EventsRouter} />
         <Route path='items/*' element={ItemsRouter} />
         <Route path='artists/*' element={ArtistsRouter} />
+        <Route path='organizers/*' element={OrganizersRouter} />
+        <Route path='users/*' element={UsersRouter} />
+        <Route path='tickets/*' element={TicketsRouter} />
+        <Route path='orders/*' element={OrdersRouter} />
         <Route path='*' element={<Page404 />} />
       </Route>
     </Routes>
