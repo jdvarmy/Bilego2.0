@@ -1,9 +1,9 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as qs from 'qs';
-import { axiosBaseURL } from '../typings/env';
+import { AXIOS_BASE_URL } from '../typings/env';
 
 const baseConfig = {
-  baseURL: axiosBaseURL,
+  baseURL: AXIOS_BASE_URL,
   withCredentials: true,
   headers: {
     Accept: 'application/json',

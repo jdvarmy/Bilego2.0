@@ -1,7 +1,12 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
+import sidebarSlice from './sidebarSlice/sidebarSlice';
+import eventsSlice from './eventsSlice/eventsSlice';
 
-const reducer = {};
+const reducer = {
+  sidebar: sidebarSlice,
+  events: eventsSlice,
+};
 
 const store = configureStore({
   reducer,
