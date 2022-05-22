@@ -11,6 +11,7 @@ const ItemsRouter = routerSuspense(lazy(() => import('../pages/Items/ItemsRouter
 const ArtistsRouter = routerSuspense(lazy(() => import('../pages/Artists/ArtistsRouter')));
 const OrganizersRouter = routerSuspense(lazy(() => import('../pages/Organizers/OrganizersRouter')));
 const UsersRouter = routerSuspense(lazy(() => import('../pages/Users/UsersRouter')));
+const Login = routerSuspense(lazy(() => import('../pages/Auth/AuthLogin')));
 
 const TicketsRouter = routerSuspense(lazy(() => import('../pages/Tickets/TicketsRouter')));
 const OrdersRouter = routerSuspense(lazy(() => import('../pages/Orders/OrdersRouter')));
@@ -28,6 +29,7 @@ const LayoutRouter = () => {
         <Route path='users/*' element={UsersRouter} />
         <Route path='tickets/*' element={TicketsRouter} />
         <Route path='orders/*' element={OrdersRouter} />
+        <Route path='login' element={Login} />
         <Route path='*' element={<Page404 />} />
       </Route>
     </Routes>

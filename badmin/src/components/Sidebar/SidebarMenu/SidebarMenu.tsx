@@ -4,6 +4,7 @@ import { useLocation, matchPath } from 'react-router-dom';
 import SidebarMenuItem from './SidebarMenuItem';
 import menuItems, { MenuItem } from './items';
 import { styled } from '@mui/material/styles';
+import HiddenIsNotAuthorized from '../../../hoc/HiddenIsNotAuthorized';
 
 const MenuWrapper = styled(List)(
   ({ theme }) => `
@@ -181,7 +182,7 @@ function SidebarMenu() {
   const location = useLocation();
 
   return (
-    <>
+    <HiddenIsNotAuthorized>
       {menuItems.map((section) => (
         <MenuWrapper
           key={section.heading}
@@ -194,7 +195,7 @@ function SidebarMenu() {
           {renderSidebarMenuItems({ items: section.items, path: location.pathname })}
         </MenuWrapper>
       ))}
-    </>
+    </HiddenIsNotAuthorized>
   );
 }
 

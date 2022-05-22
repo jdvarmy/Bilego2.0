@@ -3,7 +3,6 @@ import { ThunkActionType } from '../index';
 import { login, logout } from '../../api/requests';
 import { RequestLogin, storageTokenName, User } from '../../types/types';
 import axios from 'axios';
-import { baseConfig } from '../../api/api';
 
 type State = {
   isLogin: boolean;

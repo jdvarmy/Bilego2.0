@@ -1,11 +1,11 @@
 import React, { createContext, useState } from 'react';
-import { ThemeProvider } from '@mui/material';
+import { ThemeProvider as ThemeProviderWrapper } from '@mui/material';
 import { themeCreator } from './base';
 
-export const ThemeContext = createContext((themeName: string): void => undefined);
+export const ThemeContext = createContext((_themeName: string): void => undefined);
 
-const ThemeProviderWrapper = ({ children }: { children: any }) => {
-  const curThemeName = localStorage.getItem('appTheme') || 'NebulaFighterTheme';
+const ThemeProvider = ({ children }: { children: any }) => {
+  const curThemeName: string = localStorage.getItem('appTheme') || 'BadminTheme';
   const [themeName, _setThemeName] = useState(curThemeName);
   const theme = themeCreator(themeName);
   const setThemeName = (themeName: string): void => {
@@ -15,9 +15,9 @@ const ThemeProviderWrapper = ({ children }: { children: any }) => {
 
   return (
     <ThemeContext.Provider value={setThemeName}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ThemeProviderWrapper theme={theme}>{children}</ThemeProviderWrapper>
     </ThemeContext.Provider>
   );
 };
 
-export default ThemeProviderWrapper;
+export default ThemeProvider;

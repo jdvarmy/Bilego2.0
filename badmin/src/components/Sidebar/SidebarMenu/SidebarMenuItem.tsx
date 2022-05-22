@@ -6,6 +6,7 @@ import { Button, Badge, Collapse, ListItem } from '@mui/material';
 import ExpandLessTwoToneIcon from '@mui/icons-material/ExpandLessTwoTone';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import { toggleSidebar } from '../../../store/sidebarSlice/sidebarSlice';
+import { AppDispatch } from '../../../store/store';
 
 interface SidebarMenuItemProps {
   name: string;
@@ -27,7 +28,7 @@ const SidebarMenuItem: FC<SidebarMenuItemProps> = ({
   name,
   ...rest
 }) => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const [menuToggle, setMenuToggle] = useState<boolean>(openParent || false);
 
   const handleClick = () => {

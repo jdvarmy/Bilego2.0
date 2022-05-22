@@ -109,14 +109,12 @@ export interface Tickets {}
 export type LoginUser = {
   email: string;
   password: string;
-  ip: string;
 };
 
 export type RegisterUser = LoginUser & {
   name: string;
 };
 
-export type ReturnToken = { accessToken: string };
 export type UserTokens = {
   accessToken: string;
   refreshToken: string;

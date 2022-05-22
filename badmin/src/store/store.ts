@@ -1,12 +1,14 @@
-import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import sidebarSlice from './sidebarSlice/sidebarSlice';
 import eventsSlice from './eventsSlice/eventsSlice';
+import authSlice from './authSlice/authSlice';
 
-const reducer = {
+const reducer = combineReducers({
   sidebar: sidebarSlice,
+  auth: authSlice,
   events: eventsSlice,
-};
+});
 
 const store = configureStore({
   reducer,
@@ -15,6 +17,6 @@ const store = configureStore({
 
 export default store;
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof reducer>;
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;

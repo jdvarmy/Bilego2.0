@@ -13,29 +13,23 @@ export class AuthService {
   ) {}
 
   async register(data: RegisterUser): Promise<UserTokens> {
-    const { ip, ...userData } = data;
-
-    const user = await this.apiService.post<User>(`auth/register`, userData);
+    const user = await this.apiService.post<User>(`auth/register`, data);
     checkWPErrorResponse(user);
 
     const tokens = this.tokensService.generateTokens(user);
-    const props = { ip };
 
-    await this.tokensService.saveToken(user.id, tokens.refreshToken, props);
+    await this.tokensService.saveToken(user.id, tokens.refreshToken);
 
     return { user, ...tokens };
   }
 
   async login(data: LoginUser): Promise<UserTokens> {
-    const { ip, ...userData } = data;
-
-    const user = await this.apiService.post<User>(`auth/login`, userData);
+    const user = await this.apiService.post<User>(`auth/login`, data);
     checkWPErrorResponse(user);
 
     const tokens = this.tokensService.generateTokens(user);
-    const props = { ip };
 
-    await this.tokensService.saveToken(user.id, tokens.refreshToken, props);
+    await this.tokensService.saveToken(user.id, tokens.refreshToken);
 
     return { user, ...tokens };
   }
@@ -44,8 +38,8 @@ export class AuthService {
     return this.tokensService.removeToken(refreshToken);
   }
 
-  async refresh(refreshToken: string, ip: string): Promise<UserTokens> {
-    if (!refreshToken) {
+  async refresh(refreshToken: string): Promise<UserTokens> {
+    if (!refreshToken || refreshToken === 'undefined') {
       throw new UnauthorizedException();
     }
 
@@ -60,13 +54,8 @@ export class AuthService {
     }
 
     const tokens = this.tokensService.generateTokens(userIdFromBd);
-    const props = { ip };
 
-    await this.tokensService.saveToken(
-      userIdFromBd.id,
-      tokens.refreshToken,
-      props,
-    );
+    await this.tokensService.saveToken(userIdFromBd.id, tokens.refreshToken);
 
     return { user: userIdFromBd, ...tokens };
   }

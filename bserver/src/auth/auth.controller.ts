@@ -9,28 +9,24 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CookieTokenName, UserTokens } from '../types/types';
-import { RealIP } from 'nestjs-real-ip';
 import { Request, Response } from 'express';
 import { PostRegisterUserDto } from '../dto/PostRegisterUserDto';
 import { PostLoginUserDto } from '../dto/PostLoginUserDto';
-import { AuthHttpRegisterExceptionFilter } from './auth-http-register-exception.filter';
-import { AuthHttpLoginExceptionFilter } from './auth-http-login-exception.filter';
+import { AuthHttpExceptionFilter } from './auth-http-exception.filter';
 import { setCookieRefreshToken } from '../utils';
 
-@Controller('/auth')
+@Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('register')
-  @UseFilters(new AuthHttpRegisterExceptionFilter())
+  @Post('v1/auth/register')
+  @UseFilters(new AuthHttpExceptionFilter())
   public async register(
     @Body() registerDto: PostRegisterUserDto,
-    @RealIP() ip: string,
     @Res({ passthrough: true }) response: Response,
   ): Promise<Omit<UserTokens, 'refreshToken'>> {
     const { refreshToken, ...data } = await this.authService.register({
       ...registerDto,
-      ip,
     });
 
     setCookieRefreshToken(response, refreshToken);
@@ -38,24 +34,20 @@ export class AuthController {
     return data;
   }
 
-  @Post('login')
-  @UseFilters(new AuthHttpLoginExceptionFilter())
+  @Post('v1/auth/login')
+  @UseFilters(new AuthHttpExceptionFilter())
   public async login(
     @Body() loginDto: PostLoginUserDto,
-    @RealIP() ip: string,
     @Res({ passthrough: true }) response: Response,
   ): Promise<Omit<UserTokens, 'refreshToken'>> {
-    const { refreshToken, ...data } = await this.authService.login({
-      ...loginDto,
-      ip,
-    });
+    const { refreshToken, ...data } = await this.authService.login(loginDto);
 
     setCookieRefreshToken(response, refreshToken);
 
     return data;
   }
 
-  @Post('logout')
+  @Post('v1/auth/logout')
   public async logout(
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
@@ -67,9 +59,8 @@ export class AuthController {
     return response;
   }
 
-  @Get('refresh')
+  @Get('v1/auth/refresh')
   public async refresh(
-    @RealIP() ip: string,
     @Req() req: Request,
     @Res({ passthrough: true }) response: Response,
   ): Promise<Omit<UserTokens, 'refreshToken'>> {
@@ -77,7 +68,6 @@ export class AuthController {
 
     const { refreshToken: refresh, ...data } = await this.authService.refresh(
       refreshToken,
-      ip,
     );
 
     setCookieRefreshToken(response, refresh);

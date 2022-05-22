@@ -7,6 +7,7 @@ import { selectSidebar } from '../../store/selectors';
 import { toggleSidebar } from '../../store/sidebarSlice/sidebarSlice';
 import SidebarMenu from './SidebarMenu/SidebarMenu';
 import Logo from '../Logo/Logo';
+import { AppDispatch } from '../../store/store';
 
 const SidebarWrapper = styled(Box)(
   ({ theme }) => `
@@ -34,7 +35,7 @@ const TopSection = styled(Box)(
 );
 
 function Sidebar() {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const { isShow } = useSelector(selectSidebar);
 
   const handleClose = () => {

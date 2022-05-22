@@ -1,9 +1,9 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as qs from 'qs';
-import { AXIOS_BASE_URL } from '../typings/env';
+import { axiosBaseUrl } from '../typings/types';
 
 const baseConfig = {
-  baseURL: AXIOS_BASE_URL,
+  baseURL: axiosBaseUrl,
   withCredentials: true,
   headers: {
     Accept: 'application/json',
@@ -11,7 +11,7 @@ const baseConfig = {
   },
 };
 
-const instance = axios.create(baseConfig);
+export const instance = axios.create(baseConfig);
 
 enum RequestMethod {
   Get = 'get',

@@ -1,5 +1,5 @@
 import { Theme } from '@mui/material';
-import { NebulaFighterTheme } from './schemes/NebulaFighterTheme';
+import { BadminTheme } from './schemes/BadminTheme';
 
 export function themeCreator(theme: string): Theme {
   return themeMap[theme];
@@ -233,5 +233,5 @@ declare module '@mui/material/styles' {
 }
 
 const themeMap: { [key: string]: Theme } = {
-  NebulaFighterTheme,
+  BadminTheme,
 };

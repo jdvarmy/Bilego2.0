@@ -2,7 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
-import { CLIENT_URL, PORT } from './constants/env';
+import { CLIENT_URL, ADMIN_URL, PORT } from './constants/env';
+
+const whitelist = [CLIENT_URL, ADMIN_URL];
 
 async function bootstrap() {
   try {
@@ -11,7 +13,13 @@ async function bootstrap() {
     app.getHttpAdapter().getInstance().disable('x-powered-by');
     app.enableCors({
       credentials: true,
-      origin: CLIENT_URL,
+      origin: function (origin, callback) {
+        if (!origin || whitelist.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
     });
 
     app.use(cookieParser());
