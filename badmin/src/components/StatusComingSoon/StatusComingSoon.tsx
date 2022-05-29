@@ -35,7 +35,7 @@ const MainContent = styled(Box)(
 
 const ImageBox = styled(Box)(
   ({ theme }) => `
-  background-color: ${theme.colors.alpha.trueWhite[70]};
+  background-color: ${theme.colors.alpha.trueWhite[100]};
   border-radius: ${theme.general.borderRadiusXl};
 `,
 );

@@ -18,10 +18,10 @@ export class UserAccess {
   @JoinColumn()
   user: Users;
 
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   refreshToken: string;
 
-  @Column({ type: 'varchar', length: 20 })
+  @Column({ length: 20 })
   ip: string;
 
   @Column({ nullable: true })

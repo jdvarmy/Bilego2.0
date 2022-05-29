@@ -69,11 +69,9 @@ const Header = () => {
           <HeaderButtons />
           <HeaderUserBox />
           <Hidden lgUp>
-            <Tooltip arrow title='Toggle Menu'>
-              <IconButton color='primary' onClick={sidebarHandler}>
-                {!isShow ? <MenuTwoToneIcon /> : <CloseTwoToneIcon />}
-              </IconButton>
-            </Tooltip>
+            <IconButton color='primary' onClick={sidebarHandler}>
+              {!isShow ? <MenuTwoToneIcon /> : <CloseTwoToneIcon />}
+            </IconButton>
           </Hidden>
         </HiddenIsNotAuthorized>
       </Box>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, Card, Divider, Container, Grid, Typography, TextField, CardContent } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { styled } from '@mui/material/styles';
@@ -18,14 +17,8 @@ const Wrapper = styled(Container)(
 
 const AuthLogin = () => {
   const dispatch: AppDispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
   const [emailValue, setEmailValue] = useState<string>('');
   const [passValue, setPassValue] = useState<string>('');
-
-  // @ts-ignore
-  const fromPage = !location.state?.from || location.state?.from === '/login' ? '/' : location.state?.from;
-  console.log('fromPage', fromPage);
 
   const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmailValue(event.target.value);

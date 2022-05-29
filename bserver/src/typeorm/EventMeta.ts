@@ -16,7 +16,7 @@ export class EventMeta {
   @JoinColumn()
   event: Events;
 
-  @Column({ type: 'tinytext', nullable: true })
+  @Column({ type: 'text', nullable: true })
   searchWords: string;
 
   @Column({ nullable: true })

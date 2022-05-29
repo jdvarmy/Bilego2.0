@@ -84,7 +84,9 @@ export enum UnauthorizedException_401 {
   wrongPass = 'Неверный логин или пароль',
 }
 
-export enum ForbiddenException_403 {}
+export enum ForbiddenException_403 {
+  deleted = 'Пользователь удален',
+}
 
 export enum NotFoundException_404 {}
 

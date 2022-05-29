@@ -32,7 +32,7 @@ export class TokensService {
     const userAccess: UserAccess = await this.userAccessRepo
       .createQueryBuilder('userAccess')
       .where('userAccess.user = :id', { id: user.id })
-      .andWhere('userAccess.ip = :ip', { ip: meta.ip || metaIp })
+      .andWhere('userAccess.ip = :ip', { ip: meta?.ip || metaIp })
       .andWhere('userAccess.device = :device', { device: metaDevice })
       .getOne();
 
@@ -43,7 +43,7 @@ export class TokensService {
 
     const access = await this.userAccessRepo.insert({
       user,
-      ip: meta.ip || metaIp,
+      ip: meta?.ip || metaIp,
       device: metaDevice,
       refreshToken: token,
     });
@@ -51,15 +51,21 @@ export class TokensService {
     return access.raw;
   }
 
-  // todo: refactor
-  async findToken(token: string) {
-    return this.apiService.get<UserDto>(`user/token/find`, { token });
+  async findToken(token: string): Promise<number> {
+    const userAccess = await this.userAccessRepo.findOne({
+      where: { refreshToken: token },
+      relations: ['user'],
+    });
+
+    return userAccess.user?.id;
   }
 
-  // todo: refactor
   async removeToken(token: string): Promise<boolean> {
-    await this.apiService.post<void>(`auth/logout`, { token });
+    const userAccess = await this.userAccessRepo.findOne({
+      where: { refreshToken: token },
+    });
 
+    await this.userAccessRepo.remove(userAccess);
     return true;
   }
 

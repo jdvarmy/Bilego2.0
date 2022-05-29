@@ -1,24 +1,28 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { axiosBaseUrl, RequestAuth, ResponseAuth, storageTokenName, User } from '../../typings/types';
 import { AppThunk } from '../store';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { fetchLogin, fetchLogout, fetchRegister } from '../../api/requests';
-import { NavigateFunction, Location } from 'react-router-dom';
 
 type State = {
+  loading: boolean;
   isAuthenticated: boolean;
   user: User | null;
 };
 
 const initialState: State = {
+  loading: false,
   isAuthenticated: false,
   user: null,
 };
 
-const user = createSlice({
+const auth = createSlice({
   initialState,
-  name: 'user',
+  name: 'auth',
   reducers: {
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
     setUser: (state, action: PayloadAction<{ user: User; accessToken: string }>) => {
       const { user, accessToken } = action.payload;
 
@@ -34,30 +38,36 @@ const user = createSlice({
   },
 });
 
-export const { setUser, clearUser } = user.actions;
+export const { setLoading, setUser, clearUser } = auth.actions;
 
-export default user.reducer;
+export default auth.reducer;
 
 export const register =
   (userLoginData: RequestAuth): AppThunk =>
   async (dispatch) => {
+    dispatch(setLoading(true));
     try {
       const { data } = await fetchRegister(userLoginData);
 
       dispatch(setUser(data));
     } catch (e) {
       console.log('register', e);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 export const login =
   (userLoginData: RequestAuth): AppThunk =>
   async (dispatch) => {
+    dispatch(setLoading(true));
     try {
       const { data } = await fetchLogin(userLoginData);
 
       dispatch(setUser(data));
     } catch (e) {
       console.log('login', e);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 export const logout = (): AppThunk => async (dispatch) => {
@@ -70,8 +80,9 @@ export const logout = (): AppThunk => async (dispatch) => {
   }
 };
 export const checkIsUserLogin =
-  (navigate?: NavigateFunction, location?: Location): AppThunk =>
+  (to: () => void): AppThunk =>
   async (dispatch) => {
+    dispatch(setLoading(true));
     try {
       const { data } = await axios.get<ResponseAuth>(`${axiosBaseUrl}auth/refresh`, {
         withCredentials: true,
@@ -79,12 +90,9 @@ export const checkIsUserLogin =
 
       dispatch(setUser(data));
     } catch (e) {
-      console.log('check', e);
       dispatch(clearUser);
-
-      const { response } = e as AxiosError;
-      if ([403].includes(response?.status || 0) && navigate && location) {
-        navigate('login', { replace: false, state: { from: location.pathname || '/' } });
-      }
+      to();
+    } finally {
+      dispatch(setLoading(false));
     }
   };

@@ -1,11 +1,24 @@
 import React, { ReactNode, useEffect } from 'react';
-import { axiosBaseUrl, ResponseAuth, storageTokenName } from '../typings/types';
+import { axiosBaseUrl, loginPage, ResponseAuth, storageTokenName } from '../typings/types';
 import { instance } from '../api/api';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { checkIsUserLogin } from '../store/authSlice/authSlice';
 import { AppDispatch } from '../store/store';
+import { selectAuth } from '../store/selectors';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
+
+const Blur = styled('div')(
+  () => `
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    filter: blur(2px);
+`,
+);
 
 instance.interceptors.request.use((request) => {
   if (request.headers) {
@@ -43,14 +56,23 @@ instance.interceptors.response.use(
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const dispatch: AppDispatch = useDispatch();
+  const { isAuthenticated, loading } = useSelector(selectAuth);
   const navigate = useNavigate();
-  const location = useLocation();
+  const { pathname } = useLocation();
+
+  const toLogin = () => navigate(loginPage);
 
   useEffect(() => {
-    dispatch(checkIsUserLogin(navigate, location));
+    dispatch(checkIsUserLogin(toLogin));
   }, [dispatch]);
 
-  return <>{children}</>;
+  useEffect(() => {
+    if (isAuthenticated && !loading && pathname === '/login') {
+      navigate('/');
+    }
+  }, [isAuthenticated]);
+
+  return loading ? <Blur>{children}</Blur> : <>{children}</>;
 };
 
 export default AuthProvider;

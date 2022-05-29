@@ -12,7 +12,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Users } from '../typeorm';
 import { Repository } from 'typeorm';
-import { UnauthorizedException_401, UserEntityDeleted } from '../types/enums';
+import {
+  ForbiddenException_403,
+  UnauthorizedException_401,
+  UserEntityDeleted,
+} from '../types/enums';
 import { UserDto } from '../dtos/UserDto';
 
 @Injectable()
@@ -50,40 +54,47 @@ export class AuthService {
       throw new UnauthorizedException(UnauthorizedException_401.wrongPass);
     }
 
-    const userDto = new UserDto(user);
-    const tokens = this.tokensService.generateTokens({ ...userDto });
+    const userDto = { ...new UserDto(user) };
+    const tokens = this.tokensService.generateTokens(userDto);
     await this.tokensService.saveToken(user, tokens.refreshToken, {
       ip: data.ip,
     });
 
-    return { user: { ...userDto }, ...tokens };
+    return { user: userDto, ...tokens };
   }
 
-  // todo: refactor
   async logout(refreshToken: string): Promise<boolean> {
     return this.tokensService.removeToken(refreshToken);
   }
 
-  // todo: refactor
   async refresh(refreshToken: string): Promise<UserTokens> {
     if (!refreshToken || refreshToken === 'undefined') {
       throw new ForbiddenException();
     }
 
-    const user = this.tokensService.verifyToken(
+    const verifyToken = this.tokensService.verifyToken(
       refreshToken,
       JWT_REFRESH_SECRET,
     );
     const userIdFromBd = await this.tokensService.findToken(refreshToken);
 
-    if (!user || !userIdFromBd.uid) {
+    if (!verifyToken || !userIdFromBd) {
       throw new ForbiddenException();
     }
 
-    const tokens = this.tokensService.generateTokens(userIdFromBd);
+    const user: Users = await this.usersRepo.findOne({
+      where: { id: userIdFromBd, deleted: UserEntityDeleted.false },
+      relations: ['userMeta'],
+    });
 
-    // await this.tokensService.saveToken(userIdFromBd.uid, tokens.refreshToken);
+    if (!user) {
+      throw new ForbiddenException(ForbiddenException_403.deleted);
+    }
 
-    return { user: userIdFromBd, ...tokens };
+    const userDto = { ...new UserDto(user) };
+    const tokens = this.tokensService.generateTokens(userDto);
+    await this.tokensService.saveToken(user, tokens.refreshToken);
+
+    return { user: userDto, ...tokens };
   }
 }

@@ -1,11 +1,18 @@
 import { HTTP_URL, HTTP_VERSION } from './env';
+import { UserRole } from './enum';
 
+export const loginPage = '/login';
 export const storageTokenName = '_btoken' as const;
 export const axiosBaseUrl = `${HTTP_URL}${HTTP_VERSION}/`;
 
 export type User = {
-  name: string;
+  uid: string;
   email: string;
+  role: UserRole;
+  name?: string;
+  surname?: string;
+  birthdate?: string;
+  phone?: string;
 };
 
 // http

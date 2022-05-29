@@ -3,6 +3,7 @@ import { Button, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
+import { loginPage } from '../../typings/types';
 
 const LoginBoxButton = styled(Button)(
   ({ theme }) => `
@@ -22,7 +23,7 @@ const LoginButton = () => {
   const navigator = useNavigate();
 
   const handleClick = () => {
-    navigator('/login');
+    navigator(loginPage);
   };
 
   return (

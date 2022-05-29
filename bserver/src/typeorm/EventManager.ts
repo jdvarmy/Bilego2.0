@@ -28,6 +28,6 @@ export class EventManager {
   @Column({ nullable: true })
   percentage: number;
 
-  @Column({ type: 'tinytext', nullable: true })
+  @Column({ type: 'text', nullable: true })
   meta: string;
 }

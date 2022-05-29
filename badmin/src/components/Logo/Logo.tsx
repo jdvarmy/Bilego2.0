@@ -7,6 +7,7 @@ import LogoIcon from '../../icons/LogoIcon';
 import useYodaSays from '../../hooks/useYodaSays';
 import { useSelector } from 'react-redux';
 import { selectAuth } from '../../store/selectors';
+import { loginPage } from '../../typings/types';
 
 const LogoWrapper = styled(Link)(
   ({ theme }) => `
@@ -64,7 +65,7 @@ function Logo() {
 
   return (
     <>
-      <LogoWrapper to={isAuthenticated ? '/' : 'login'}>
+      <LogoWrapper to={isAuthenticated ? '/' : loginPage}>
         <LogoSignWrapper>
           <LogoIcon />
           <Tooltip title={`Version ${APP_VERSION}`} arrow placement='right'>

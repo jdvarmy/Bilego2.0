@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   Avatar,
   Box,
@@ -20,52 +20,56 @@ import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
 import { AppDispatch } from '../../../store/store';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../store/authSlice/authSlice';
+import { loginPage } from '../../../typings/types';
+import { selectAuth } from '../../../store/selectors';
+import { UserRole } from '../../../typings/enum';
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `
-        padding-left: ${theme.spacing(1)};
-        padding-right: ${theme.spacing(1)};
+    padding-left: ${theme.spacing(1)};
+    padding-right: ${theme.spacing(1)};
 `,
 );
 
 const MenuUserBox = styled(Box)(
   ({ theme }) => `
-        background: ${theme.colors.alpha.black[5]};
-        padding: ${theme.spacing(2)};
+    background: ${theme.colors.alpha.black[5]};
+    padding: ${theme.spacing(2)};
 `,
 );
 
 const UserBoxText = styled(Box)(
   ({ theme }) => `
-        text-align: left;
-        padding-left: ${theme.spacing(1)};
+    text-align: left;
+    padding-left: ${theme.spacing(1)};
 `,
 );
 
 const UserBoxLabel = styled(Typography)(
   ({ theme }) => `
-        font-weight: ${theme.typography.fontWeightBold};
-        color: ${theme.palette.secondary.main};
-        display: block;
+    font-weight: ${theme.typography.fontWeightBold};
+    color: ${theme.palette.secondary.main};
+    display: block;
 `,
 );
 
 const UserBoxDescription = styled(Typography)(
   ({ theme }) => `
-        color: ${lighten(theme.palette.secondary.main, 0.5)}
+    color: ${lighten(theme.palette.secondary.main, 0.5)}
 `,
 );
 
-const user = {
-  name: 'Catherine Pike',
-  avatar: '/static/images/avatars/1.jpg',
-  jobtitle: 'Project Manager',
+const roleMap = {
+  [UserRole.admin]: 'Администратор',
+  [UserRole.manager]: 'Менеджер сайта',
 };
 
 function HeaderUserBox() {
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector(selectAuth);
 
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -80,16 +84,21 @@ function HeaderUserBox() {
 
   const handleLogout = (): void => {
     dispatch(logout());
+    navigate(loginPage);
   };
 
   return (
     <>
       <UserBoxButton color='secondary' ref={ref} onClick={handleOpen}>
-        <Avatar variant='rounded' alt={user.name} src={user.avatar} />
+        <Avatar variant='rounded' alt={user?.name} src='/static/images/avatars/1.jpg' />
         <Hidden mdDown>
           <UserBoxText>
-            <UserBoxLabel variant='body1'>{user.name}</UserBoxLabel>
-            <UserBoxDescription variant='body2'>{user.jobtitle}</UserBoxDescription>
+            <UserBoxLabel variant='body1'>
+              {user?.name} {user?.surname}
+            </UserBoxLabel>
+            <UserBoxDescription variant='body2'>
+              {!!user?.role && roleMap[user.role as keyof typeof roleMap]}
+            </UserBoxDescription>
           </UserBoxText>
         </Hidden>
         <Hidden smDown>
@@ -104,10 +113,14 @@ function HeaderUserBox() {
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
         <MenuUserBox sx={{ minWidth: 210 }} display='flex'>
-          <Avatar variant='rounded' alt={user.name} src={user.avatar} />
+          <Avatar variant='rounded' alt={user?.name} src='/static/images/avatars/1.jpg' />
           <UserBoxText>
-            <UserBoxLabel variant='body1'>{user.name}</UserBoxLabel>
-            <UserBoxDescription variant='body2'>{user.jobtitle}</UserBoxDescription>
+            <UserBoxLabel variant='body1'>
+              {user?.name} {user?.surname}
+            </UserBoxLabel>
+            <UserBoxDescription variant='body2'>
+              {!!user?.role && roleMap[user.role as keyof typeof roleMap]}
+            </UserBoxDescription>
           </UserBoxText>
         </MenuUserBox>
         <Divider sx={{ mb: 0 }} />

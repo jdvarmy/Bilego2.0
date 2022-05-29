@@ -47,6 +47,6 @@ export class Events extends AbstractPost {
   @JoinColumn()
   seo: SEO;
 
-  @Column({ type: 'tinytext', nullable: true })
+  @Column({ type: 'text', nullable: true })
   fragment: string;
 }
