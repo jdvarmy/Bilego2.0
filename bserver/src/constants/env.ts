@@ -13,3 +13,9 @@ export const JWT_REFRESH_SECRET =
   process.env.JWT_REFRESH_SECRET || 'secret-refresh';
 export const JWT_ACCESS_EXPIRES = process.env.JWT_ACCESS_EXPIRES || '15m';
 export const JWT_REFRESH_EXPIRES = process.env.JWT_REFRESH_EXPIRES || '60d';
+
+export const MYSQL_HOST = process.env.MYSQL_HOST || 'localhost';
+export const MYSQL_PORT = +process.env.MYSQL_PORT || 3306;
+export const MYSQL_DB = process.env.MYSQL_USER || 'db';
+export const MYSQL_USER = process.env.MYSQL_USER || 'user';
+export const MYSQL_PASS = process.env.MYSQL_PASS || 'pass';

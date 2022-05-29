@@ -23,7 +23,7 @@ instance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    if ([401].includes(error.response?.status) && error.config && !error.config._isRetry) {
+    if ([403].includes(error.response?.status) && error.config && !error.config._isRetry) {
       originalRequest._isRetry = true;
 
       try {

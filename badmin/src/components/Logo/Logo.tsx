@@ -5,6 +5,8 @@ import { styled } from '@mui/material/styles';
 import { APP_VERSION } from '../../typings/env';
 import LogoIcon from '../../icons/LogoIcon';
 import useYodaSays from '../../hooks/useYodaSays';
+import { useSelector } from 'react-redux';
+import { selectAuth } from '../../store/selectors';
 
 const LogoWrapper = styled(Link)(
   ({ theme }) => `
@@ -57,11 +59,12 @@ const LogoText = styled(Box)(
 );
 
 function Logo() {
+  const { isAuthenticated } = useSelector(selectAuth);
   const yodaSay = useYodaSays();
 
   return (
     <>
-      <LogoWrapper to='/'>
+      <LogoWrapper to={isAuthenticated ? '/' : 'login'}>
         <LogoSignWrapper>
           <LogoIcon />
           <Tooltip title={`Version ${APP_VERSION}`} arrow placement='right'>

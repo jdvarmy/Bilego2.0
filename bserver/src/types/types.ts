@@ -1,8 +1,10 @@
 import { City, TermType } from './enums';
+import { UserDto } from '../dtos/UserDto';
 
 export const CookieTokenName = 'refreshToken' as const;
 
-export type Id = number | string;
+export type ID = number | string;
+export type UID = string;
 
 interface Post {
   title: string;
@@ -96,19 +98,12 @@ export type WPError = {
   };
 };
 
-export interface User {
-  id: Id;
-  name: string;
-  email: string;
-  roles?: string[];
-  tickets?: Tickets;
-}
-
 export interface Tickets {}
 
 export type LoginUser = {
   email: string;
   password: string;
+  ip?: string | null;
 };
 
 export type RegisterUser = LoginUser & {
@@ -118,7 +113,7 @@ export type RegisterUser = LoginUser & {
 export type UserTokens = {
   accessToken: string;
   refreshToken: string;
-  user: User;
+  user: UserDto;
 };
 
 export interface Slide {

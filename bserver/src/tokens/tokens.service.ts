@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Id, User } from '../types/types';
 import { ApiService } from '../api/api.service';
 import { JwtService } from '@nestjs/jwt';
 import {
@@ -8,33 +7,66 @@ import {
   JWT_REFRESH_EXPIRES,
   JWT_REFRESH_SECRET,
 } from '../constants/env';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UserAccess, Users } from '../typeorm';
+import { Repository } from 'typeorm';
+import { UserDto } from '../dtos/UserDto';
 
 @Injectable()
 export class TokensService {
   constructor(
     private readonly apiService: ApiService,
     private readonly jwtService: JwtService,
+    @InjectRepository(Users) private usersRepo: Repository<Users>,
+    @InjectRepository(UserAccess)
+    private userAccessRepo: Repository<UserAccess>,
   ) {}
 
-  async saveToken(userId: Id, token: string, props?: any) {
-    return this.apiService.post<boolean | number>(`user/token/save`, {
-      id: userId,
-      token,
-      props,
+  async saveToken(
+    user: Users,
+    token: string,
+    meta?: { ip?: string | null },
+  ): Promise<UserAccess> {
+    const metaIp = '0.0.0.0';
+    const metaDevice = 'desktop';
+    const userAccess: UserAccess = await this.userAccessRepo
+      .createQueryBuilder('userAccess')
+      .where('userAccess.user = :id', { id: user.id })
+      .andWhere('userAccess.ip = :ip', { ip: meta.ip || metaIp })
+      .andWhere('userAccess.device = :device', { device: metaDevice })
+      .getOne();
+
+    if (userAccess) {
+      userAccess.refreshToken = token;
+      return await this.userAccessRepo.save(userAccess);
+    }
+
+    const access = await this.userAccessRepo.insert({
+      user,
+      ip: meta.ip || metaIp,
+      device: metaDevice,
+      refreshToken: token,
     });
+
+    return access.raw;
   }
 
+  // todo: refactor
   async findToken(token: string) {
-    return this.apiService.get<User>(`user/token/find`, { token });
+    return this.apiService.get<UserDto>(`user/token/find`, { token });
   }
 
+  // todo: refactor
   async removeToken(token: string): Promise<boolean> {
     await this.apiService.post<void>(`auth/logout`, { token });
 
     return true;
   }
 
-  generateTokens(payload: User): { accessToken: string; refreshToken: string } {
+  generateTokens(payload: UserDto): {
+    accessToken: string;
+    refreshToken: string;
+  } {
     return {
       accessToken: this.jwtService.sign(payload, {
         secret: JWT_ACCESS_SECRET,

@@ -83,7 +83,7 @@ export const checkIsUserLogin =
       dispatch(clearUser);
 
       const { response } = e as AxiosError;
-      if ([401].includes(response?.status || 0) && navigate && location) {
+      if ([403].includes(response?.status || 0) && navigate && location) {
         navigate('login', { replace: false, state: { from: location.pathname || '/' } });
       }
     }
