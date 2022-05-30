@@ -31,8 +31,8 @@ export class Users {
   @OneToMany(() => UserAccess, (userAccess) => userAccess.user)
   userAccess: UserAccess[];
 
-  @OneToOne(() => EventManager, (eventManager) => eventManager.user)
-  eventManager: EventManager;
+  @OneToMany(() => EventManager, (eventManager) => eventManager.user)
+  eventManager: EventManager[];
 
   @OneToMany(() => Orders, (orders) => orders.user)
   orders: Orders[];

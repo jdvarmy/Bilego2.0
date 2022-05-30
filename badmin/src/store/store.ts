@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import sidebarSlice from './sidebarSlice/sidebarSlice';
 import eventsSlice from './eventsSlice/eventsSlice';
 import authSlice from './authSlice/authSlice';
+import usersSlice from './usersSlice/usersSlice';
 
 const reducer = combineReducers({
   sidebar: sidebarSlice,
   auth: authSlice,
   events: eventsSlice,
+  users: usersSlice,
 });
 
 const store = configureStore({

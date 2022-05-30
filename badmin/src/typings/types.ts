@@ -13,6 +13,8 @@ export type User = {
   surname?: string;
   birthdate?: string;
   phone?: string;
+  status?: number;
+  access?: { ip: string; device: string; update: Date }[];
 };
 
 // http

@@ -61,7 +61,7 @@ export class DatabaseService {
     const admin = this.usersRepo.create({
       uid: uidv4(),
       email: 'chekist.87@mail.ru',
-      login: 'badmin',
+      login: 'chekist.87@mail.ru',
       pass: await bcrypt.hash('123', 13),
       role: UserEntityRole.admin,
       status: UserEntityStatus.active,

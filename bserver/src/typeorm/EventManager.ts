@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -19,7 +20,7 @@ export class EventManager {
   @JoinColumn()
   event: Events;
 
-  @OneToOne(() => Users, (users) => users.eventManager, {
+  @ManyToOne(() => Users, (users) => users.eventManager, {
     onDelete: 'SET NULL',
   })
   @JoinColumn()
