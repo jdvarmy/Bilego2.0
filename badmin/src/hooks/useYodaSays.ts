@@ -48,7 +48,7 @@ const useYodaSays = (addAuthor = false) => {
     setReturnString(
       `${addAuthor ? '«' : ''}${yodaSays[Math.floor(Math.random() * yodaSays.length)]}${addAuthor ? '» — Йода' : ''}`,
     );
-  }, []);
+  }, [addAuthor]);
 
   return returnString;
 };

@@ -6,6 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Users } from './Users';
+import { Media } from './Media';
 
 @Entity()
 export class UserMeta {
@@ -15,6 +16,12 @@ export class UserMeta {
   @OneToOne(() => Users, (users) => users.userMeta, { onDelete: 'CASCADE' })
   @JoinColumn()
   user: Users;
+
+  @OneToOne(() => Media, (image) => image.userMetaAvatar, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn()
+  avatar: Media;
 
   @Column({ length: 60, nullable: true })
   name: string;
@@ -27,4 +34,10 @@ export class UserMeta {
 
   @Column({ length: 20, nullable: true })
   phone: string;
+
+  @Column({ type: 'text', nullable: true })
+  concertManagerInfo: string;
+
+  @Column({ nullable: true })
+  concertManagerPercentage: number;
 }

@@ -42,7 +42,7 @@ export class AuthService {
   async login(data: LoginUser): Promise<UserTokens> {
     const { email, password } = data;
     const user: Users = await this.usersRepo.findOne({
-      where: { login: email, deleted: UserEntityDeleted.false },
+      where: { login: email },
       relations: ['userMeta'],
     });
 
@@ -83,7 +83,7 @@ export class AuthService {
     }
 
     const user: Users = await this.usersRepo.findOne({
-      where: { id: userIdFromBd, deleted: UserEntityDeleted.false },
+      where: { id: userIdFromBd },
       relations: ['userMeta'],
     });
 

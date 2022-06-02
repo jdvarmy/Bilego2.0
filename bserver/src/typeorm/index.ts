@@ -17,6 +17,7 @@ import { SEO } from './SEO';
 import { Taxonomy } from './Taxonomy';
 import { Orders } from './Orders';
 import { OrderItems } from './OrderItems';
+import { Media } from './Media';
 
 export {
   Users,
@@ -38,6 +39,7 @@ export {
   Taxonomy,
   Orders,
   OrderItems,
+  Media,
 };
 
 const entities = [
@@ -60,6 +62,7 @@ const entities = [
   Taxonomy,
   Orders,
   OrderItems,
+  Media,
 ];
 
 export default entities;

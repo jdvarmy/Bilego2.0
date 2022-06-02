@@ -19,3 +19,5 @@ export const MYSQL_PORT = +process.env.MYSQL_PORT || 3306;
 export const MYSQL_DB = process.env.MYSQL_USER || 'db';
 export const MYSQL_USER = process.env.MYSQL_USER || 'user';
 export const MYSQL_PASS = process.env.MYSQL_PASS || 'pass';
+
+export const STATIC_FILES_DIR = process.env.STATIC_FILES_DIR || 'upload';

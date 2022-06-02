@@ -27,3 +27,12 @@ export type ResponseAuth = {
   accessToken: string;
   user: User;
 };
+export type MediaFile = {
+  id: number;
+  encoding: string;
+  mimetype: string;
+  name: string;
+  originalName: string;
+  path: string;
+  size: number;
+};

@@ -92,4 +92,11 @@ export enum NotFoundException_404 {}
 
 export enum BadRequestException_400 {}
 
-export enum InternalServerErrorException_500 {}
+export enum InternalServerErrorException_500 {
+  uploadFile = 'Неудалось загрузить файл на диск',
+  removeFile = 'Неудалось удалить файл',
+}
+
+export enum FileType {
+  image = 'image',
+}

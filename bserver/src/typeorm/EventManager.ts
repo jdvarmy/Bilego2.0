@@ -26,9 +26,9 @@ export class EventManager {
   @JoinColumn()
   user: Users;
 
-  @Column({ nullable: true })
-  percentage: number;
-
   @Column({ type: 'text', nullable: true })
-  meta: string;
+  concertManagerInfo: string;
+
+  @Column({ nullable: true })
+  concertManagerPercentage: number;
 }

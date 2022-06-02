@@ -1,6 +1,7 @@
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -26,11 +27,11 @@ export abstract class AbstractPost {
   image: string;
 
   @CreateDateColumn()
-  createDateTime;
+  createDateTime: Date;
 
   @UpdateDateColumn()
-  updateDateTime;
+  updateDateTime?: Date;
 
-  @Column({ name: 'deleted', type: 'int', default: UserEntityDeleted.false })
-  deleted: number;
+  @DeleteDateColumn()
+  deletedAt?: Date;
 }

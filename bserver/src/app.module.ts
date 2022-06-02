@@ -2,6 +2,18 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import {
+  MYSQL_DB,
+  MYSQL_HOST,
+  MYSQL_PASS,
+  MYSQL_PORT,
+  MYSQL_USER,
+  STATIC_FILES_DIR,
+} from './constants/env';
+import entities from './typeorm';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 import { ApiModule } from './api/api.module';
 import { AuthModule } from './auth/auth.module';
@@ -12,22 +24,18 @@ import { TicketsModule } from './tickets/tickets.module';
 import { UsersModule } from './users/users.module';
 import { SlidesModule } from './slides/slides.module';
 import { TaxonomyModule } from './taxonomy/taxonomy.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ErrorsInterceptor } from './errors/errors.interceptor';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import {
-  MYSQL_DB,
-  MYSQL_HOST,
-  MYSQL_PASS,
-  MYSQL_PORT,
-  MYSQL_USER,
-} from './constants/env';
-import entities from './typeorm';
 import { DatabaseModule } from './database/database.module';
+import { MedialibraryModule } from './medialibrary/medialibrary.module';
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, STATIC_FILES_DIR),
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: MYSQL_HOST,
@@ -48,6 +56,8 @@ import { DatabaseModule } from './database/database.module';
     TicketsModule,
     SlidesModule,
     TaxonomyModule,
+    MedialibraryModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { ApiService } from '../api/api.service';
 import { JwtService } from '@nestjs/jwt';
 import {
@@ -57,7 +57,11 @@ export class TokensService {
       relations: ['user'],
     });
 
-    return userAccess.user?.id;
+    if (!userAccess?.user?.id) {
+      throw new ForbiddenException();
+    }
+
+    return userAccess.user.id;
   }
 
   async removeToken(token: string): Promise<boolean> {

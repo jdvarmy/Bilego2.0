@@ -4,12 +4,14 @@ import sidebarSlice from './sidebarSlice/sidebarSlice';
 import eventsSlice from './eventsSlice/eventsSlice';
 import authSlice from './authSlice/authSlice';
 import usersSlice from './usersSlice/usersSlice';
+import medialibrarySlice from './medialibrarySlice/medialibrarySlice';
 
 const reducer = combineReducers({
   sidebar: sidebarSlice,
   auth: authSlice,
   events: eventsSlice,
   users: usersSlice,
+  medialibrary: medialibrarySlice,
 });
 
 const store = configureStore({
