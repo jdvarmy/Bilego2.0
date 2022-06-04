@@ -27,6 +27,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import MediaLibrary from '../../components/MediaLibrary/MediaLibrary';
+import { MediaSelectData } from '../../typings/types';
 
 const userRoleMap: Record<UserRole, string> = {
   [UserRole.admin]: 'Администратор',
@@ -60,7 +61,7 @@ type State = {
   activation: boolean;
   role: UserRole;
   sendMail: boolean;
-  avatar: string;
+  avatar: MediaSelectData | null;
   name: string;
   surname: string;
   birthdate: Date | null;
@@ -76,7 +77,7 @@ const CreateUser = () => {
     activation: true,
     role: UserRole.subscriber,
     sendMail: false,
-    avatar: '',
+    avatar: null,
     name: '',
     surname: '',
     birthdate: null,
@@ -113,6 +114,12 @@ const CreateUser = () => {
     setValues({
       ...values,
       password: uidv4().split('-').at(0) || '',
+    });
+  };
+  const handleSelectAvatar = (image: MediaSelectData) => {
+    setValues({
+      ...values,
+      avatar: image,
     });
   };
 
@@ -228,7 +235,7 @@ const CreateUser = () => {
                     <IconButton color='primary' onClick={handleOpenMedia}>
                       <CloudUploadTwoToneIcon />
                     </IconButton>
-                    <MediaLibrary open={openMedia} closeHandler={handleCloseMedia} />
+                    <MediaLibrary open={openMedia} closeHandler={handleCloseMedia} selectHandle={handleSelectAvatar} />
                   </Grid>
                   <Grid item xs={4}>
                     <TextField

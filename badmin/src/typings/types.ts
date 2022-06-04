@@ -36,3 +36,4 @@ export type MediaFile = {
   path: string;
   size: number;
 };
+export type MediaSelectData = { id: number; name: string };

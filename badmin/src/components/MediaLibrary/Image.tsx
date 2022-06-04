@@ -1,17 +1,28 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, IconButton, CardMedia, Typography, CardActions, Button } from '@mui/material';
+import { Card, CardHeader, IconButton, CardMedia, CardActions, Button } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { MediaFile } from '../../typings/types';
+import { MediaFile, MediaSelectData } from '../../typings/types';
 import { HTTP_URL } from '../../typings/env';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { removeFile } from '../../store/medialibrarySlice/medialibrarySlice';
 
-const Image = ({ file, loading }: { file: MediaFile; loading: boolean }) => {
+type Props = {
+  file: MediaFile;
+  loading: boolean;
+  selectHandle?: (data: MediaSelectData) => void;
+};
+
+const Image = ({ file, loading, selectHandle }: Props) => {
   const dispatch: AppDispatch = useDispatch();
   const handleRemove = () => {
     if (file.id) {
       dispatch(removeFile(file.id));
+    }
+  };
+  const handleSelect = () => {
+    if (selectHandle && file.id) {
+      selectHandle({ id: file.id, name: file.name || file.originalName || file.path });
     }
   };
 
@@ -28,7 +39,7 @@ const Image = ({ file, loading }: { file: MediaFile; loading: boolean }) => {
       />
       <CardMedia sx={{ height: 140 }} image={`${HTTP_URL}${file.path}`} title={file.name || file.originalName} />
       <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Button disabled={loading} size='small' variant='contained'>
+        <Button disabled={loading} onClick={handleSelect} size='small' variant='contained'>
           Выбрать
         </Button>
         <Button disabled={loading} onClick={handleRemove} size='small' color='warning'>

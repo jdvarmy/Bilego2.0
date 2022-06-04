@@ -22,11 +22,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { getFileList, uploadFile } from '../../store/medialibrarySlice/medialibrarySlice';
 import { selectMedialibrary } from '../../store/selectors';
-import { MediaFile } from '../../typings/types';
+import { MediaFile, MediaSelectData } from '../../typings/types';
 
 type Props = {
   open: boolean;
   closeHandler: () => void;
+  selectHandle: (data: MediaSelectData) => void;
 };
 
 type UploadProps = {
@@ -52,7 +53,7 @@ const UploadFiles: FC<UploadProps> = ({ onChange, accept = 'image/*', children }
   );
 };
 
-const MediaLibrary = ({ open, closeHandler }: Props) => {
+const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
   const dispatch: AppDispatch = useDispatch();
   const { loading, files } = useSelector(selectMedialibrary);
   const [fileList, setFileList] = useState<FileList | null>(null);
@@ -125,7 +126,7 @@ const MediaLibrary = ({ open, closeHandler }: Props) => {
       </AppBar>
       <DialogContent sx={{ overflow: 'scroll-y' }}>
         {files?.map((file: MediaFile) => (
-          <Image key={file.id} file={file} loading={loading} />
+          <Image key={file.id} file={file} loading={loading} selectHandle={selectHandle} />
         ))}
       </DialogContent>
     </Dialog>
