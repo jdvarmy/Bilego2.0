@@ -8,6 +8,7 @@ import { AppDispatch } from '../store/store';
 import { selectAuth } from '../store/selectors';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
+import { UserRole } from '../typings/enum';
 
 const Blur = styled('div')(
   () => `
@@ -56,7 +57,7 @@ instance.interceptors.response.use(
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const dispatch: AppDispatch = useDispatch();
-  const { isAuthenticated, loading } = useSelector(selectAuth);
+  const { isAuthenticated, loading, user } = useSelector(selectAuth);
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -71,6 +72,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       navigate('/');
     }
   }, [isAuthenticated]);
+
+  // todo: сделать нормальную страницу для засланца
+  if (user && ![UserRole.admin, UserRole.manager].includes(user.role)) {
+    return <>BAD REQUEST, NIGGA</>;
+  }
 
   return loading ? <Blur>{children}</Blur> : <>{children}</>;
 };

@@ -6,6 +6,7 @@ import {
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   OneToMany,
   OneToOne,
@@ -57,11 +58,11 @@ export class Users {
   status: number;
 
   @CreateDateColumn()
-  createDateTime;
+  createDateTime: Date;
 
   @UpdateDateColumn()
-  updateDateTime;
+  updateDateTime?: Date;
 
-  @Column({ default: UserEntityDeleted.false })
-  deleted: number;
+  @DeleteDateColumn()
+  deletedAt?: Date;
 }

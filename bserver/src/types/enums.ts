@@ -95,6 +95,7 @@ export enum BadRequestException_400 {}
 export enum InternalServerErrorException_500 {
   uploadFile = 'Неудалось загрузить файл на диск',
   removeFile = 'Неудалось удалить файл',
+  saveUser = 'Неуказаны логин или пароль',
 }
 
 export enum FileType {

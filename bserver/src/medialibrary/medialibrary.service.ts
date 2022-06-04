@@ -14,12 +14,14 @@ export class MedialibraryService {
   ) {}
 
   async getMedia(): Promise<MediaDto[]> {
-    const media: Media[] = await this.mediaRepo.find();
+    const media: Media[] = await this.mediaRepo.find({
+      order: { id: 'DESC' },
+    });
 
     return media.map((image) => new MediaDto(image));
   }
 
-  async insertMedia(files: Express.Multer.File[]): Promise<boolean> {
+  async insertMediaData(files: Express.Multer.File[]): Promise<boolean> {
     for (const file of files) {
       const imagePath = this.fileService.createFile(FileType.image, file);
 
@@ -36,7 +38,7 @@ export class MedialibraryService {
     return true;
   }
 
-  async removeMedia(id: number): Promise<boolean> {
+  async deleteMediaData(id: number): Promise<boolean> {
     const media = await this.mediaRepo.findOne({ where: { id } });
     await this.mediaRepo.remove(media);
 

@@ -2,6 +2,7 @@ import {
   CallHandler,
   ExecutionContext,
   Injectable,
+  InternalServerErrorException,
   NestInterceptor,
 } from '@nestjs/common';
 import { catchError, Observable } from 'rxjs';
@@ -12,7 +13,17 @@ export class ErrorsInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     return next.handle().pipe(
       catchError((error) => {
-        // todo: можно обработать свои ошибки
+        if (error.sqlState) {
+          switch (error.code) {
+            case 'ER_DUP_ENTRY':
+              throw new InternalServerErrorException(
+                'Ошибка базы данных. Обнаружен дубликат записи',
+              );
+            default:
+              throw new InternalServerErrorException('Ошибка базы данных');
+          }
+        }
+
         throw new HttpException(error.response, error.status);
       }),
     );

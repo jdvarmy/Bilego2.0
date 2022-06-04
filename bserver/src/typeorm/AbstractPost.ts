@@ -11,6 +11,9 @@ export abstract class AbstractPost {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
+  @Column({ length: 60, unique: true })
+  uid: string;
+
   @Column({ unique: true })
   slug: string;
 

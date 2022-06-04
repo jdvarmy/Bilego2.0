@@ -67,6 +67,10 @@ const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
       dispatch(uploadFile(fileList));
     }
   };
+  const handleSelect = (data: MediaSelectData) => {
+    selectHandle(data);
+    closeHandler();
+  };
 
   useEffect(() => {
     dispatch(getFileList());
@@ -126,7 +130,7 @@ const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
       </AppBar>
       <DialogContent sx={{ overflow: 'scroll-y' }}>
         {files?.map((file: MediaFile) => (
-          <Image key={file.id} file={file} loading={loading} selectHandle={selectHandle} />
+          <Image key={file.id} file={file} loading={loading} selectHandle={handleSelect} />
         ))}
       </DialogContent>
     </Dialog>

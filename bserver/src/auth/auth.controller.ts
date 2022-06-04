@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  InternalServerErrorException,
   Post,
   Req,
   Res,
@@ -20,19 +21,24 @@ import { IpDecorator } from '../decorators/ip.decorator';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  // todo: refactor
   @Post('v1/auth/register')
   @UseFilters(new AuthHttpExceptionFilter())
   public async register(
     @Body() registerDto: ReqRegisterUserDto,
     @Res({ passthrough: true }) response: Response,
   ): Promise<Omit<UserTokens, 'refreshToken'>> {
-    const { refreshToken, ...data } = await this.authService.register({
-      ...registerDto,
-    });
+    try {
+      const { refreshToken, ...data } = await this.authService.register({
+        ...registerDto,
+      });
 
-    setCookieRefreshToken(response, refreshToken);
+      setCookieRefreshToken(response, refreshToken);
 
-    return data;
+      return data;
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
   }
 
   @Post('v1/auth/login')
@@ -42,14 +48,18 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response,
     @IpDecorator() userIp,
   ): Promise<Omit<UserTokens, 'refreshToken'>> {
-    const { refreshToken, ...data } = await this.authService.login({
-      ...loginDto,
-      ip: userIp,
-    });
+    try {
+      const { refreshToken, ...data } = await this.authService.login({
+        ...loginDto,
+        ip: userIp,
+      });
 
-    setCookieRefreshToken(response, refreshToken);
+      setCookieRefreshToken(response, refreshToken);
 
-    return data;
+      return data;
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
   }
 
   @Post('v1/auth/logout')
@@ -57,11 +67,15 @@ export class AuthController {
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ): Promise<boolean> {
-    const { refreshToken } = req.cookies;
-    const response = await this.authService.logout(refreshToken);
-    res.clearCookie(CookieTokenName);
+    try {
+      const { refreshToken } = req.cookies;
+      const response = await this.authService.logout(refreshToken);
+      res.clearCookie(CookieTokenName);
 
-    return response;
+      return response;
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
   }
 
   @Get('v1/auth/refresh')
@@ -69,14 +83,18 @@ export class AuthController {
     @Req() req: Request,
     @Res({ passthrough: true }) response: Response,
   ): Promise<Omit<UserTokens, 'refreshToken'>> {
-    const { refreshToken } = req.cookies;
+    try {
+      const { refreshToken } = req.cookies;
 
-    const { refreshToken: refresh, ...data } = await this.authService.refresh(
-      refreshToken,
-    );
+      const { refreshToken: refresh, ...data } = await this.authService.refresh(
+        refreshToken,
+      );
 
-    setCookieRefreshToken(response, refresh);
+      setCookieRefreshToken(response, refresh);
 
-    return data;
+      return data;
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
   }
 }

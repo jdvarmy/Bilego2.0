@@ -9,3 +9,5 @@ export const selectAuth = (state: RootState) => select(state)?.auth;
 export const selectUsers = (state: RootState) => select(state)?.users;
 
 export const selectMedialibrary = (state: RootState) => select(state)?.medialibrary;
+
+export const selectAlert = (state: RootState) => select(state)?.alert;

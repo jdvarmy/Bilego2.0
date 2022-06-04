@@ -5,6 +5,7 @@ import eventsSlice from './eventsSlice/eventsSlice';
 import authSlice from './authSlice/authSlice';
 import usersSlice from './usersSlice/usersSlice';
 import medialibrarySlice from './medialibrarySlice/medialibrarySlice';
+import alertSlice from './alertSlice/alertSlice';
 
 const reducer = combineReducers({
   sidebar: sidebarSlice,
@@ -12,6 +13,7 @@ const reducer = combineReducers({
   events: eventsSlice,
   users: usersSlice,
   medialibrary: medialibrarySlice,
+  alert: alertSlice,
 });
 
 const store = configureStore({

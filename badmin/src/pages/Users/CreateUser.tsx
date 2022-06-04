@@ -20,6 +20,7 @@ import {
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import VpnKeyTwoToneIcon from '@mui/icons-material/VpnKeyTwoTone';
 import CloudUploadTwoToneIcon from '@mui/icons-material/CloudUploadTwoTone';
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { UserRole } from '../../typings/enum';
 import { IMaskInput } from 'react-imask';
 import { v4 as uidv4 } from 'uuid';
@@ -27,7 +28,12 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import MediaLibrary from '../../components/MediaLibrary/MediaLibrary';
-import { MediaSelectData } from '../../typings/types';
+import { MediaSelectData, RequestUser, User } from '../../typings/types';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { setAsyncAlert } from '../../store/alertSlice/alertSlice';
+import { saveUser } from '../../store/usersSlice/usersSlice';
+import { useNavigate } from 'react-router-dom';
 
 const userRoleMap: Record<UserRole, string> = {
   [UserRole.admin]: 'Администратор',
@@ -55,35 +61,29 @@ const TextMaskCustom = forwardRef<HTMLElement, CustomProps>(function TextMaskCus
   );
 });
 
-type State = {
-  email: string;
+type State = Omit<User, 'uid' | 'status' | 'avatar'> & {
+  status: boolean;
   password: string;
-  activation: boolean;
-  role: UserRole;
   sendMail: boolean;
-  avatar: MediaSelectData | null;
-  name: string;
-  surname: string;
-  birthdate: Date | null;
-  phone: string;
-  concertManagerInfo: string;
-  concertManagerPercentage: string;
+  avatar: string | MediaSelectData;
 };
 
 const CreateUser = () => {
+  const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
   const [values, setValues] = useState<State>({
     email: '',
     password: '',
-    activation: true,
+    status: true,
     role: UserRole.subscriber,
     sendMail: false,
-    avatar: null,
+    avatar: '',
     name: '',
     surname: '',
     birthdate: null,
     phone: '',
     concertManagerInfo: '',
-    concertManagerPercentage: '',
+    concertManagerPercentage: 0,
   });
   const [openMedia, setOpenMedia] = useState<boolean>(false);
 
@@ -93,37 +93,44 @@ const CreateUser = () => {
   const handleCloseMedia = () => {
     setOpenMedia(false);
   };
-
   const handleChange = (field: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({
-      ...values,
-      [field]: event.target.value,
-    });
+    setValues({ ...values, [field]: event.target.value });
   };
-
   const handleChangeCheckbox = (field: keyof State) => (_event: SyntheticEvent<Element, Event>, checked: boolean) => {
-    setValues({
-      ...values,
-      [field]: checked,
-    });
+    setValues({ ...values, [field]: checked });
   };
   const handleChangeDate = (value: Date | null) => {
     setValues({ ...values, birthdate: value });
   };
   const generatePassword = () => {
-    setValues({
-      ...values,
-      password: uidv4().split('-').at(0) || '',
-    });
+    setValues({ ...values, password: uidv4().split('-').at(0) || '' });
   };
   const handleSelectAvatar = (image: MediaSelectData) => {
-    setValues({
-      ...values,
-      avatar: image,
-    });
+    setValues({ ...values, avatar: image });
+  };
+  const handleDeleteAvatar = () => {
+    setValues({ ...values, avatar: '' });
   };
 
-  // console.log(values);
+  const handleSaveUser = () => {
+    const { email, password, avatar, ...userValues } = values;
+    if (!email || !password) {
+      dispatch(setAsyncAlert({ severity: 'error', title: 'Ошибка', text: 'Не заполнены поля email или пароль' }));
+      return;
+    }
+
+    const navigateToUsers = () => {
+      navigate('/users');
+    };
+    const userData: RequestUser = {
+      email,
+      password,
+      ...userValues,
+      status: +userValues.status ?? 0,
+      avatar: typeof avatar === 'object' ? +avatar.id : undefined,
+    };
+    dispatch(saveUser(userData, navigateToUsers));
+  };
 
   return (
     <>
@@ -137,6 +144,7 @@ const CreateUser = () => {
             sx={{ mt: { xs: 2, md: 0 }, mx: 2 }}
             variant='contained'
             startIcon={<AddTwoToneIcon fontSize='small' />}
+            onClick={handleSaveUser}
           >
             Сохранить
           </Button>
@@ -202,11 +210,11 @@ const CreateUser = () => {
                   <Grid item xs={4} />
                   <Grid item xs={12}>
                     <FormControlLabel
-                      value={values.activation}
+                      value={values.status}
                       control={<Checkbox defaultChecked color='success' />}
                       label='Активировать пользователя?'
                       labelPlacement='end'
-                      onChange={handleChangeCheckbox('activation')}
+                      onChange={handleChangeCheckbox('status')}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -231,7 +239,19 @@ const CreateUser = () => {
               <Box>
                 <Grid container spacing={3} alignItems='center'>
                   <Grid item xs={4} sx={{ display: 'flex' }}>
-                    <TextField label='Аватар' type='text' fullWidth />
+                    <TextField
+                      label='Аватар'
+                      type='text'
+                      fullWidth
+                      InputProps={{ readOnly: true }}
+                      value={typeof values.avatar === 'object' ? values.avatar?.name : ''}
+                      focused={!!values.avatar}
+                    />
+                    {!!values.avatar && (
+                      <IconButton color='primary' onClick={handleDeleteAvatar}>
+                        <DeleteForeverTwoToneIcon />
+                      </IconButton>
+                    )}
                     <IconButton color='primary' onClick={handleOpenMedia}>
                       <CloudUploadTwoToneIcon />
                     </IconButton>

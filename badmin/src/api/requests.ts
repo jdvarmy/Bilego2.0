@@ -6,6 +6,8 @@ export const fetchLogin = (data: RequestAuth) => requests.post<ResponseAuth>(`au
 export const fetchLogout = () => requests.post<boolean>(`auth/logout`);
 
 export const fetchUsers = () => requests.get<User[]>(`users`);
+export const saveUserData = (data: RequestAuth) => requests.post<boolean>(`users/save`, data);
+export const deleteUserData = (uid: string) => requests.delete<boolean>(`users/${uid}`);
 
 export const fetchMedialibrary = () => requests.get<MediaFile[]>(`media`);
 export const uploadFileMedialibrary = (data: FormData) => requests.post<boolean>(`media/upload`, data);

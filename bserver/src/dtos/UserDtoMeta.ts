@@ -8,7 +8,7 @@ export class UserDtoMeta extends UserDto {
   constructor(user: Users) {
     super(user);
     this.status = user.status;
-    this.access = user.userAccess.map(({ ip, device, updateDateTime }) => ({
+    this.access = user.userAccess?.map(({ ip, device, updateDateTime }) => ({
       ip,
       device,
       update: updateDateTime,

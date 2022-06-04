@@ -4,6 +4,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 import { Users } from './Users';
 import { Media } from './Media';
@@ -17,7 +18,7 @@ export class UserMeta {
   @JoinColumn()
   user: Users;
 
-  @OneToOne(() => Media, (image) => image.userMetaAvatar, {
+  @ManyToOne(() => Media, (image) => image.userMetaAvatar, {
     onDelete: 'SET NULL',
   })
   @JoinColumn()
@@ -30,7 +31,7 @@ export class UserMeta {
   surname: string;
 
   @Column({ type: 'date', nullable: true })
-  birthdate: string;
+  birthdate: Date;
 
   @Column({ length: 20, nullable: true })
   phone: string;

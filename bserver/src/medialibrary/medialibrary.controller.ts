@@ -36,7 +36,7 @@ export class MedialibraryController {
     @UploadedFiles() files: Express.Multer.File[],
   ): Promise<boolean> {
     try {
-      return this.medialibraryService.insertMedia(files['images[]']);
+      return this.medialibraryService.insertMediaData(files['images[]']);
     } catch (e) {
       throw new InternalServerErrorException(e.message);
     }
@@ -46,7 +46,7 @@ export class MedialibraryController {
   @UseGuards(AccessJwtAuthGuard)
   public removeMedia(@Param('id') id: number): Promise<boolean> {
     try {
-      return this.medialibraryService.removeMedia(id);
+      return this.medialibraryService.deleteMediaData(id);
     } catch (e) {
       throw new InternalServerErrorException(e.message);
     }

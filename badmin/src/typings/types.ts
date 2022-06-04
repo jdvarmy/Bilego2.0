@@ -11,10 +11,13 @@ export type User = {
   role: UserRole;
   name?: string;
   surname?: string;
-  birthdate?: string;
+  birthdate?: Date | null;
   phone?: string;
+  avatar?: string | number;
   status?: number;
   access?: { ip: string; device: string; update: Date }[];
+  concertManagerInfo?: string;
+  concertManagerPercentage?: number;
 };
 
 // http
@@ -26,6 +29,17 @@ export type RequestAuth = {
 export type ResponseAuth = {
   accessToken: string;
   user: User;
+};
+export type RequestUser = RequestAuth & {
+  status?: number;
+  role?: UserRole;
+  sendMail?: boolean;
+  avatar?: number;
+  surname?: string;
+  birthdate?: Date | null;
+  phone?: string;
+  concertManagerInfo?: string;
+  concertManagerPercentage?: number;
 };
 export type MediaFile = {
   id: number;

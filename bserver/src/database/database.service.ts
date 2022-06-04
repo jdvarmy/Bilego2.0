@@ -71,7 +71,7 @@ export class DatabaseService {
     const adminMeta = this.userMetaRepo.create({
       name: 'Вася',
       surname: 'Пупкин',
-      birthdate: '1987-01-01',
+      birthdate: new Date(),
       phone: '+7(999)227-72-27',
     });
     adminMeta.user = admin;
