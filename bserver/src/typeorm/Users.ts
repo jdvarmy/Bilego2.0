@@ -1,22 +1,19 @@
-import {
-  UserEntityDeleted,
-  UserEntityRole,
-  UserEntityStatus,
-} from 'src/types/enums';
+import { UserEntityRole, UserEntityStatus } from 'src/types/enums';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserMeta } from './UserMeta';
 import { UserAccess } from './UserAccess';
 import { EventManager } from './EventManager';
 import { Orders } from './Orders';
+import { Media } from './Media';
 
 @Entity()
 export class Users {
@@ -25,9 +22,6 @@ export class Users {
 
   @Column({ length: 60, unique: true })
   uid: string;
-
-  @OneToOne(() => UserMeta, (userMeta) => userMeta.user)
-  userMeta: UserMeta;
 
   @OneToMany(() => UserAccess, (userAccess) => userAccess.user)
   userAccess: UserAccess[];
@@ -56,6 +50,30 @@ export class Users {
 
   @Column({ default: UserEntityStatus.inactive })
   status: number;
+
+  @ManyToOne(() => Media, (image) => image.userAvatar, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn()
+  avatar: Media;
+
+  @Column({ length: 60, nullable: true })
+  name: string;
+
+  @Column({ length: 60, nullable: true })
+  surname: string;
+
+  @Column({ type: 'date', nullable: true })
+  birthdate: Date;
+
+  @Column({ length: 20, nullable: true })
+  phone: string;
+
+  @Column({ type: 'text', nullable: true })
+  concertManagerInfo: string;
+
+  @Column({ nullable: true })
+  concertManagerPercentage: number;
 
   @CreateDateColumn()
   createDateTime: Date;

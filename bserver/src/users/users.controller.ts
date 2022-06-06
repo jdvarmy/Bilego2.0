@@ -6,13 +6,14 @@ import {
   InternalServerErrorException,
   Param,
   Post,
+  Put,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { AccessJwtAuthGuard } from '../jwt/access-jwt-auth-guard.service';
 import { UsersService } from './users.service';
-import { UserDtoMeta } from '../dtos/UserDtoMeta';
 import { ReqSaveUserDto } from '../dtos/ReqSaveUserDto';
+import { UserDto } from '../dtos/UserDto';
 
 @Controller('v1/users')
 export class UsersController {
@@ -20,7 +21,7 @@ export class UsersController {
 
   @Get()
   @UseGuards(AccessJwtAuthGuard)
-  public async getUsers(@Req() req): Promise<UserDtoMeta[]> {
+  public async getUsers(@Req() req): Promise<UserDto[]> {
     try {
       return this.usersService.getUsersData();
     } catch (e) {
@@ -28,11 +29,14 @@ export class UsersController {
     }
   }
 
-  // todo: refactor
   @Get(':uid')
   @UseGuards(AccessJwtAuthGuard)
-  public async getUser(@Req() req): Promise<any> {
-    return this.usersService.getUserData(req.user?.id);
+  public async getUser(@Param('uid') uid: string): Promise<UserDto> {
+    try {
+      return this.usersService.getUserData(uid);
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
   }
 
   @Post('save')
@@ -40,6 +44,19 @@ export class UsersController {
   public async saveUser(@Body() userDto: ReqSaveUserDto): Promise<boolean> {
     try {
       return this.usersService.saveUserData(userDto);
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
+  }
+
+  @Put('save/:uid')
+  @UseGuards(AccessJwtAuthGuard)
+  public async saveEditUser(
+    @Param('uid') uid: string,
+    @Body() userDto: ReqSaveUserDto,
+  ): Promise<boolean> {
+    try {
+      return this.usersService.saveUserData(userDto, uid);
     } catch (e) {
       throw new InternalServerErrorException(e.message);
     }

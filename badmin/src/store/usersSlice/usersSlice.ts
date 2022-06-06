@@ -1,7 +1,9 @@
 import { RequestUser, User } from '../../typings/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '../store';
-import { deleteUserData, fetchUsers, saveUserData } from '../../api/requests';
+import { deleteUserData, fetchUser, fetchUsers, getFileMedialibrary, saveUserData } from '../../api/requests';
+import { UserState } from '../../pages/Users/UserDataContainer';
+import { Dispatch, SetStateAction } from 'react';
 
 type State = {
   users: User[] | null;
@@ -35,11 +37,29 @@ export const getUsers = (): AppThunk => async (dispatch) => {
   }
 };
 
-export const saveUser =
-  (userData: RequestUser, navigateToUsers: () => void): AppThunk =>
+export const getUser =
+  (uid: string, setUser: Dispatch<SetStateAction<UserState>>): AppThunk =>
   async () => {
     try {
-      const { data } = await saveUserData(userData);
+      const { data } = await fetchUser(uid);
+
+      const { access: _access, uid: _uid, status, avatar, ...user } = data;
+      setUser((prev: UserState) => ({
+        ...prev,
+        ...user,
+        status: Boolean(status),
+        avatar: avatar ? { id: +avatar.id, name: avatar.name } : '',
+      }));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+export const saveUser =
+  (userData: RequestUser, navigateToUsers: () => void, uid?: string): AppThunk =>
+  async () => {
+    try {
+      const { data } = await saveUserData(userData, uid);
       if (data) {
         navigateToUsers();
       }

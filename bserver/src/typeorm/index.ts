@@ -1,4 +1,3 @@
-import { UserMeta } from './UserMeta';
 import { Users } from './Users';
 import { UserAccess } from './UserAccess';
 import { Events } from './Events';
@@ -21,7 +20,6 @@ import { Media } from './Media';
 
 export {
   Users,
-  UserMeta,
   UserAccess,
   Events,
   EventMeta,
@@ -44,7 +42,6 @@ export {
 
 const entities = [
   Users,
-  UserMeta,
   UserAccess,
   Events,
   EventMeta,

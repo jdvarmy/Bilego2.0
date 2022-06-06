@@ -15,7 +15,6 @@ import { Repository } from 'typeorm';
 import {
   ForbiddenException_403,
   UnauthorizedException_401,
-  UserEntityDeleted,
 } from '../types/enums';
 import { UserDto } from '../dtos/UserDto';
 
@@ -43,7 +42,6 @@ export class AuthService {
     const { email, password } = data;
     const user: Users = await this.usersRepo.findOne({
       where: { login: email },
-      relations: ['userMeta'],
     });
 
     if (!user) {
@@ -84,7 +82,6 @@ export class AuthService {
 
     const user: Users = await this.usersRepo.findOne({
       where: { id: userIdFromBd },
-      relations: ['userMeta'],
     });
 
     if (!user) {

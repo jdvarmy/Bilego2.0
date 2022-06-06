@@ -1,29 +1,18 @@
 import React, { useEffect } from 'react';
-import {
-  IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tooltip,
-  useTheme,
-} from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useTheme } from '@mui/material';
 import { User } from '../../../typings/types';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import Label from '../../../components/Label/Label';
-import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUsers } from '../../../store/selectors';
 import { getUsers } from '../../../store/usersSlice/usersSlice';
 import { AppDispatch } from '../../../store/store';
 import DeleteUserButton from './DeleteUserButton';
+import EditUserButton from './EditUserButton';
 
 const UsersTable = () => {
   const dispatch: AppDispatch = useDispatch();
-  const theme = useTheme();
 
   const { users } = useSelector(selectUsers);
 
@@ -63,18 +52,7 @@ const UsersTable = () => {
                 {user.status === 1 ? <Label color='success'>Активен</Label> : <Label color='warning'>Не активен</Label>}
               </TableCell>
               <TableCell align='right'>
-                <Tooltip placement='top' title='Редактировать' arrow>
-                  <IconButton
-                    sx={{
-                      '&:hover': { background: theme.colors.primary.lighter },
-                      color: theme.palette.primary.main,
-                    }}
-                    color='inherit'
-                    size='small'
-                  >
-                    <EditTwoToneIcon fontSize='small' />
-                  </IconButton>
-                </Tooltip>
+                <EditUserButton uid={user.uid} />
                 <DeleteUserButton uid={user.uid} email={user.email} />
               </TableCell>
             </TableRow>

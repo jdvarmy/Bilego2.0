@@ -20,10 +20,10 @@ const LoginBoxLabel = styled(Typography)(
 );
 
 const LoginButton = () => {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    navigator(loginPage);
+    navigate(loginPage);
   };
 
   return (

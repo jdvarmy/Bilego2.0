@@ -96,6 +96,8 @@ export enum InternalServerErrorException_500 {
   uploadFile = 'Неудалось загрузить файл на диск',
   removeFile = 'Неудалось удалить файл',
   saveUser = 'Неуказаны логин или пароль',
+  getUser = 'Такого пользователя не существует',
+  findUser = 'Пользователь с такими данными не найден',
 }
 
 export enum FileType {

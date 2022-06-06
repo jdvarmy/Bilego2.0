@@ -19,7 +19,6 @@ import {
   Tickets,
   TicketsSell,
   UserAccess,
-  UserMeta,
   Users,
 } from '../typeorm';
 import * as bcrypt from 'bcrypt';
@@ -30,7 +29,6 @@ import { UserEntityRole, UserEntityStatus } from '../types/enums';
 export class DatabaseService {
   constructor(
     @InjectRepository(Users) private usersRepo: Repository<Users>,
-    @InjectRepository(UserMeta) private userMetaRepo: Repository<UserMeta>,
     @InjectRepository(UserAccess)
     private userAccessRepo: Repository<UserAccess>,
     @InjectRepository(Events) private eventsRepo: Repository<Events>,
@@ -65,17 +63,12 @@ export class DatabaseService {
       pass: await bcrypt.hash('123', 13),
       role: UserEntityRole.admin,
       status: UserEntityStatus.active,
-    });
-    await this.usersRepo.save(admin);
-
-    const adminMeta = this.userMetaRepo.create({
       name: 'Вася',
       surname: 'Пупкин',
       birthdate: new Date(),
       phone: '+7(999)227-72-27',
     });
-    adminMeta.user = admin;
-    await this.userMetaRepo.save(adminMeta);
+    await this.usersRepo.save(admin);
   }
 
   // USER REQUESTS

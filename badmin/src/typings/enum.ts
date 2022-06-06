@@ -4,3 +4,7 @@ export enum UserRole {
   organizer = 'event_ceo',
   subscriber = 'subscriber',
 }
+export enum PostStatus {
+  create = 'create',
+  edit = 'edit',
+}

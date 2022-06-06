@@ -1,13 +1,13 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { UserMeta } from './UserMeta';
+import { Users } from './Users';
 
 @Entity()
 export class Media {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
-  @OneToMany(() => UserMeta, (userMeta) => userMeta.avatar)
-  userMetaAvatar: UserMeta;
+  @OneToMany(() => Users, (user) => user.avatar)
+  userAvatar: Users;
   // todo: добавить остальные связи на таблицы
 
   @Column({ default: '' })

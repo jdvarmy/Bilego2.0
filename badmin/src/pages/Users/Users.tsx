@@ -10,12 +10,9 @@ import {
   InputLabel,
   MenuItem,
   SelectChangeEvent,
-  Grid,
-  Button,
 } from '@mui/material';
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
-import { NavLink } from 'react-router-dom';
 import UsersTable from './elems/UsersTable';
+import CreateUserButton from './elems/CreateUserButton';
 
 type Filters = 'Любой' | 'Активнен' | 'Не активнен';
 const statusOptions = [
@@ -41,19 +38,7 @@ const Users = () => {
       <Helmet>
         <title>Пользователи</title>
       </Helmet>
-      <Grid container sx={{ my: 3 }} justifyContent='space-between' alignItems='center'>
-        <Grid item>
-          <Button
-            sx={{ mt: { xs: 2, md: 0 }, mx: 2 }}
-            variant='contained'
-            startIcon={<AddTwoToneIcon fontSize='small' />}
-            component={NavLink}
-            to='create'
-          >
-            Новый пользователь
-          </Button>
-        </Grid>
-      </Grid>
+      <CreateUserButton />
       <Card>
         <CardHeader
           action={

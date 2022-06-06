@@ -7,8 +7,8 @@ import { useDispatch } from 'react-redux';
 import ModalDialog from '../../../components/ModalDialog/ModalDialog';
 
 type Props = {
-  uid: string;
   email: string;
+  uid?: string;
 };
 
 const DeleteUserButton = ({ uid, email }: Props) => {
@@ -16,9 +16,11 @@ const DeleteUserButton = ({ uid, email }: Props) => {
   const theme = useTheme();
   const [openDelete, setOpenDelete] = useState<boolean>(false);
 
-  const handleDeleteUser = (uid: string) => () => {
-    dispatch(deleteUser(uid));
-    setOpenDelete(false);
+  const handleDeleteUser = (uid?: string) => () => {
+    if (uid) {
+      dispatch(deleteUser(uid));
+      setOpenDelete(false);
+    }
   };
   const handleOpenModal = () => {
     setOpenDelete(true);

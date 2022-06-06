@@ -1,4 +1,4 @@
-import { UserMeta, Users } from '../typeorm';
+import { Users } from '../typeorm';
 import { UserEntityRole } from '../types/enums';
 
 export class UserDto {
@@ -9,14 +9,29 @@ export class UserDto {
   surname: string;
   birthdate: Date;
   phone: string;
+  status: number;
+  access: { ip: string; device: string; update: Date }[];
+  avatar: { id: number; name: string };
 
-  constructor(user: Users & { userMeta: UserMeta }) {
+  constructor(user: Users) {
     this.uid = user.uid;
     this.email = user.email;
     this.role = user.role;
-    this.name = user.userMeta?.name;
-    this.surname = user.userMeta?.surname;
-    this.birthdate = user.userMeta?.birthdate;
-    this.phone = user.userMeta?.phone;
+    this.name = user?.name;
+    this.surname = user?.surname;
+    this.birthdate = user?.birthdate;
+    this.phone = user?.phone;
+    this.status = user?.status;
+    this.access = user?.userAccess?.map(({ ip, device, updateDateTime }) => ({
+      ip,
+      device,
+      update: updateDateTime,
+    }));
+    this.avatar = user?.avatar
+      ? {
+          id: user.avatar.id,
+          name: user.avatar.name || user.avatar.originalName,
+        }
+      : undefined;
   }
 }

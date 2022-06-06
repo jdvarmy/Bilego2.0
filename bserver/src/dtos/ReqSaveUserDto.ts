@@ -1,15 +1,27 @@
 import {
   IsBoolean,
   IsDateString,
+  IsEmail,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
-import { ReqRegisterUserDto } from './ReqRegisterUserDto';
 import { UserEntityRole } from '../types/enums';
 
-export class ReqSaveUserDto extends ReqRegisterUserDto {
+export class ReqSaveUserDto {
+  @IsNotEmpty({ message: 'Email должен быть заполнен' })
+  @IsEmail()
+  email: string;
+
+  @IsOptional()
+  @IsString()
+  password: string;
+
+  @IsOptional()
+  @IsString()
+  name: string;
+
   @IsNotEmpty({ message: 'Не заполнен статус, хорошо бы заполнить' })
   @IsNumber({ allowNaN: false, allowInfinity: false })
   status?: number;
