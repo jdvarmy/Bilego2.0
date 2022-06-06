@@ -61,7 +61,7 @@ const UserDataContainer = () => {
       </Grid>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <UserMainData userData={values} setUserData={setValues} />
+          <UserMainData userData={values} setUserData={setValues} edit={isEdit} />
         </Grid>
         <Grid item xs={12}>
           <UserSubData userData={values} setUserData={setValues} />

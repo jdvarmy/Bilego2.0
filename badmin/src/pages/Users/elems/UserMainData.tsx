@@ -27,9 +27,10 @@ const userRoleMap: Record<UserRole, string> = {
 type Props = {
   userData: UserState;
   setUserData: (values: UserState) => void;
+  edit?: boolean;
 };
 
-const UserMainData = ({ userData, setUserData }: Props) => {
+const UserMainData = ({ userData, setUserData, edit }: Props) => {
   const { email, password, role, status, sendMail } = userData;
 
   const handleChange = (field: keyof UserState) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +46,7 @@ const UserMainData = ({ userData, setUserData }: Props) => {
 
   return (
     <Card>
-      <CardHeader title='Регистрация пользователя' />
+      <CardHeader title={`${edit ? 'Редактирование' : 'Регистрация'} пользователя`} />
       <Divider />
       <CardContent>
         <Box>
