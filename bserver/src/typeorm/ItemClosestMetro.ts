@@ -5,18 +5,18 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ItemMeta } from './ItemMeta';
+import { Items } from './Items';
 
 @Entity()
 export class ItemClosestMetro {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
-  @ManyToOne(() => ItemMeta, (itemMeta) => itemMeta.itemClosestMetro, {
+  @ManyToOne(() => Items, (item) => item.itemClosestMetro, {
     onDelete: 'CASCADE',
   })
   @JoinColumn()
-  itemMeta: ItemMeta;
+  item: Items;
 
   @Column({ nullable: true })
   metro: string;

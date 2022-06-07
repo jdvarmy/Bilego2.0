@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { PostStatus, UserEntityDeleted } from '../types/enums';
+import { PostStatus } from '../types/enums';
 
 export abstract class AbstractPost {
   @PrimaryGeneratedColumn({ type: 'bigint' })
@@ -25,9 +25,6 @@ export abstract class AbstractPost {
 
   @Column({ type: 'longtext', nullable: true })
   text: string;
-
-  @Column({ nullable: true })
-  image: string;
 
   @CreateDateColumn()
   createDateTime: Date;

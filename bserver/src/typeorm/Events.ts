@@ -3,50 +3,109 @@ import {
   Entity,
   JoinColumn,
   ManyToMany,
+  ManyToOne,
   OneToMany,
-  OneToOne,
 } from 'typeorm';
 import { Artists } from './Artists';
 import { AbstractPost } from './AbstractPost';
-import { EventMeta } from './EventMeta';
-import { EventManager } from './EventManager';
-import { EventHeader } from './EventHeader';
 import { EventDates } from './EventDates';
 import { SEO } from './SEO';
 import { Taxonomy } from './Taxonomy';
 import { Orders } from './Orders';
+import { EventHeaderType } from '../types/enums';
+import { Users } from './Users';
+import { Media } from './Media';
 
 @Entity()
 export class Events extends AbstractPost {
-  @OneToOne(() => Artists, (artists) => artists.event, {
+  @ManyToOne(() => Artists, (artists) => artists.event, {
     onDelete: 'SET NULL',
   })
   @JoinColumn()
   artist: Artists;
 
-  @OneToOne(() => EventMeta, (eventMeta) => eventMeta.event)
-  eventMeta: EventMeta;
+  @ManyToOne(() => SEO, (seo) => seo.event, { onDelete: 'SET NULL' })
+  @JoinColumn()
+  seo: SEO;
 
-  @OneToOne(() => EventHeader, (eventHeader) => eventHeader.event)
-  eventHeader: EventHeader;
-
-  @OneToOne(() => EventManager, (eventManager) => eventManager.event)
-  eventManager: EventManager;
-
-  @OneToMany(() => EventDates, (eventDates) => eventDates.event)
-  eventDates: EventDates[];
+  @ManyToOne(() => Users, (users) => users.eventManager, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn()
+  eventManager: Users;
 
   @ManyToMany(() => Taxonomy, (taxonomy) => taxonomy.event)
   @JoinColumn()
   taxonomy: Taxonomy[];
 
+  @OneToMany(() => EventDates, (eventDates) => eventDates.event)
+  eventDates: EventDates[];
+
   @OneToMany(() => Orders, (orders) => orders.event)
   orders: Orders[];
 
-  @OneToOne(() => SEO, (seo) => seo.event, { onDelete: 'SET NULL' })
+  @ManyToOne(() => Media, (media) => media.eventImage, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn()
-  seo: SEO;
+  image: string;
+
+  @ManyToOne(() => Media, (media) => media.eventHeaderImage, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn()
+  headerImage: string;
 
   @Column({ type: 'text', nullable: true })
   fragment: string;
+
+  @Column({ type: 'text', nullable: true })
+  searchWords: string;
+
+  @Column({ nullable: true })
+  ageRestriction: number;
+
+  @Column({ default: false })
+  isShowInMainPage: boolean;
+
+  @Column({ nullable: true })
+  yamusic: string;
+
+  @Column({ nullable: true })
+  youtube: string;
+
+  @Column({
+    type: 'enum',
+    enum: EventHeaderType,
+    default: EventHeaderType.image,
+  })
+  type: EventHeaderType;
+
+  @Column({ nullable: true })
+  video: string;
+
+  @Column({ nullable: true })
+  title: string;
+
+  @Column({ nullable: true })
+  subtitle: string;
+
+  @Column({ nullable: true })
+  meta: string;
+
+  @Column({
+    nullable: true,
+    default: JSON.stringify({
+      title: 'rgba(255, 255, 255, 1)',
+      subtitle: 'rgba(255, 255, 255, 1)',
+      meta: 'rgba(255, 255, 255, 1)',
+    }),
+  })
+  color: string;
+
+  @Column({ type: 'text', nullable: true })
+  concertManagerInfo: string;
+
+  @Column({ nullable: true })
+  concertManagerPercentage: number;
 }

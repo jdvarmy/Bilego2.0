@@ -11,9 +11,9 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { UserAccess } from './UserAccess';
-import { EventManager } from './EventManager';
 import { Orders } from './Orders';
 import { Media } from './Media';
+import { Events } from './Events';
 
 @Entity()
 export class Users {
@@ -26,8 +26,8 @@ export class Users {
   @OneToMany(() => UserAccess, (userAccess) => userAccess.user)
   userAccess: UserAccess[];
 
-  @OneToMany(() => EventManager, (eventManager) => eventManager.user)
-  eventManager: EventManager[];
+  @OneToMany(() => Events, (eventManager) => eventManager.eventManager)
+  eventManager: Events[];
 
   @OneToMany(() => Orders, (orders) => orders.user)
   orders: Orders[];
@@ -51,7 +51,7 @@ export class Users {
   @Column({ default: UserEntityStatus.inactive })
   status: number;
 
-  @ManyToOne(() => Media, (image) => image.userAvatar, {
+  @ManyToOne(() => Media, (media) => media.userAvatar, {
     onDelete: 'SET NULL',
   })
   @JoinColumn()

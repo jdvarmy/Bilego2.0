@@ -2,14 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
-  Artists,
   EventDates,
-  EventHeader,
-  EventManager,
-  EventMeta,
   Events,
   ItemClosestMetro,
-  ItemMeta,
   Items,
   Maps,
   OrderItems,
@@ -32,18 +27,11 @@ export class DatabaseService {
     @InjectRepository(UserAccess)
     private userAccessRepo: Repository<UserAccess>,
     @InjectRepository(Events) private eventsRepo: Repository<Events>,
-    @InjectRepository(EventMeta) private eventMetaRepo: Repository<EventMeta>,
-    @InjectRepository(EventManager)
-    private eventManagerRepo: Repository<EventManager>,
-    @InjectRepository(EventHeader)
-    private eventHeaderRepo: Repository<EventHeader>,
     @InjectRepository(EventDates)
     private eventDatesRepo: Repository<EventDates>,
     @InjectRepository(Items) private itemsRepo: Repository<Items>,
-    @InjectRepository(ItemMeta) private itemMetaRepo: Repository<ItemMeta>,
     @InjectRepository(ItemClosestMetro)
     private itemClosestMetroRepo: Repository<ItemClosestMetro>,
-    @InjectRepository(Artists) private artistsRepo: Repository<Artists>,
     @InjectRepository(Maps) private mapsRepo: Repository<Maps>,
     @InjectRepository(Tickets) private ticketsRepo: Repository<Tickets>,
     @InjectRepository(TicketsSell)

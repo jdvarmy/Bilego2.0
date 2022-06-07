@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Events } from './Events';
 import { Items } from './Items';
 import { Artists } from './Artists';
@@ -8,13 +8,13 @@ export class SEO {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
-  @OneToOne(() => Events, (event) => event.seo)
+  @OneToMany(() => Events, (event) => event.seo)
   event: Events;
 
-  @OneToOne(() => Items, (item) => item.seo)
+  @OneToMany(() => Items, (item) => item.seo)
   item: Items;
 
-  @OneToOne(() => Artists, (artist) => artist.seo)
+  @OneToMany(() => Artists, (artist) => artist.seo)
   artist: Artists;
 
   @Column({ nullable: true })

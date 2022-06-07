@@ -2,11 +2,7 @@ import { Users } from './Users';
 import { UserAccess } from './UserAccess';
 import { Events } from './Events';
 import { Artists } from './Artists';
-import { EventMeta } from './EventMeta';
-import { EventManager } from './EventManager';
-import { EventHeader } from './EventHeader';
 import { Items } from './Items';
-import { ItemMeta } from './ItemMeta';
 import { ItemClosestMetro } from './ItemClosestMetro';
 import { EventDates } from './EventDates';
 import { Maps } from './Maps';
@@ -22,14 +18,9 @@ export {
   Users,
   UserAccess,
   Events,
-  EventMeta,
-  EventManager,
-  EventHeader,
   EventDates,
   Items,
-  ItemMeta,
   ItemClosestMetro,
-  Artists,
   Maps,
   Tickets,
   TicketsSell,
@@ -44,12 +35,8 @@ const entities = [
   Users,
   UserAccess,
   Events,
-  EventMeta,
-  EventManager,
-  EventHeader,
   EventDates,
   Items,
-  ItemMeta,
   ItemClosestMetro,
   Artists,
   Maps,

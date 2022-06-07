@@ -45,11 +45,6 @@ export enum UserEntityStatus {
   active,
 }
 
-export enum UserEntityDeleted {
-  false,
-  true,
-}
-
 export enum EventHeaderType {
   image = 'image',
   video = 'video',

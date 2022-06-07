@@ -1,15 +1,20 @@
-import { Entity, JoinColumn, ManyToMany, OneToMany, OneToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { AbstractPost } from './AbstractPost';
-import { ItemMeta } from './ItemMeta';
 import { EventDates } from './EventDates';
 import { SEO } from './SEO';
 import { Taxonomy } from './Taxonomy';
+import { ItemClosestMetro } from './ItemClosestMetro';
+import { Media } from './Media';
 
 @Entity()
 export class Items extends AbstractPost {
-  @OneToOne(() => ItemMeta, (itemMeta) => itemMeta.item)
-  itemMeta: ItemMeta;
-
   @OneToMany(() => EventDates, (eventDates) => eventDates.item)
   eventDates: EventDates[];
 
@@ -17,7 +22,28 @@ export class Items extends AbstractPost {
   @JoinColumn()
   taxonomy: Taxonomy[];
 
-  @OneToOne(() => SEO, (seo) => seo.event, { onDelete: 'SET NULL' })
+  @ManyToOne(() => SEO, (seo) => seo.item, { onDelete: 'SET NULL' })
   @JoinColumn()
   seo: SEO;
+
+  @OneToMany(
+    () => ItemClosestMetro,
+    (itemClosestMetro) => itemClosestMetro.item,
+  )
+  itemClosestMetro: ItemClosestMetro[];
+
+  @ManyToOne(() => Media, (media) => media.itemImage, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn()
+  image: string;
+
+  @Column({ nullable: true })
+  address: string;
+
+  @Column({ nullable: true })
+  latitude: string;
+
+  @Column({ nullable: true })
+  longitude: string;
 }
