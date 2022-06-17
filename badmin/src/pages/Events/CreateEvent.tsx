@@ -1,12 +1,35 @@
-import React from 'react';
-import StatusComingSoon from '../../components/StatusComingSoon/StatusComingSoon';
+import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { AppDispatch } from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveTemplateEvent } from '../../store/eventsSlice/eventsSlice';
+import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
+import { useNavigate } from 'react-router-dom';
+import { selectEvent } from '../../store/selectors';
 
-const CreateEvent = () => {
+const EventDataContainer = () => {
+  const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
+  const event = useSelector(selectEvent);
+
+  useEffect(() => {
+    dispatch(saveTemplateEvent());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (event?.uid) {
+      navigate({ pathname: '/events/edit', search: `uid=${event.uid}&slug=${event.slug}` });
+    }
+  }, [event]);
+
   return (
-    <div>
-      <StatusComingSoon />
-    </div>
+    <>
+      <Helmet>
+        <title>Создание шаблона события</title>
+      </Helmet>
+      <SuspenseLoader />
+    </>
   );
 };
 
-export default CreateEvent;
+export default EventDataContainer;

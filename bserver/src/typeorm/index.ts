@@ -21,6 +21,7 @@ export {
   EventDates,
   Items,
   ItemClosestMetro,
+  Artists,
   Maps,
   Tickets,
   TicketsSell,

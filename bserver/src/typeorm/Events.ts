@@ -12,17 +12,30 @@ import { EventDates } from './EventDates';
 import { SEO } from './SEO';
 import { Taxonomy } from './Taxonomy';
 import { Orders } from './Orders';
-import { EventHeaderType } from '../types/enums';
+import { City, EventHeaderType } from '../types/enums';
 import { Users } from './Users';
 import { Media } from './Media';
+import { Items } from './Items';
 
 @Entity()
 export class Events extends AbstractPost {
-  @ManyToOne(() => Artists, (artists) => artists.event, {
+  @ManyToMany(() => Artists, (artists) => artists.event, {
     onDelete: 'SET NULL',
   })
   @JoinColumn()
   artist: Artists;
+
+  @ManyToOne(() => Items, (item) => item.event, { onDelete: 'SET NULL' })
+  @JoinColumn()
+  item: Items;
+
+  @Column({
+    type: 'enum',
+    enum: City,
+    default: null,
+    nullable: true,
+  })
+  city: City;
 
   @ManyToOne(() => SEO, (seo) => seo.event, { onDelete: 'SET NULL' })
   @JoinColumn()
@@ -41,6 +54,7 @@ export class Events extends AbstractPost {
   @OneToMany(() => EventDates, (eventDates) => eventDates.event)
   eventDates: EventDates[];
 
+  // todo: непонятно пока куда сувать ордера, к событию или к дате события
   @OneToMany(() => Orders, (orders) => orders.event)
   orders: Orders[];
 
@@ -48,13 +62,7 @@ export class Events extends AbstractPost {
     onDelete: 'SET NULL',
   })
   @JoinColumn()
-  image: string;
-
-  @ManyToOne(() => Media, (media) => media.eventHeaderImage, {
-    onDelete: 'SET NULL',
-  })
-  @JoinColumn()
-  headerImage: string;
+  image: number;
 
   @Column({ type: 'text', nullable: true })
   fragment: string;
@@ -66,32 +74,38 @@ export class Events extends AbstractPost {
   ageRestriction: number;
 
   @Column({ default: false })
-  isShowInMainPage: boolean;
+  isShowOnSlider: boolean;
 
   @Column({ nullable: true })
-  yamusic: string;
+  musicLink: string;
 
   @Column({ nullable: true })
-  youtube: string;
+  videoLink: string;
 
   @Column({
     type: 'enum',
     enum: EventHeaderType,
     default: EventHeaderType.image,
   })
-  type: EventHeaderType;
+  headerType: EventHeaderType;
+
+  @ManyToOne(() => Media, (media) => media.eventHeaderImage, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn()
+  headerImage: number;
 
   @Column({ nullable: true })
-  video: string;
+  headerVideo: string;
 
   @Column({ nullable: true })
-  title: string;
+  headerTitle: string;
 
   @Column({ nullable: true })
-  subtitle: string;
+  headerSubtitle: string;
 
   @Column({ nullable: true })
-  meta: string;
+  headerMeta: string;
 
   @Column({
     nullable: true,
@@ -101,7 +115,7 @@ export class Events extends AbstractPost {
       meta: 'rgba(255, 255, 255, 1)',
     }),
   })
-  color: string;
+  headerTextColor: string;
 
   @Column({ type: 'text', nullable: true })
   concertManagerInfo: string;

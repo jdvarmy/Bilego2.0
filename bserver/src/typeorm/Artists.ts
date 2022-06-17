@@ -1,4 +1,4 @@
-import { Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, JoinColumn, ManyToMany, ManyToOne } from 'typeorm';
 import { AbstractPost } from './AbstractPost';
 import { Events } from './Events';
 import { SEO } from './SEO';
@@ -6,7 +6,7 @@ import { Media } from './Media';
 
 @Entity()
 export class Artists extends AbstractPost {
-  @OneToMany(() => Events, (event) => event.artist, {
+  @ManyToMany(() => Events, (event) => event.artist, {
     onDelete: 'SET NULL',
   })
   event: Events;

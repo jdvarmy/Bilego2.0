@@ -6,12 +6,18 @@ export enum PostType {
 }
 
 export enum PostStatus {
+  temp = 'temp', // - временный шаблон пост.
   publish = 'publish', // - опубликованный пост.
   pending = 'pending', // - пост на модерации.
   draft = 'draft', // - черновик.
   future = 'future', // - запланированный пост.
   private = 'private', // - личный пост.
   trash = 'trash', // - удаленный пост (в корзине)
+}
+
+export enum TicketType {
+  simple = 'simple',
+  map = 'map',
 }
 
 export enum City {
@@ -93,6 +99,10 @@ export enum InternalServerErrorException_500 {
   saveUser = 'Неуказаны логин или пароль',
   getUser = 'Такого пользователя не существует',
   findUser = 'Пользователь с такими данными не найден',
+  findEvent = 'Событие с такими данными не найдено',
+  findItems = 'Площадки с такими данными не найдены',
+  findEventUid = 'Событие с таким идентификатором не найдено',
+  saveEventSlug = 'Пустая ссылка на событие',
 }
 
 export enum FileType {

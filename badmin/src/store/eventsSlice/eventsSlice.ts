@@ -1,19 +1,83 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Event } from '../../typings/types';
+import { AppThunk } from '../store';
+import { fetchEventDataByUid, saveEventData, saveTemplateEventData } from '../../api/requests';
 
+export type EventStateFieldType = Record<keyof Event, any>;
 type State = {
   loading: boolean;
+  eventState: Event | null;
+  events: Event[] | null;
 };
 
 const initialState: State = {
   loading: false,
+  eventState: null,
+  events: null,
 };
 
 const events = createSlice({
   initialState,
   name: 'events',
-  reducers: {},
+  reducers: {
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
+    setEventState: (state, action: PayloadAction<Event | null>) => {
+      state.eventState = action.payload;
+    },
+    setEventStateField: (state, action: PayloadAction<EventStateFieldType>) => {
+      state.eventState = { ...state.eventState, ...action.payload };
+    },
+    setEvents: (state, action: PayloadAction<Event[]>) => {
+      state.events = action.payload;
+    },
+  },
 });
 
-// export const {} = events.actions;
+export const { setLoading, setEventState, setEvents, setEventStateField } = events.actions;
 
 export default events.reducer;
+
+export const getEventByUid =
+  (slug: string): AppThunk =>
+  async (dispatch) => {
+    dispatch(setLoading(true));
+
+    try {
+      const { data } = await fetchEventDataByUid(slug);
+      dispatch(setEventState(data));
+    } catch (e) {
+      console.log(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+
+export const saveTemplateEvent = (): AppThunk => async (dispatch) => {
+  dispatch(setLoading(true));
+
+  try {
+    const { data } = await saveTemplateEventData();
+    dispatch(setEventState(data));
+  } catch (e) {
+    console.log(e);
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+
+export const saveEvent =
+  (event: Event): AppThunk =>
+  async (dispatch) => {
+    dispatch(setLoading(true));
+
+    try {
+      const { data } = await saveEventData(event);
+      dispatch(setEventState(data));
+    } catch (e) {
+      console.log(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };

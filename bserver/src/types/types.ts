@@ -14,6 +14,7 @@ interface Post {
   images?: ImageType[];
 }
 
+// todo: remove
 export interface Event extends Post {
   age?: number;
   city: City;

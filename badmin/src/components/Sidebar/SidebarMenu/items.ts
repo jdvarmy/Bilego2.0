@@ -18,6 +18,7 @@ import BathtubTwoToneIcon from '@mui/icons-material/BathtubTwoTone';
 import SupervisedUserCircleTwoToneIcon from '@mui/icons-material/SupervisedUserCircleTwoTone';
 import CurrencyExchangeTwoToneIcon from '@mui/icons-material/CurrencyExchangeTwoTone';
 import LoyaltyTwoToneIcon from '@mui/icons-material/LoyaltyTwoTone';
+import { useLocation } from 'react-router-dom';
 
 export interface MenuItem {
   link: string;
@@ -25,6 +26,7 @@ export interface MenuItem {
   badge?: string;
   items?: MenuItem[];
   name: string;
+  handler?: (props?: unknown) => unknown;
 }
 
 export interface MenuItems {

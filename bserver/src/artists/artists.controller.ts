@@ -1,12 +1,22 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  InternalServerErrorException,
+  Query,
+} from '@nestjs/common';
 import { ArtistsService } from './artists.service';
+import { ArtistDto } from '../dtos/ArtistDto';
 
-@Controller('/artists')
+@Controller('v1/artists')
 export class ArtistsController {
   constructor(private readonly artistsService: ArtistsService) {}
 
-  @Get(':slug')
-  async getArtist(@Param('slug') slug: string) {
-    return this.artistsService.getArtist(slug);
+  @Get()
+  getArtistList(@Query('search') search: string): Promise<ArtistDto[]> {
+    try {
+      return this.artistsService.getArtistList(search);
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
   }
 }

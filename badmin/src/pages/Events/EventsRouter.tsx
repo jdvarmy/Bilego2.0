@@ -13,8 +13,8 @@ const EventsRouter = () => {
       <Routes>
         <Route path='/' element={routerSuspense(Events)} />
         <Route path='create' element={routerSuspense(CreateEvent)} />
-        <Route path='edit/:slug' element={routerSuspense(EditEvent)} />
-        <Route path='terms/:slug' element={routerSuspense(Taxonomies)} />
+        <Route path='edit' element={routerSuspense(EditEvent)} />
+        <Route path='terms' element={routerSuspense(Taxonomies)} />
       </Routes>
     </div>
   );

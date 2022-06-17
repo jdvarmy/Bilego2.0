@@ -7,16 +7,17 @@ import {
   OneToMany,
 } from 'typeorm';
 import { AbstractPost } from './AbstractPost';
-import { EventDates } from './EventDates';
 import { SEO } from './SEO';
 import { Taxonomy } from './Taxonomy';
 import { ItemClosestMetro } from './ItemClosestMetro';
 import { Media } from './Media';
+import { Events } from './Events';
+import { City } from '../types/enums';
 
 @Entity()
 export class Items extends AbstractPost {
-  @OneToMany(() => EventDates, (eventDates) => eventDates.item)
-  eventDates: EventDates[];
+  @OneToMany(() => Events, (evet) => evet.item)
+  event: Events[];
 
   @ManyToMany(() => Taxonomy, (taxonomy) => taxonomy.item)
   @JoinColumn()
@@ -37,6 +38,14 @@ export class Items extends AbstractPost {
   })
   @JoinColumn()
   image: string;
+
+  @Column({
+    type: 'enum',
+    enum: City,
+    default: null,
+    nullable: true,
+  })
+  city: City;
 
   @Column({ nullable: true })
   address: string;

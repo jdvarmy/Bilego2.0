@@ -17,7 +17,7 @@ export abstract class AbstractPost {
   @Column({ unique: true })
   slug: string;
 
-  @Column({ type: 'enum', enum: PostStatus, default: PostStatus.pending })
+  @Column({ type: 'enum', enum: PostStatus, default: PostStatus.temp })
   status: PostStatus;
 
   @Column({ nullable: true })

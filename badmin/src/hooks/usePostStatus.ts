@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { PostStatus } from '../typings/enum';
+import { BaseRecordStatus } from '../typings/enum';
 
-export function usePostStatus() {
+export function usePostStatus(): { status: BaseRecordStatus; uid?: string } {
   const location = useLocation();
   const { state, pathname } = location;
-  const [status, setStatus] = useState<PostStatus.create | PostStatus.edit>(PostStatus.create);
+  const [status, setStatus] = useState<BaseRecordStatus.create | BaseRecordStatus.edit>(BaseRecordStatus.create);
 
   useEffect(() => {
     // @ts-ignore
-    if (state?.edit || pathname.includes(PostStatus.edit)) {
-      setStatus(PostStatus.edit);
+    if (state?.edit || pathname.includes(BaseRecordStatus.edit)) {
+      setStatus(BaseRecordStatus.edit);
     }
   }, [location]);
 
-  return { status, uid: status === PostStatus.edit ? pathname.split('/').at(-1) : undefined };
+  return { status, uid: status === BaseRecordStatus.edit ? pathname.split('/').at(-1) : undefined };
 }

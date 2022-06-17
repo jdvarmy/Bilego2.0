@@ -7,9 +7,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Events } from './Events';
-import { Items } from './Items';
 import { Maps } from './Maps';
 import { Tickets } from './Tickets';
+import { TicketType } from '../types/enums';
 
 @Entity()
 export class EventDates {
@@ -22,10 +22,6 @@ export class EventDates {
   @JoinColumn()
   event: Events;
 
-  @ManyToOne(() => Items, (item) => item.eventDates, { onDelete: 'SET NULL' })
-  @JoinColumn()
-  item: Items;
-
   @ManyToOne(() => Maps, (map) => map.eventDates, { onDelete: 'SET NULL' })
   @JoinColumn()
   map: Maps;
@@ -33,15 +29,20 @@ export class EventDates {
   @OneToMany(() => Tickets, (tickets) => tickets.eventDate)
   tickets: Tickets[];
 
-  @Column({ nullable: true })
-  city: string;
+  @Column({
+    type: 'enum',
+    enum: TicketType,
+    default: null,
+    nullable: true,
+  })
+  type: TicketType;
 
   @Column({ type: 'datetime', nullable: true })
-  dateFrom: string;
+  dateFrom: Date;
 
   @Column({ type: 'datetime', nullable: true })
-  dateTo: string;
+  dateTo: Date;
 
   @Column({ type: 'datetime', nullable: true })
-  closeDateTime: string;
+  closeDateTime: Date;
 }

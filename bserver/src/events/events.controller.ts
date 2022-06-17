@@ -1,12 +1,24 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  InternalServerErrorException,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { EventsService } from './events.service';
 import { City, SortType } from '../types/enums';
+import { ReqEventDto } from '../dtos/ReqEventDto';
+import { EventDto } from '../dtos/EventDto';
 
-@Controller('')
+@Controller('v1/events')
 export class EventsController {
   constructor(private readonly eventService: EventsService) {}
 
-  @Get('/events')
+  // todo: refactor
+  @Get()
   getFilteredEvents(
     @Query('city') city?: City,
     @Query('offset') offset?: number,
@@ -33,8 +45,30 @@ export class EventsController {
     return this.eventService.getFilteredEvents(props);
   }
 
-  @Get('/events/:slug')
-  getEvent(@Param('slug') slug: string) {
-    return this.eventService.getEvent(slug);
+  @Get(':uid')
+  getEvent(@Param('uid') uid: string): Promise<EventDto> {
+    try {
+      return this.eventService.getEvent(uid);
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
+  }
+
+  @Post('save')
+  saveEvent(): Promise<EventDto> {
+    try {
+      return this.eventService.saveTemplateEvent();
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
+  }
+
+  @Put('save')
+  editEvent(@Body() eventDto: ReqEventDto): Promise<EventDto> {
+    try {
+      return this.eventService.saveEvent(eventDto);
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { HTTP_URL, HTTP_VERSION } from './env';
-import { UserRole } from './enum';
+import { City, EventHeaderType, PostStatus, UserRole } from './enum';
 
 export const loginPage = '/login';
 export const storageTokenName = '_btoken' as const;
@@ -19,6 +19,50 @@ export type User = {
   concertManagerInfo?: string;
   concertManagerPercentage?: number;
 };
+
+interface Post {
+  uid?: string;
+  slug?: string;
+  status?: PostStatus;
+  title?: string;
+  text?: string;
+  create?: Date;
+  update?: Date;
+  seo?: any;
+}
+
+export interface Event extends Post {
+  item?: Pick<Item, 'uid' | 'title' | 'city'>;
+  artist?: Pick<Artist, 'uid' | 'title'>[];
+  city?: City;
+  eventManager?: any;
+  taxonomy?: any;
+  eventDates?: any;
+  image?: any;
+  fragment?: string;
+  searchWords?: string;
+  ageRestriction?: number;
+  isShowOnSlider?: boolean;
+  musicLink?: string;
+  videoLink?: string;
+  headerType?: EventHeaderType;
+  headerImage?: any;
+  headerVideo?: any;
+  headerTitle?: string;
+  headerSubtitle?: string;
+  headerMeta?: string;
+  headerTextColor?: string;
+  concertManagerInfo?: string;
+  concertManagerPercentage?: number;
+}
+
+export interface Item extends Post {
+  image?: any;
+  city?: City;
+}
+export interface Artist extends Post {
+  avatar?: any;
+}
 
 // http
 export type RequestAuth = {

@@ -1,28 +1,26 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  InternalServerErrorException,
+  Query,
+} from '@nestjs/common';
 import { ItemsService } from './items.service';
-import { City, TermType } from '../types/enums';
+import { ItemDto } from '../dtos/ItemDto';
+import { City } from '../types/enums';
 
-@Controller('/items')
+@Controller('v1/items')
 export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
 
   @Get()
-  getFilteredItems(
+  getItemList(
+    @Query('search') search: string,
     @Query('city') city?: City,
-    @Query('category') categories?: TermType | TermType[],
-    @Query('count') count?: number,
-    @Query('offset') offset?: number,
-  ) {
-    return this.itemsService.getFilteredItems({
-      city,
-      category: categories || [],
-      count: count ?? 10,
-      offset: offset ?? 0,
-    });
-  }
-
-  @Get(':slug')
-  getEvent(@Param('slug') slug: string) {
-    return this.itemsService.getItem(slug);
+  ): Promise<ItemDto[]> {
+    try {
+      return this.itemsService.getItemList(search, city);
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
   }
 }

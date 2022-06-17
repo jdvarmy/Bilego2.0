@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Grid } from '@mui/material';
-import { PostStatus, UserRole } from '../../typings/enum';
+import { Grid, Container } from '@mui/material';
+import { BaseRecordStatus, UserRole } from '../../typings/enum';
 import { MediaSelectData, User } from '../../typings/types';
 import SaveUserButton from './elems/SaveUserButton';
 import UserMainData from './elems/UserMainData';
@@ -40,7 +40,7 @@ const UserDataContainer = () => {
   const [values, setValues] = useState<UserState>(initialState);
   const { status, uid } = usePostStatus();
 
-  const isEdit = useMemo(() => status === PostStatus.edit && !!uid, [status, uid]);
+  const isEdit = useMemo(() => status === BaseRecordStatus.edit && !!uid, [status, uid]);
 
   useEffect(() => {
     if (isEdit) {
@@ -53,25 +53,29 @@ const UserDataContainer = () => {
       <Helmet>
         <title>{isEdit ? 'Редактирование' : 'Регистрация'} пользователя</title>
       </Helmet>
-      <Grid container sx={{ my: 3 }} justifyContent='space-between' alignItems='center'>
-        <Grid item />
-        <Grid item>
-          <SaveUserButton userData={values} uid={uid} />
-        </Grid>
-      </Grid>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <UserMainData userData={values} setUserData={setValues} edit={isEdit} />
-        </Grid>
-        <Grid item xs={12}>
-          <UserSubData userData={values} setUserData={setValues} />
-        </Grid>
-        {values.role === UserRole.organizer && (
-          <Grid item xs={12}>
-            <UserOrganizerData userData={values} setUserData={setValues} />
+      <Container maxWidth='lg'>
+        <Grid container sx={{ my: 3 }} justifyContent='space-between' alignItems='center'>
+          <Grid item />
+          <Grid item>
+            <SaveUserButton userData={values} uid={uid} />
           </Grid>
-        )}
-      </Grid>
+        </Grid>
+      </Container>
+      <Container maxWidth='lg'>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <UserMainData userData={values} setUserData={setValues} edit={isEdit} />
+          </Grid>
+          <Grid item xs={12}>
+            <UserSubData userData={values} setUserData={setValues} />
+          </Grid>
+          {values.role === UserRole.organizer && (
+            <Grid item xs={12}>
+              <UserOrganizerData userData={values} setUserData={setValues} />
+            </Grid>
+          )}
+        </Grid>
+      </Container>
     </>
   );
 };

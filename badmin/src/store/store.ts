@@ -2,6 +2,8 @@ import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/t
 import thunk from 'redux-thunk';
 import sidebarSlice from './sidebarSlice/sidebarSlice';
 import eventsSlice from './eventsSlice/eventsSlice';
+import itemsSlice from './itemsSlice/itemsSlice';
+import artistsSlice from './artistsSlice/artistsSlice';
 import authSlice from './authSlice/authSlice';
 import usersSlice from './usersSlice/usersSlice';
 import medialibrarySlice from './medialibrarySlice/medialibrarySlice';
@@ -11,6 +13,8 @@ const reducer = combineReducers({
   sidebar: sidebarSlice,
   auth: authSlice,
   events: eventsSlice,
+  items: itemsSlice,
+  artists: artistsSlice,
   users: usersSlice,
   medialibrary: medialibrarySlice,
   alert: alertSlice,

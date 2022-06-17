@@ -1,5 +1,5 @@
 import requests from './api';
-import { MediaFile, RequestAuth, RequestUser, ResponseAuth, User } from '../typings/types';
+import { MediaFile, RequestAuth, RequestUser, ResponseAuth, User, Event } from '../typings/types';
 
 export const fetchRegister = (data: RequestAuth) => requests.post<ResponseAuth>(`auth/register`, data);
 export const fetchLogin = (data: RequestAuth) => requests.post<ResponseAuth>(`auth/login`, data);
@@ -19,3 +19,11 @@ export const fetchMedialibrary = () => requests.get<MediaFile[]>(`media`);
 export const getFileMedialibrary = (id: number) => requests.get<MediaFile>(`media/${id}`);
 export const uploadFileMedialibrary = (data: FormData) => requests.post<boolean>(`media/upload`, data);
 export const removeFileMedialibrary = (id: number) => requests.delete<boolean>(`media/${id}`);
+
+export const fetchEventDataByUid = (uid: string) => requests.get<Event>(`events/${uid}`);
+export const saveTemplateEventData = () => requests.post<Event>(`events/save`);
+export const saveEventData = (data: Event) => requests.put<Event>(`events/save`, data);
+
+export const fetchItemListForEvent = (data: any) => requests.get<Event['item'][]>(`items`, data);
+export const fetchArtistListForEvent = (data: { search: string }, cfg: { signal: AbortSignal }) =>
+  requests.get<Event['artist']>(`artists`, data, cfg);
