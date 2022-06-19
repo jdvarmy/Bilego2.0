@@ -29,3 +29,8 @@ export enum City {
   moscow = 'moscow',
   petersburg = 'petersburg',
 }
+
+export enum TicketType {
+  simple = 'simple',
+  map = 'map',
+}

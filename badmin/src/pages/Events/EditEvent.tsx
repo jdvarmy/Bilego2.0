@@ -46,7 +46,7 @@ const EditEvent = () => {
   return (
     <>
       <Helmet>
-        <title>Событие{` ${event?.title || event?.slug}` || 'неопределено во вселенной'}</title>
+        <title>Событие{` ${event.title || event.slug}` || 'неопределено во вселенной'}</title>
       </Helmet>
       <Container maxWidth='lg'>
         <Grid container sx={{ my: 3 }} justifyContent='space-between' alignItems='center'>
@@ -62,13 +62,13 @@ const EditEvent = () => {
       <Container maxWidth='lg'>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <TextRedactor title={event.title} text={event.text} />
+            {/*<TextRedactor title={event.title} text={event.text} />*/}
           </Grid>
           <Grid item xs={12}>
             <EventPlace city={event.city} item={event.item} artist={event.artist} />
           </Grid>
           <Grid item xs={12}>
-            <EventDates />
+            <EventDates uid={event.uid} dates={event.eventDates} />
           </Grid>
           <Grid item xs={12}>
             <Tickets />

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   InternalServerErrorException,
   Param,
@@ -12,6 +13,7 @@ import { EventsService } from './events.service';
 import { City, SortType } from '../types/enums';
 import { ReqEventDto } from '../dtos/ReqEventDto';
 import { EventDto } from '../dtos/EventDto';
+import { EventDates } from '../typeorm';
 
 @Controller('v1/events')
 export class EventsController {
@@ -66,7 +68,34 @@ export class EventsController {
   @Put('save')
   editEvent(@Body() eventDto: ReqEventDto): Promise<EventDto> {
     try {
-      return this.eventService.saveEvent(eventDto);
+      return this.eventService.editEvent(eventDto);
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
+  }
+
+  @Get(':eventUid/dates')
+  getEventDates(@Param('eventUid') eventUid: string): Promise<EventDates[]> {
+    try {
+      return this.eventService.getEventDates(eventUid);
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
+  }
+
+  @Post(':eventUid/dates')
+  saveEventDate(@Param('eventUid') eventUid: string): Promise<EventDates> {
+    try {
+      return this.eventService.saveTemplateEventDate(eventUid);
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
+  }
+
+  @Delete(':eventUid/dates/:id')
+  deleteEventDate(@Param('id') id: string): Promise<boolean> {
+    try {
+      return this.eventService.deleteEventDate(id);
     } catch (e) {
       throw new InternalServerErrorException(e.message);
     }

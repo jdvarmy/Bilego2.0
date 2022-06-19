@@ -1,4 +1,4 @@
-import { Events } from '../typeorm';
+import { EventDates, Events, Users } from '../typeorm';
 import { City, EventHeaderType, PostStatus } from '../types/enums';
 
 export class EventDto {
@@ -13,9 +13,9 @@ export class EventDto {
   item?: any;
   city?: City;
   seo?: any;
-  eventManager?: any;
+  eventManager?: Users;
   taxonomy?: any;
-  eventDates?: any;
+  eventDates?: EventDates[];
   image?: any;
   fragment?: string;
   searchWords?: string;

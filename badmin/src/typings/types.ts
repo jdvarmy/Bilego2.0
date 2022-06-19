@@ -1,5 +1,5 @@
 import { HTTP_URL, HTTP_VERSION } from './env';
-import { City, EventHeaderType, PostStatus, UserRole } from './enum';
+import { City, EventHeaderType, PostStatus, TicketType, UserRole } from './enum';
 
 export const loginPage = '/login';
 export const storageTokenName = '_btoken' as const;
@@ -31,13 +31,22 @@ interface Post {
   seo?: any;
 }
 
+export type EventDate = {
+  closeDateTime: Date | null;
+  dateFrom: Date | null;
+  dateTo: Date | null;
+  id: string;
+  type?: TicketType;
+  event?: Event;
+};
+
 export interface Event extends Post {
   item?: Pick<Item, 'uid' | 'title' | 'city'>;
   artist?: Pick<Artist, 'uid' | 'title'>[];
   city?: City;
   eventManager?: any;
   taxonomy?: any;
-  eventDates?: any;
+  eventDates?: EventDate[];
   image?: any;
   fragment?: string;
   searchWords?: string;

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Box, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material';
+import { Button, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material';
+import MapIcon from '@mui/icons-material/Map';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 
 const Tickets = () => {
   return (
@@ -7,11 +9,16 @@ const Tickets = () => {
       <CardHeader title='Билеты' />
       <Divider />
       <CardContent>
-        <Box>
-          <Grid container spacing={3} alignItems='center'>
-            <Grid item xs={4}></Grid>
+        <Grid container alignItems='center' spacing={3}>
+          <Grid item>
+            <Button sx={{ mx: 2, my: 0.5 }} variant='outlined' startIcon={<MapIcon fontSize='small' />}>
+              Добавить билеты с картой
+            </Button>
+            <Button sx={{ mx: 2, my: 0.5 }} variant='outlined' startIcon={<LocalActivityIcon fontSize='small' />}>
+              Добавить входные билеты
+            </Button>
           </Grid>
-        </Box>
+        </Grid>
       </CardContent>
     </Card>
   );

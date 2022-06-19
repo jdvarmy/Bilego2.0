@@ -1,5 +1,5 @@
 import requests from './api';
-import { MediaFile, RequestAuth, RequestUser, ResponseAuth, User, Event } from '../typings/types';
+import { MediaFile, RequestAuth, RequestUser, ResponseAuth, User, Event, EventDate } from '../typings/types';
 
 export const fetchRegister = (data: RequestAuth) => requests.post<ResponseAuth>(`auth/register`, data);
 export const fetchLogin = (data: RequestAuth) => requests.post<ResponseAuth>(`auth/login`, data);
@@ -20,9 +20,13 @@ export const getFileMedialibrary = (id: number) => requests.get<MediaFile>(`medi
 export const uploadFileMedialibrary = (data: FormData) => requests.post<boolean>(`media/upload`, data);
 export const removeFileMedialibrary = (id: number) => requests.delete<boolean>(`media/${id}`);
 
-export const fetchEventDataByUid = (uid: string) => requests.get<Event>(`events/${uid}`);
+export const fetchEventData = (eventUid: string) => requests.get<Event>(`events/${eventUid}`);
 export const saveTemplateEventData = () => requests.post<Event>(`events/save`);
 export const saveEventData = (data: Event) => requests.put<Event>(`events/save`, data);
+export const fetchEventDatesData = (eventUid: string) => requests.get<EventDate[]>(`events/${eventUid}/dates`);
+export const requestSaveAddEventDate = (eventUid: string) => requests.post<EventDate>(`events/${eventUid}/dates`);
+export const requestDeleteEventDate = (id: string, eventUid: string) =>
+  requests.delete<boolean>(`events/${eventUid}/dates/${id}`);
 
 export const fetchItemListForEvent = (data: any) => requests.get<Event['item'][]>(`items`, data);
 export const fetchArtistListForEvent = (data: { search: string }, cfg: { signal: AbortSignal }) =>

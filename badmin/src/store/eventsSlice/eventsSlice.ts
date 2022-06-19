@@ -1,7 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Event } from '../../typings/types';
 import { AppThunk } from '../store';
-import { fetchEventDataByUid, saveEventData, saveTemplateEventData } from '../../api/requests';
+import {
+  fetchEventData,
+  requestDeleteEventDate,
+  requestSaveAddEventDate,
+  saveEventData,
+  saveTemplateEventData,
+} from '../../api/requests';
 
 export type EventStateFieldType = Record<keyof Event, any>;
 type State = {
@@ -45,7 +51,7 @@ export const getEventByUid =
     dispatch(setLoading(true));
 
     try {
-      const { data } = await fetchEventDataByUid(slug);
+      const { data } = await fetchEventData(slug);
       dispatch(setEventState(data));
     } catch (e) {
       console.log(e);
@@ -75,6 +81,37 @@ export const saveEvent =
     try {
       const { data } = await saveEventData(event);
       dispatch(setEventState(data));
+    } catch (e) {
+      console.log(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+
+export const saveTemplateEventDate =
+  (eventUid: string): AppThunk =>
+  async (dispatch, getState) => {
+    dispatch(setLoading(true));
+    const eventDates = getState().events.eventState?.eventDates || [];
+
+    try {
+      const { data } = await requestSaveAddEventDate(eventUid);
+      delete data.event;
+      dispatch(setEventStateField({ eventDates: [...eventDates, data] } as EventStateFieldType));
+    } catch (e) {
+      console.log(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+
+export const deleteEventDate =
+  (id: string, eventUid: string): AppThunk =>
+  async (dispatch) => {
+    dispatch(setLoading(true));
+
+    try {
+      await requestDeleteEventDate(id, eventUid);
     } catch (e) {
       console.log(e);
     } finally {
