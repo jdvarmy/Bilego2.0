@@ -32,12 +32,12 @@ interface Post {
 }
 
 export type EventDate = {
-  closeDateTime: Date | null;
-  dateFrom: Date | null;
-  dateTo: Date | null;
-  id: string;
+  id: number;
+  eventUid: string;
   type?: TicketType;
-  event?: Event;
+  dateFrom?: Date;
+  dateTo?: Date;
+  closeDateTime?: Date;
 };
 
 export interface Event extends Post {

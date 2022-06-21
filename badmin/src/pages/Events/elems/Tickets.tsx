@@ -1,27 +1,36 @@
-import React from 'react';
-import { Button, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material';
-import MapIcon from '@mui/icons-material/Map';
-import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import React, { memo } from 'react';
+import { Card, CardContent, CardHeader, Divider, Grid } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { selectEventSelectedDateId } from '../../../store/selectors';
+import TicketsInitialContent from './TicketsInitialContent';
+import { Event } from '../../../typings/types';
 
-const Tickets = () => {
+type Props = {
+  dates?: Event['eventDates'];
+};
+
+const Tickets = ({ dates }: Props) => {
+  const selectedDateId = useSelector(selectEventSelectedDateId);
+  const selectedDate = dates?.find((date) => date.id === selectedDateId);
+
+  console.log('render Tickets');
+
+  if (!selectedDateId) {
+    return null;
+  }
+
   return (
     <Card>
       <CardHeader title='Билеты' />
       <Divider />
       <CardContent>
         <Grid container alignItems='center' spacing={3}>
-          <Grid item>
-            <Button sx={{ mx: 2, my: 0.5 }} variant='outlined' startIcon={<MapIcon fontSize='small' />}>
-              Добавить билеты с картой
-            </Button>
-            <Button sx={{ mx: 2, my: 0.5 }} variant='outlined' startIcon={<LocalActivityIcon fontSize='small' />}>
-              Добавить входные билеты
-            </Button>
-          </Grid>
+          {<TicketsInitialContent selectedDate={selectedDate} />}
+          <Grid item>{selectedDate?.type}</Grid>
         </Grid>
       </CardContent>
     </Card>
   );
 };
 
-export default Tickets;
+export default memo(Tickets);

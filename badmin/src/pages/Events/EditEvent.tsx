@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Container, Grid } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 import { AppDispatch } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEventByUid, setEventState } from '../../store/eventsSlice/eventsSlice';
@@ -60,29 +60,31 @@ const EditEvent = () => {
         </Grid>
       </Container>
       <Container maxWidth='lg'>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            {/*<TextRedactor title={event.title} text={event.text} />*/}
+        <Box component='form' noValidate autoComplete='off'>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              {/*<TextRedactor title={event.title} text={event.text} />*/}
+            </Grid>
+            <Grid item xs={12}>
+              <EventPlace city={event.city} item={event.item} artist={event.artist} />
+            </Grid>
+            <Grid item xs={12}>
+              <EventDates uid={event.uid} dates={event.eventDates} />
+            </Grid>
+            <Grid item xs={12}>
+              <Tickets dates={event.eventDates} />
+            </Grid>
+            <Grid item xs={12}>
+              <EventProps />
+            </Grid>
+            <Grid item xs={12}>
+              <EventHeader />
+            </Grid>
+            <Grid item xs={12}>
+              <Gallery />
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <EventPlace city={event.city} item={event.item} artist={event.artist} />
-          </Grid>
-          <Grid item xs={12}>
-            <EventDates uid={event.uid} dates={event.eventDates} />
-          </Grid>
-          <Grid item xs={12}>
-            <Tickets />
-          </Grid>
-          <Grid item xs={12}>
-            <EventProps />
-          </Grid>
-          <Grid item xs={12}>
-            <EventHeader />
-          </Grid>
-          <Grid item xs={12}>
-            <Gallery />
-          </Grid>
-        </Grid>
+        </Box>
       </Container>
     </>
   );

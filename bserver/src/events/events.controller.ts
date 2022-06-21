@@ -14,6 +14,8 @@ import { City, SortType } from '../types/enums';
 import { ReqEventDto } from '../dtos/ReqEventDto';
 import { EventDto } from '../dtos/EventDto';
 import { EventDates } from '../typeorm';
+import { ReqEventDateDto } from '../dtos/ReqEventDateDto';
+import { EventDatesDto } from '../dtos/EventDatesDto';
 
 @Controller('v1/events')
 export class EventsController {
@@ -56,7 +58,7 @@ export class EventsController {
     }
   }
 
-  @Post('save')
+  @Post()
   saveEvent(): Promise<EventDto> {
     try {
       return this.eventService.saveTemplateEvent();
@@ -65,7 +67,7 @@ export class EventsController {
     }
   }
 
-  @Put('save')
+  @Put()
   editEvent(@Body() eventDto: ReqEventDto): Promise<EventDto> {
     try {
       return this.eventService.editEvent(eventDto);
@@ -84,7 +86,7 @@ export class EventsController {
   }
 
   @Post(':eventUid/dates')
-  saveEventDate(@Param('eventUid') eventUid: string): Promise<EventDates> {
+  saveEventDate(@Param('eventUid') eventUid: string): Promise<EventDatesDto> {
     try {
       return this.eventService.saveTemplateEventDate(eventUid);
     } catch (e) {
@@ -96,6 +98,15 @@ export class EventsController {
   deleteEventDate(@Param('id') id: string): Promise<boolean> {
     try {
       return this.eventService.deleteEventDate(id);
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
+  }
+
+  @Put(':eventUid/dates')
+  editEventDate(@Body() eventDateDto: ReqEventDateDto): Promise<EventDatesDto> {
+    try {
+      return this.eventService.editEventDate(eventDateDto);
     } catch (e) {
       throw new InternalServerErrorException(e.message);
     }

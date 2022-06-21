@@ -16,11 +16,11 @@ export class ReqSaveUserDto {
 
   @IsOptional()
   @IsString()
-  password: string;
+  password?: string;
 
   @IsOptional()
   @IsString()
-  name: string;
+  name?: string;
 
   @IsNotEmpty({ message: 'Не заполнен статус, хорошо бы заполнить' })
   @IsNumber({ allowNaN: false, allowInfinity: false })

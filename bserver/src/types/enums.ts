@@ -81,12 +81,12 @@ export enum OrderStatus {
 }
 
 export enum UnauthorizedException_401 {
-  notFound = 'Пользователь не найден',
-  wrongPass = 'Неверный логин или пароль',
+  notFound, // Пользователь не найден
+  wrongPass, // Неверный логин или пароль
 }
 
 export enum ForbiddenException_403 {
-  deleted = 'Пользователь удален',
+  deleted, // Пользователь удален
 }
 
 export enum NotFoundException_404 {}
@@ -94,16 +94,18 @@ export enum NotFoundException_404 {}
 export enum BadRequestException_400 {}
 
 export enum InternalServerErrorException_500 {
-  uploadFile = 'Неудалось загрузить файл на диск',
-  removeFile = 'Неудалось удалить файл',
-  saveUser = 'Неуказаны логин или пароль',
-  getUser = 'Такого пользователя не существует',
-  findUser = 'Пользователь с такими данными не найден',
-  findEvent = 'Событие с такими данными не найдено',
-  findEventDates = 'На данное событие не найдено открытых дат',
-  findItems = 'Площадки с такими данными не найдены',
-  findEventUid = 'Событие с таким идентификатором не найдено',
-  saveEventSlug = 'Пустая ссылка на событие',
+  uploadFile, // Неудалось загрузить файл на диск
+  removeFile, // Неудалось удалить файл
+  saveUser, // Неуказаны логин или пароль
+  getUser, // Такого пользователя не существует
+  findUser, // Пользователь с такими данными не найден
+  findEvent, // Событие с такими данными не найдено
+  findEventDate, // Дата события с такими данными не найдена
+  findEventDates, // На данное событие не найдено открытых дат
+  findItems, // Площадки с такими данными не найдены
+  findEventUid, // Событие с таким идентификатором не найдено
+  saveEventSlug, // Пустая ссылка на событие
+  editNoEventDateId, // Нет идентификатора даты события при редактировании
 }
 
 export enum FileType {

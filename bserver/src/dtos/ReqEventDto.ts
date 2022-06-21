@@ -3,9 +3,9 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class ReqEventDto {
   @IsNotEmpty()
   @IsString()
-  uid?: string;
+  uid: string;
 
   @IsNotEmpty()
   @IsString()
-  slug?: string;
+  slug: string;
 }

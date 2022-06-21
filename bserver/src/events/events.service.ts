@@ -8,6 +8,8 @@ import { Repository } from 'typeorm';
 import { EventDto } from '../dtos/EventDto';
 import { v4 as uidv4 } from 'uuid';
 import { InternalServerErrorException_500 } from '../types/enums';
+import { ReqEventDateDto } from '../dtos/ReqEventDateDto';
+import { EventDatesDto } from '../dtos/EventDatesDto';
 
 @Injectable()
 export class EventsService {
@@ -44,17 +46,16 @@ export class EventsService {
   async editEvent(data: ReqEventDto): Promise<EventDto> {
     const { uid, ...eventData } = data;
 
-    const eventFromBd = await this.getEventByUid(uid);
-    if (!eventFromBd) {
+    const eventFromDb = await this.getEventByUid(uid);
+    if (!eventFromDb) {
       throw new InternalServerErrorException(
         InternalServerErrorException_500.findEventUid,
       );
     }
 
     const updateEventData = this.eventsRepo.create(eventData);
-
     return new EventDto(
-      await this.eventsRepo.save({ ...eventFromBd, ...updateEventData }),
+      await this.eventsRepo.save({ ...eventFromDb, ...updateEventData }),
     );
   }
 
@@ -81,8 +82,24 @@ export class EventsService {
     return true;
   }
 
+  async editEventDate(data: ReqEventDateDto): Promise<any> {
+    const { id, ...eventDateData } = data;
+
+    if (!id) {
+      throw new InternalServerErrorException(
+        InternalServerErrorException_500.editNoEventDateId,
+      );
+    }
+    const eventDateFromDb = await this.getEventDateById(id);
+
+    const eventDates = this.eventDatesRepo.create(eventDateData);
+    return new EventDatesDto(
+      await this.eventDatesRepo.save({ ...eventDateFromDb, ...eventDates }),
+    );
+  }
+
   // UTILS
-  async getEventByUid(uid: string) {
+  async getEventByUid(uid: string): Promise<Events> {
     const event = await this.eventsRepo.findOne({
       where: { uid },
       relations: ['eventDates'],
@@ -97,7 +114,21 @@ export class EventsService {
     return event;
   }
 
-  async getEventDatesByEvent(id: number) {
+  async getEventDateById(id: number): Promise<EventDates> {
+    const eventDate = await this.eventDatesRepo.findOne({
+      where: { id },
+    });
+
+    if (!eventDate) {
+      throw new InternalServerErrorException(
+        InternalServerErrorException_500.findEventDate,
+      );
+    }
+
+    return eventDate;
+  }
+
+  async getEventDatesByEvent(id: number): Promise<EventDates[]> {
     const eventDates = await this.eventDatesRepo
       .createQueryBuilder('dates')
       .where('dates.event = :event', {
