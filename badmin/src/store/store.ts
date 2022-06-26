@@ -4,6 +4,7 @@ import sidebarSlice from './sidebarSlice/sidebarSlice';
 import eventsSlice from './eventsSlice/eventsSlice';
 import itemsSlice from './itemsSlice/itemsSlice';
 import artistsSlice from './artistsSlice/artistsSlice';
+import ticketsSlice from './ticketsSlice/ticketsSlice';
 import authSlice from './authSlice/authSlice';
 import usersSlice from './usersSlice/usersSlice';
 import medialibrarySlice from './medialibrarySlice/medialibrarySlice';
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   items: itemsSlice,
   artists: artistsSlice,
   users: usersSlice,
+  tickets: ticketsSlice,
   medialibrary: medialibrarySlice,
   alert: alertSlice,
 });

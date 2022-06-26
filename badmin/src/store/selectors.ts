@@ -16,3 +16,5 @@ export const selectEventsStore = (state: RootState) => select(state)?.events;
 export const selectEvent = (state: RootState) => selectEventsStore(state).eventState;
 export const selectEvents = (state: RootState) => selectEventsStore(state).events;
 export const selectEventSelectedDateId = (state: RootState) => selectEventsStore(state).selectedDateId;
+
+export const selectTicketsStore = (state: RootState) => select(state)?.tickets;

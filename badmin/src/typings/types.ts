@@ -5,6 +5,8 @@ export const loginPage = '/login';
 export const storageTokenName = '_btoken' as const;
 export const axiosBaseUrl = `${HTTP_URL}${HTTP_VERSION}/`;
 
+export type ColorsFormat = 'plain' | 'hex' | 'rgb' | 'number' | 'unknown' | undefined;
+
 export type User = {
   email: string;
   role: UserRole;
@@ -71,6 +73,27 @@ export interface Item extends Post {
 }
 export interface Artist extends Post {
   avatar?: any;
+}
+
+export interface TicketOnSell {
+  uid: string;
+  price?: number;
+  service?: number;
+  totalPrice?: number;
+  dateFrom?: string;
+  dateTo?: string;
+  color?: string;
+}
+export interface Ticket {
+  uid?: string;
+  type?: TicketType;
+  name?: string;
+  description?: string;
+  stock?: number;
+  seat?: string;
+  row?: string;
+  sector?: string;
+  sell?: TicketOnSell[];
 }
 
 // http

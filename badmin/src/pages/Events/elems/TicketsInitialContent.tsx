@@ -40,7 +40,7 @@ const TicketsInitialContent = ({ selectedDate }: Props) => {
   ];
 
   return (
-    <Grid item>
+    <Grid item xs={12}>
       {initialButtons.map(({ label, ...props }) => (
         <Button key={label} {...props}>
           {label}

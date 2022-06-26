@@ -12,6 +12,9 @@ export class TicketsSell {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
+  @Column({ length: 60, unique: true })
+  uid: string;
+
   @ManyToOne(() => Tickets, (ticket) => ticket.ticketsSell, {
     onDelete: 'CASCADE',
   })
@@ -26,9 +29,6 @@ export class TicketsSell {
 
   @Column({ default: 0 })
   totalPrice: number;
-
-  @Column({ default: 0 })
-  stock: number;
 
   @Column({ type: 'datetime', nullable: true })
   dateFrom: string;

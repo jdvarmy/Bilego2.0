@@ -18,7 +18,7 @@ const SaveEventButtons = () => {
         </IconButton>
       </Tooltip>
       <Tooltip sx={{ ml: 2, my: 0.5 }} placement='top' arrow title='Опубликовать событие'>
-        <IconButton color='primary' onClick={handleButtonClick}>
+        <IconButton color='success' onClick={handleButtonClick}>
           <PublicTwoToneIcon />
         </IconButton>
       </Tooltip>

@@ -1,17 +1,18 @@
 import React from 'react';
-import { Grid, TextField } from '@mui/material';
+import { Grid, IconButton, TextField, Tooltip } from '@mui/material';
 import { DateTimePicker } from '@mui/lab';
 import { Event, EventDate } from '../../../typings/types';
 import { AppDispatch } from '../../../store/store';
 import { useDispatch } from 'react-redux';
 import { EventStateFieldType, setEventStateField } from '../../../store/eventsSlice/eventsSlice';
+import ArrowCircleRightTwoToneIcon from '@mui/icons-material/ArrowCircleRightTwoTone';
 
 type Props = {
   selectDate?: EventDate;
   dates?: Event['eventDates'];
 };
 
-const pickerProps = {
+export const pickerProps = {
   inputFormat: 'dd.MM.yyyy HH:mm',
   mask: '__.__.____ __:__',
   ampm: false,
@@ -37,10 +38,21 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
 
       dispatch(setEventStateField({ eventDates } as EventStateFieldType));
     };
+  const handleCopyStartDate = () => {
+    const eventDates = dates?.map((d) => {
+      if (d.id === selectDate?.id) {
+        return { ...d, dateTo: selectDate.dateFrom };
+      }
+
+      return d;
+    });
+
+    dispatch(setEventStateField({ eventDates } as EventStateFieldType));
+  };
 
   return (
     <Grid sx={{ mt: 3 }} container spacing={3} alignItems='center'>
-      <Grid item xs={3}>
+      <Grid item xs={6} sx={{ display: 'flex' }}>
         <DateTimePicker
           renderInput={(props) => <TextField focused={!!selectDate.dateFrom} fullWidth {...props} />}
           label='Начало'
@@ -48,8 +60,11 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
           onChange={handleChangeDateTime('dateFrom')}
           {...pickerProps}
         />
-      </Grid>
-      <Grid item xs={3}>
+        <Tooltip arrow placement='top' title='Копировать дату начала'>
+          <IconButton color='secondary' onClick={handleCopyStartDate}>
+            <ArrowCircleRightTwoToneIcon />
+          </IconButton>
+        </Tooltip>
         <DateTimePicker
           renderInput={(props) => <TextField focused={!!selectDate.dateTo} fullWidth {...props} />}
           label='Конец'

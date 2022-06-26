@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, memo, useEffect } from 'react';
+import React, { memo, SyntheticEvent, useEffect } from 'react';
 import { Card, CardContent, CardHeader, Divider, Grid, IconButton, Tab, Tabs, Tooltip } from '@mui/material';
 import { Event } from '../../../typings/types';
 import EventDatesTabContent from './EventDatesTabContent';
@@ -16,6 +16,9 @@ import {
   setSelectedDateId,
 } from '../../../store/eventsSlice/eventsSlice';
 import { selectEventSelectedDateId } from '../../../store/selectors';
+import { TicketType } from '../../../typings/enum';
+import MapIcon from '@mui/icons-material/Map';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 
 type Props = {
   uid?: string;
@@ -78,9 +81,23 @@ const EventDates = ({ uid, dates }: Props) => {
               value={selectedDateId || dates?.at(-1)?.id}
               onChange={handleChangeTab}
             >
-              {dates?.map(({ id, dateFrom, dateTo }) => {
+              {dates?.map(({ id, dateFrom, dateTo, type }) => {
                 const label = getTabLabel(dateFrom, dateTo);
-                return <Tab key={id} label={label} value={id} />;
+                return (
+                  <Tab
+                    key={id}
+                    label={label}
+                    value={id}
+                    icon={
+                      !type ? undefined : type === TicketType.map ? (
+                        <MapIcon fontSize='small' />
+                      ) : (
+                        <LocalActivityIcon fontSize='small' />
+                      )
+                    }
+                    iconPosition='start'
+                  />
+                );
               })}
             </Tabs>
           </Grid>
