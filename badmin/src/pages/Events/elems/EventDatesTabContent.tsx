@@ -29,7 +29,7 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
   const handleChangeDateTime =
     (field: keyof Pick<EventDate, 'closeDateTime' | 'dateFrom' | 'dateTo'>) => (date: Date | null) => {
       const eventDates = dates?.map((d) => {
-        if (d.id === selectDate?.id) {
+        if (d.uid === selectDate?.uid) {
           return { ...d, [field]: date ? new Date(new Date(date).setSeconds(0, 0)) : null };
         }
 
@@ -40,7 +40,7 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
     };
   const handleCopyStartDate = () => {
     const eventDates = dates?.map((d) => {
-      if (d.id === selectDate?.id) {
+      if (d.uid === selectDate?.uid) {
         return { ...d, dateTo: selectDate.dateFrom };
       }
 

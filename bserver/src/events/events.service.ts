@@ -1,5 +1,4 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { Event } from '../types/types';
 import { ApiService } from '../api/api.service';
 import { ReqEventDto } from '../dtos/ReqEventDto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -20,6 +19,7 @@ export class EventsService {
     private eventDatesRepo: Repository<EventDates>,
   ) {}
 
+  // todo: refactor
   async getFilteredEvents(options) {
     return this.apiService.get<Event[]>('events', options);
   }
@@ -37,8 +37,7 @@ export class EventsService {
     });
     await this.eventsRepo.save(event);
 
-    const eventDates = this.eventDatesRepo.create({ event });
-    await this.eventDatesRepo.save(eventDates);
+    await this.saveTemplateEventDate(event.uid);
 
     return new EventDto(await this.getEventByUid(uid));
   }
@@ -63,19 +62,20 @@ export class EventsService {
   async getEventDates(uid: string): Promise<EventDates[]> {
     const event = await this.getEventByUid(uid);
 
-    return this.getEventDatesByEvent(event.id);
+    return this.getEventDatesByEventId(event.id);
   }
 
   async saveTemplateEventDate(eventUid: string): Promise<EventDates> {
+    const uid = uidv4();
     const event = await this.getEventByUid(eventUid);
 
-    const eventDates = this.eventDatesRepo.create({ event });
+    const eventDates = this.eventDatesRepo.create({ uid, event });
     return await this.eventDatesRepo.save(eventDates);
   }
 
-  async deleteEventDate(id: string): Promise<boolean> {
+  async deleteEventDate(uid: string): Promise<boolean> {
     const date = await this.eventDatesRepo.findOne({
-      where: { id: parseInt(id) },
+      where: { uid },
     });
     await this.eventDatesRepo.remove(date);
 
@@ -83,14 +83,14 @@ export class EventsService {
   }
 
   async editEventDate(data: ReqEventDateDto): Promise<any> {
-    const { id, ...eventDateData } = data;
+    const { uid, ...eventDateData } = data;
 
-    if (!id) {
+    if (!uid) {
       throw new InternalServerErrorException(
         InternalServerErrorException_500.editNoEventDateId,
       );
     }
-    const eventDateFromDb = await this.getEventDateById(id);
+    const eventDateFromDb = await this.getEventDateByUid(uid);
 
     const eventDates = this.eventDatesRepo.create(eventDateData);
     return new EventDatesDto(
@@ -114,9 +114,9 @@ export class EventsService {
     return event;
   }
 
-  async getEventDateById(id: number): Promise<EventDates> {
+  async getEventDateByUid(uid: string): Promise<EventDates> {
     const eventDate = await this.eventDatesRepo.findOne({
-      where: { id },
+      where: { uid },
     });
 
     if (!eventDate) {
@@ -128,7 +128,7 @@ export class EventsService {
     return eventDate;
   }
 
-  async getEventDatesByEvent(id: number): Promise<EventDates[]> {
+  async getEventDatesByEventId(id: number): Promise<EventDates[]> {
     const eventDates = await this.eventDatesRepo
       .createQueryBuilder('dates')
       .where('dates.event = :event', {

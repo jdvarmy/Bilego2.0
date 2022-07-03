@@ -23,11 +23,16 @@ export class OrderItems {
   @JoinColumn()
   ticket: Tickets;
 
+  // todo: добавить ссылку на TicketSell для обратной связи заказа с конкретным периодом продажи билета
+
   @Column()
   price: number;
 
   @Column()
   service: number;
+
+  @Column()
+  discount: number;
 
   @Column()
   totalPrice: number;

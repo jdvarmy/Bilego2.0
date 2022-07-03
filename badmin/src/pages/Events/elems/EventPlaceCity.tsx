@@ -43,7 +43,7 @@ const EventPlaceCity = ({ city, item, handleDelete }: Props) => {
         ))}
       </TextField>
       {city && (
-        <IconButton color='primary' onClick={handleDelete('city')}>
+        <IconButton color='error' onClick={handleDelete('city')}>
           <DeleteForeverTwoToneIcon />
         </IconButton>
       )}

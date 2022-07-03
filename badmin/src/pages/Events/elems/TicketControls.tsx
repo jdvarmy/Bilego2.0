@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Button, CardHeader, Divider, Grid, TextField, Card, CardContent, IconButton, Tooltip } from '@mui/material';
 import { TicketType } from '../../../typings/enum';
 import TextFieldWithDisabledButton from '../../../components/TextFieldWithDisabledButton/TextFieldWithDisabledButton';
@@ -6,8 +6,12 @@ import { Ticket, TicketOnSell } from '../../../typings/types';
 import TicketOnSellContent from './TicketOnSellContent';
 import { v4 as uidv4 } from 'uuid';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
+import { AppDispatch } from '../../../store/store';
+import { useDispatch } from 'react-redux';
+import { saveTickets } from '../../../store/ticketsSlice/ticketsSlice';
 
 type Props = {
+  dateUid: string;
   type?: TicketType;
 };
 
@@ -15,14 +19,13 @@ const initialTicketSellDataFc = (): TicketOnSell => ({
   uid: uidv4(),
   price: 0,
   service: 0,
-  totalPrice: 0,
   dateFrom: undefined,
   dateTo: undefined,
   color: undefined,
 });
-const initialTicketDataFc = (): Ticket => ({
+const initialTicketDataFc = (type?: TicketType): Ticket => ({
   uid: uidv4(),
-  type: undefined,
+  type: type,
   name: undefined,
   description: undefined,
   stock: 0,
@@ -32,9 +35,13 @@ const initialTicketDataFc = (): Ticket => ({
   sell: [initialTicketSellDataFc()],
 });
 
-const TicketControls = ({ type }: Props) => {
-  const [ticketData, setTicketData] = useState<Ticket>(initialTicketDataFc());
+const TicketControls = ({ type, dateUid }: Props) => {
+  const dispatch: AppDispatch = useDispatch();
+  const [ticketData, setTicketData] = useState<Ticket>(initialTicketDataFc(type));
 
+  const handleChange = (field: keyof Ticket) => (e: ChangeEvent<HTMLInputElement>) => {
+    setTicketData((prev) => ({ ...prev, [field]: e.target.value }));
+  };
   const handleAddTicketOnSell = () => {
     setTicketData((prev) => {
       const sell = prev?.sell || [];
@@ -54,16 +61,35 @@ const TicketControls = ({ type }: Props) => {
       return prev;
     });
   };
+  const handleSaveTicket = () => {
+    dispatch(saveTickets(dateUid, [ticketData]));
+  };
 
   return (
     <Grid container alignItems='center' spacing={3}>
       {type === TicketType.simple ? (
         <>
           <Grid item xs={4}>
-            <TextField label='Название билета' type='text' fullWidth size='small' />
+            <TextField
+              label='Название билета'
+              type='text'
+              fullWidth
+              size='small'
+              focused={!!ticketData.name}
+              value={ticketData.name || ''}
+              onChange={handleChange('name')}
+            />
           </Grid>
           <Grid item xs>
-            <TextField label='Описание' type='text' fullWidth size='small' />
+            <TextField
+              label='Описание'
+              type='text'
+              fullWidth
+              size='small'
+              focused={!!ticketData.description}
+              value={ticketData.description || ''}
+              onChange={handleChange('description')}
+            />
           </Grid>
         </>
       ) : (
@@ -76,10 +102,18 @@ const TicketControls = ({ type }: Props) => {
         </>
       )}
       <Grid item xs={2}>
-        <TextField label='Количество' type='number' fullWidth size='small' />
+        <TextField
+          label='Количество'
+          type='number'
+          fullWidth
+          size='small'
+          focused={!!ticketData.stock}
+          value={ticketData.stock}
+          onChange={handleChange('stock')}
+        />
       </Grid>
       <Grid item xs={2} container justifyContent='flex-end'>
-        <Button variant='outlined' size='small' color='success'>
+        <Button variant='outlined' size='small' color='success' onClick={handleSaveTicket}>
           Сохранить билет
         </Button>
       </Grid>

@@ -17,8 +17,10 @@ const TicketsInitialContent = ({ selectedDate }: Props) => {
 
   const handleClick = (type: TicketType) => () => {
     if (selectedDate) {
-      const { id, ...data } = selectedDate;
-      dispatch(editEventDate(id, { ...data, type }));
+      const { uid, ...data } = selectedDate;
+      if (uid) {
+        dispatch(editEventDate(uid, { ...data, type }));
+      }
     }
   };
 

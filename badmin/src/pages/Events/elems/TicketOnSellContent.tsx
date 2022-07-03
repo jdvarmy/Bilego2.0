@@ -22,7 +22,6 @@ const TicketOnSellContent = ({
   uid,
   price,
   service,
-  totalPrice,
   dateFrom,
   dateTo,
   color,
@@ -37,7 +36,7 @@ const TicketOnSellContent = ({
   onDeleteSell: (uid: string) => () => void;
 }) => {
   const [expanded, setExpanded] = React.useState<boolean>(isOpenAccordion);
-  const title = getTitle({ price, service, totalPrice, dateFrom, dateTo });
+  const title = getTitle({ price, service, dateFrom, dateTo });
 
   const handleChangeExpanded = (_event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded);
@@ -47,8 +46,11 @@ const TicketOnSellContent = ({
       return;
     }
 
+    const localValue =
+      Object.prototype.toString.call(value) === '[object Date]' ? (value as Date).setSeconds(0, 0) : value;
+
     setTicketData((prev) => {
-      const sell = prev.sell ? prev.sell.map((i) => (i.uid === uid ? { ...i, [field]: value } : i)) : undefined;
+      const sell = prev.sell ? prev.sell.map((i) => (i.uid === uid ? { ...i, [field]: localValue } : i)) : undefined;
       return { ...prev, sell };
     });
   };
@@ -58,20 +60,22 @@ const TicketOnSellContent = ({
   return (
     <Accordion expanded={expanded} onChange={handleChangeExpanded}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography>{title}</Typography>
+        <Typography variant='subtitle2'>{title}</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Grid container alignItems='center' spacing={2}>
           <Grid item xs={1}>
             <Tooltip arrow placement='top' title='Удалить выбранную дату'>
-              <IconButton disabled={deleteDisable} color='warning' onClick={onDeleteSell(uid)}>
-                <DeleteForeverTwoToneIcon fontSize='small' />
-              </IconButton>
+              <span>
+                <IconButton disabled={deleteDisable} color='error' onClick={onDeleteSell(uid)}>
+                  <DeleteForeverTwoToneIcon fontSize='small' />
+                </IconButton>
+              </span>
             </Tooltip>
           </Grid>
           <Grid item xs>
             <DateTimePicker
-              renderInput={(props) => <TextField size='small' fullWidth {...props} />}
+              renderInput={(props) => <TextField size='small' focused={!!dateFrom} fullWidth {...props} />}
               label='Начало продаж'
               value={dateFrom || null}
               onChange={handleChangeField('dateFrom')}
@@ -80,7 +84,7 @@ const TicketOnSellContent = ({
           </Grid>
           <Grid item xs>
             <DateTimePicker
-              renderInput={(props) => <TextField size='small' fullWidth {...props} />}
+              renderInput={(props) => <TextField size='small' focused={!!dateTo} fullWidth {...props} />}
               label='Окончание продаж'
               value={dateTo || null}
               onChange={handleChangeField('dateTo')}
@@ -93,6 +97,7 @@ const TicketOnSellContent = ({
               type='number'
               fullWidth
               size='small'
+              focused={!!service}
               value={service || ''}
               onChange={(e) => {
                 handleChangeField('service')(e.target.value);
@@ -105,6 +110,7 @@ const TicketOnSellContent = ({
               type='number'
               fullWidth
               size='small'
+              focused={!!price}
               value={price || ''}
               onChange={(e) => {
                 handleChangeField('price')(e.target.value);

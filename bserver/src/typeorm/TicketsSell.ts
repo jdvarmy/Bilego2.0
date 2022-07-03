@@ -27,9 +27,6 @@ export class TicketsSell {
   @Column({ default: 0 })
   service: number;
 
-  @Column({ default: 0 })
-  totalPrice: number;
-
   @Column({ type: 'datetime', nullable: true })
   dateFrom: string;
 

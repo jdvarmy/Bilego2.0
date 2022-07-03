@@ -1,10 +1,10 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { TicketType } from '../types/enums';
 
 export class ReqEventDateDto {
   @IsNotEmpty()
-  @IsNumber()
-  id: number;
+  @IsString()
+  uid: string;
 
   @IsOptional()
   @IsString()

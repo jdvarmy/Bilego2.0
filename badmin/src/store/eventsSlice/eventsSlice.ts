@@ -15,14 +15,14 @@ type State = {
   loading: boolean;
   eventState: Event | null;
   events: Event[] | null;
-  selectedDateId?: number;
+  selectedDateUid?: string;
 };
 
 const initialState: State = {
   loading: false,
   eventState: null,
   events: null,
-  selectedDateId: undefined,
+  selectedDateUid: undefined,
 };
 
 const events = createSlice({
@@ -41,13 +41,13 @@ const events = createSlice({
     setEvents: (state, action: PayloadAction<Event[]>) => {
       state.events = action.payload;
     },
-    setSelectedDateId: (state, action: PayloadAction<number | undefined>) => {
-      state.selectedDateId = action.payload;
+    setSelectedDateUid: (state, action: PayloadAction<string | undefined>) => {
+      state.selectedDateUid = action.payload;
     },
   },
 });
 
-export const { setLoading, setEventState, setEvents, setEventStateField, setSelectedDateId } = events.actions;
+export const { setLoading, setEventState, setEvents, setEventStateField, setSelectedDateUid } = events.actions;
 
 export default events.reducer;
 
@@ -103,7 +103,7 @@ export const saveTemplateEventDate =
     try {
       const { data } = await requestSaveAddEventDate(eventUid);
       dispatch(setEventStateField({ eventDates: [...eventDates, data] } as EventStateFieldType));
-      dispatch(setSelectedDateId(data.id));
+      dispatch(setSelectedDateUid(data.uid));
     } catch (e) {
       console.log(e);
     } finally {
@@ -112,12 +112,12 @@ export const saveTemplateEventDate =
   };
 
 export const deleteEventDate =
-  (id: number, eventUid: string): AppThunk =>
+  (uid: string, eventUid: string): AppThunk =>
   async (dispatch) => {
     dispatch(setLoading(true));
 
     try {
-      await requestDeleteEventDate(id, eventUid);
+      await requestDeleteEventDate(uid, eventUid);
     } catch (e) {
       console.log(e);
     } finally {
@@ -126,7 +126,7 @@ export const deleteEventDate =
   };
 
 export const editEventDate =
-  (id: number, reqData: Partial<EventDate>): AppThunk =>
+  (uid: string, reqData: Partial<EventDate>): AppThunk =>
   async (dispatch, getState) => {
     const { eventState } = getState().events;
     dispatch(setLoading(true));
@@ -135,10 +135,10 @@ export const editEventDate =
       if (!eventState?.uid) {
         return;
       }
-      const { data } = await requestEditEventDate(eventState.uid, { ...reqData, id: +id });
+      const { data } = await requestEditEventDate(eventState.uid, { ...reqData, uid });
 
       const localEventDates = eventState?.eventDates?.map((d) => {
-        if (d.id === data.id) {
+        if (d.uid === data.uid) {
           return data;
         }
         return d;

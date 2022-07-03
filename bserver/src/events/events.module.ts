@@ -8,5 +8,6 @@ import { DatabaseModule } from '../database/database.module';
   imports: [ApiModule, DatabaseModule],
   controllers: [EventsController],
   providers: [EventsService],
+  exports: [EventsService],
 })
 export class EventsModule {}

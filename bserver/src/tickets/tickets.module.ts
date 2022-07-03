@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ApiModule } from '../api/api.module';
 import { TicketsService } from './tickets.service';
 import { TicketsController } from './tickets.controller';
+import { DatabaseModule } from '../database/database.module';
+import { EventsModule } from '../events/events.module';
 
 @Module({
-  imports: [ApiModule],
+  imports: [DatabaseModule, EventsModule],
   controllers: [TicketsController],
   providers: [TicketsService],
 })

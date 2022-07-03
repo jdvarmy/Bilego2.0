@@ -16,6 +16,9 @@ export class EventDates {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
+  @Column({ length: 60, unique: true })
+  uid: string;
+
   @ManyToOne(() => Events, (events) => events.eventDates, {
     onDelete: 'CASCADE',
   })

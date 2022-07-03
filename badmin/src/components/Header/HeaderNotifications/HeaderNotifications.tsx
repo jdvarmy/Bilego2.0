@@ -4,7 +4,7 @@ import NotificationsActiveTwoToneIcon from '@mui/icons-material/NotificationsAct
 import { styled } from '@mui/material/styles';
 import { formatDistance, subDays } from 'date-fns';
 
-const NotificationsBadge = styled(Badge)(
+export const NotificationsBadge = styled(Badge)(
   ({ theme }) => `
     .MuiBadge-badge {
         background-color: ${alpha(theme.palette.error.main, 0.1)};
@@ -43,13 +43,7 @@ function HeaderNotifications() {
     <>
       <Tooltip arrow title='Оповещалки'>
         <IconButton color='primary' ref={ref} onClick={handleOpen}>
-          <NotificationsBadge
-            badgeContent={1}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-          >
+          <NotificationsBadge badgeContent={1} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
             <NotificationsActiveTwoToneIcon />
           </NotificationsBadge>
         </IconButton>

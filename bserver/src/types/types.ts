@@ -1,4 +1,4 @@
-import { City, TermType } from './enums';
+import { TermType } from './enums';
 import { UserDto } from '../dtos/UserDto';
 
 export const CookieTokenName = 'refreshToken' as const;
@@ -6,58 +6,9 @@ export const CookieTokenName = 'refreshToken' as const;
 export type ID = number | string;
 export type UID = string;
 
-interface Post {
-  title: string;
-  content: string;
-  slug: string;
-  excerpt?: string;
-  images?: ImageType[];
-}
-
-// todo: remove
-export interface Event extends Post {
-  age?: number;
-  city: City;
-  artist?: Artist;
-  item?: Item;
-  manager?: Manager;
-  deal?: number;
-  managerProps?: string;
-  categories?: TermCategory[];
-  genres?: TermGenre[];
-  selections?: TermSelection[];
-  feelings?: TermFeeling[];
-  series?: Event[];
-  startDate: Date;
-  endDate: Date;
-  slider?: EventSlider;
-  yamusic?: string;
-  youtube?: string;
-}
-
-export interface Artist extends Post {
-  image?: ImageType;
-  background?: ImageType;
-}
-
-export interface Item extends Post {
-  type?: ItemType[];
-  address?: string;
-  latitude?: number;
-  longitude?: number;
-  swzoom?: number;
-  metro?: string[];
-}
-
 export interface ItemType extends Term {
   image: ImageType;
 }
-
-export interface Manager extends Post {}
-
-export interface News extends Post {}
-
-export interface Ticket {}
 
 export interface EventSlider {}
 
@@ -98,8 +49,6 @@ export type WPError = {
     code: number;
   };
 };
-
-export interface Tickets {}
 
 export type LoginUser = {
   email: string;

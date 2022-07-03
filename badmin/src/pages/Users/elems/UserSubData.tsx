@@ -86,7 +86,7 @@ const UserSubData = ({ userData, setUserData }: Props) => {
                 focused={!!avatar}
               />
               {!!avatar && (
-                <IconButton color='primary' onClick={handleDeleteAvatar}>
+                <IconButton color='error' onClick={handleDeleteAvatar}>
                   <DeleteForeverTwoToneIcon />
                 </IconButton>
               )}

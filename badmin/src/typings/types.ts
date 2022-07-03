@@ -34,7 +34,7 @@ interface Post {
 }
 
 export type EventDate = {
-  id: number;
+  uid: string;
   eventUid: string;
   type?: TicketType;
   dateFrom?: Date;
@@ -79,10 +79,10 @@ export interface TicketOnSell {
   uid: string;
   price?: number;
   service?: number;
-  totalPrice?: number;
   dateFrom?: string;
   dateTo?: string;
   color?: string;
+  totalPrice?: { service: number; price: number };
 }
 export interface Ticket {
   uid?: string;

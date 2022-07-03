@@ -62,7 +62,7 @@ const SelectWithSearch = (props: SearchableSelectProps) => {
         </Select>
       </FormControl>
       {!!focusedClass && onDelete && (
-        <IconButton color='primary' onClick={onDelete}>
+        <IconButton color='error' onClick={onDelete}>
           <DeleteForeverTwoToneIcon />
         </IconButton>
       )}

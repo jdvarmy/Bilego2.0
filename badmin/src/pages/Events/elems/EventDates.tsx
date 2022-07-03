@@ -13,9 +13,9 @@ import {
   EventStateFieldType,
   saveTemplateEventDate,
   setEventStateField,
-  setSelectedDateId,
+  setSelectedDateUid,
 } from '../../../store/eventsSlice/eventsSlice';
-import { selectEventSelectedDateId } from '../../../store/selectors';
+import { selectEventSelectedDateUid } from '../../../store/selectors';
 import { TicketType } from '../../../typings/enum';
 import MapIcon from '@mui/icons-material/Map';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
@@ -27,12 +27,13 @@ type Props = {
 
 const EventDates = ({ uid, dates }: Props) => {
   const dispatch: AppDispatch = useDispatch();
-  const selectedDateId = useSelector(selectEventSelectedDateId);
+  const selectedDateUid = useSelector(selectEventSelectedDateUid);
 
   console.log('render EventDates');
 
-  const handleChangeTab = (_: SyntheticEvent, newValue: number) => {
-    dispatch(setSelectedDateId(newValue));
+  const handleChangeTab = (_: SyntheticEvent, newValue: string) => {
+    console.log(newValue);
+    dispatch(setSelectedDateUid(newValue));
   };
   const handleAddTab = () => {
     if (uid) {
@@ -40,16 +41,16 @@ const EventDates = ({ uid, dates }: Props) => {
     }
   };
   const handleDeleteTab = () => {
-    if (selectedDateId && uid && dates) {
-      const localDates = dates.filter((d) => d.id !== selectedDateId);
-      dispatch(deleteEventDate(selectedDateId, uid));
+    if (selectedDateUid && uid && dates) {
+      const localDates = dates.filter((d) => d.uid !== selectedDateUid);
+      dispatch(deleteEventDate(selectedDateUid, uid));
       dispatch(setEventStateField({ eventDates: localDates } as EventStateFieldType));
-      dispatch(setSelectedDateId(localDates.at(-1)?.id ?? undefined));
+      dispatch(setSelectedDateUid(localDates.at(-1)?.uid ?? undefined));
     }
   };
 
   useEffect(() => {
-    dispatch(setSelectedDateId(Array.isArray(dates) ? dates.at(-1)?.id : undefined));
+    dispatch(setSelectedDateUid(Array.isArray(dates) ? dates.at(-1)?.uid : undefined));
   }, []);
 
   return (
@@ -66,7 +67,7 @@ const EventDates = ({ uid, dates }: Props) => {
             </Tooltip>
             <Tooltip arrow placement='top' title='Удалить выбранную дату'>
               <span>
-                <IconButton color='warning' disabled={dates && dates.length <= 1} onClick={handleDeleteTab}>
+                <IconButton color='error' disabled={dates && dates.length <= 1} onClick={handleDeleteTab}>
                   <DeleteForeverTwoToneIcon />
                 </IconButton>
               </span>
@@ -78,16 +79,16 @@ const EventDates = ({ uid, dates }: Props) => {
               scrollButtons='auto'
               textColor='primary'
               indicatorColor='primary'
-              value={selectedDateId || dates?.at(-1)?.id}
+              value={selectedDateUid || dates?.at(-1)?.uid}
               onChange={handleChangeTab}
             >
-              {dates?.map(({ id, dateFrom, dateTo, type }) => {
+              {dates?.map(({ uid, dateFrom, dateTo, type }) => {
                 const label = getTabLabel(dateFrom, dateTo);
                 return (
                   <Tab
-                    key={id}
+                    key={uid}
                     label={label}
-                    value={id}
+                    value={uid}
                     icon={
                       !type ? undefined : type === TicketType.map ? (
                         <MapIcon fontSize='small' />
@@ -102,7 +103,7 @@ const EventDates = ({ uid, dates }: Props) => {
             </Tabs>
           </Grid>
         </Grid>
-        <EventDatesTabContent selectDate={dates?.find((date) => date.id === selectedDateId)} dates={dates} />
+        <EventDatesTabContent selectDate={dates?.find((date) => date.uid === selectedDateUid)} dates={dates} />
       </CardContent>
     </Card>
   );

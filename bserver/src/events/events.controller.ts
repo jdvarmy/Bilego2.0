@@ -8,6 +8,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { City, SortType } from '../types/enums';
@@ -16,6 +17,7 @@ import { EventDto } from '../dtos/EventDto';
 import { EventDates } from '../typeorm';
 import { ReqEventDateDto } from '../dtos/ReqEventDateDto';
 import { EventDatesDto } from '../dtos/EventDatesDto';
+import { AccessJwtAuthGuard } from '../jwt/access-jwt-auth-guard.service';
 
 @Controller('v1/events')
 export class EventsController {
@@ -50,6 +52,7 @@ export class EventsController {
   }
 
   @Get(':uid')
+  @UseGuards(AccessJwtAuthGuard)
   getEvent(@Param('uid') uid: string): Promise<EventDto> {
     try {
       return this.eventService.getEvent(uid);
@@ -59,6 +62,7 @@ export class EventsController {
   }
 
   @Post()
+  @UseGuards(AccessJwtAuthGuard)
   saveEvent(): Promise<EventDto> {
     try {
       return this.eventService.saveTemplateEvent();
@@ -68,6 +72,7 @@ export class EventsController {
   }
 
   @Put()
+  @UseGuards(AccessJwtAuthGuard)
   editEvent(@Body() eventDto: ReqEventDto): Promise<EventDto> {
     try {
       return this.eventService.editEvent(eventDto);
@@ -77,6 +82,7 @@ export class EventsController {
   }
 
   @Get(':eventUid/dates')
+  @UseGuards(AccessJwtAuthGuard)
   getEventDates(@Param('eventUid') eventUid: string): Promise<EventDates[]> {
     try {
       return this.eventService.getEventDates(eventUid);
@@ -86,6 +92,7 @@ export class EventsController {
   }
 
   @Post(':eventUid/dates')
+  @UseGuards(AccessJwtAuthGuard)
   saveEventDate(@Param('eventUid') eventUid: string): Promise<EventDatesDto> {
     try {
       return this.eventService.saveTemplateEventDate(eventUid);
@@ -94,16 +101,18 @@ export class EventsController {
     }
   }
 
-  @Delete(':eventUid/dates/:id')
-  deleteEventDate(@Param('id') id: string): Promise<boolean> {
+  @Delete(':eventUid/dates/:uid')
+  @UseGuards(AccessJwtAuthGuard)
+  deleteEventDate(@Param('uid') uid: string): Promise<boolean> {
     try {
-      return this.eventService.deleteEventDate(id);
+      return this.eventService.deleteEventDate(uid);
     } catch (e) {
       throw new InternalServerErrorException(e.message);
     }
   }
 
   @Put(':eventUid/dates')
+  @UseGuards(AccessJwtAuthGuard)
   editEventDate(@Body() eventDateDto: ReqEventDateDto): Promise<EventDatesDto> {
     try {
       return this.eventService.editEventDate(eventDateDto);
