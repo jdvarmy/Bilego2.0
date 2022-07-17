@@ -22,7 +22,7 @@ export function LocalTitle(row: any) {
         alignItems: 'flex-start!important',
       }}
     >
-      <Typography variant='h6'>{row?.name?.name}</Typography>
+      <Typography variant='h5'>{row?.name?.name}</Typography>
       <Typography variant='body2' sx={{ fontSize: '12px' }}>
         {row?.name?.description}
       </Typography>
@@ -69,7 +69,9 @@ export function LocalColor(color?: string) {
     return '-';
   }
 
-  return <Box sx={{ backgroundColor: color, overflow: 'hidden', borderRadius: '1rem', height: '100%' }} />;
+  return (
+    <Box sx={{ backgroundColor: color, overflow: 'hidden', borderRadius: '1rem', height: '100%', width: '25px' }} />
+  );
 }
 
 export function LocalActions(uid: string) {

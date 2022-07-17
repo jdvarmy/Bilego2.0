@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { TicketType } from '../../../typings/enum';
 import TableGrid from '../../../components/TableGrid/TableGrid';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTicketsStore } from '../../../store/selectors';
 import { getTickets, setTickets } from '../../../store/ticketsSlice/ticketsSlice';
@@ -86,25 +86,31 @@ function factoryCols() {
       name: <Box>Кол-во</Box>,
       width: 85,
       formatter: () => null,
-      groupFormatter: ({ childRows }: any) => childRows[0]?.stock,
+      groupFormatter: ({ childRows }: any) => <Typography variant='h5'>{childRows[0]?.stock}</Typography>,
     },
     {
       key: 'dateFrom',
       name: <Box>Начало</Box>,
       formatter: ({ row }: any) => localDate(row?.dateFrom),
-      groupFormatter: ({ childRows }: any) => localDate(getActualSell(childRows)?.dateFrom),
+      groupFormatter: ({ childRows }: any) => (
+        <Typography variant='h5'>{localDate(getActualSell(childRows)?.dateFrom)}</Typography>
+      ),
     },
     {
       key: 'dateTo',
       name: <Box>Конец</Box>,
       formatter: ({ row }: any) => localDate(row?.dateTo),
-      groupFormatter: ({ childRows }: any) => localDate(getActualSell(childRows)?.dateTo),
+      groupFormatter: ({ childRows }: any) => (
+        <Typography variant='h5'>{localDate(getActualSell(childRows)?.dateTo)}</Typography>
+      ),
     },
     {
       key: 'totalPrice',
       name: <Box>Цена</Box>,
       formatter: ({ row }: any) => LocalPrice(row?.totalPrice),
-      groupFormatter: ({ childRows }: any) => LocalPrice(getActualSell(childRows)?.totalPrice),
+      groupFormatter: ({ childRows }: any) => (
+        <Typography variant='h5'>{LocalPrice(getActualSell(childRows)?.totalPrice)}</Typography>
+      ),
     },
     {
       key: 'color',
