@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Media, UserAccess, Users } from '../typeorm';
 import { Repository } from 'typeorm';
 import { ReqSaveUserDto } from '../dtos/ReqSaveUserDto';
-import { InternalServerErrorException_500 } from '../types/enums';
+import { Exception500 } from '../types/enums';
 import * as bcrypt from 'bcrypt';
 import { v4 as uidv4 } from 'uuid';
 import { UserDto } from '../dtos/UserDto';
@@ -30,9 +30,7 @@ export class UsersService {
 
   async getUserData(uid: string) {
     if (!uid) {
-      throw new InternalServerErrorException(
-        InternalServerErrorException_500.getUser,
-      );
+      throw new InternalServerErrorException(Exception500.getUser);
     }
 
     const user: Users = await this.usersRepo.findOne({
@@ -41,9 +39,7 @@ export class UsersService {
     });
 
     if (!user) {
-      throw new InternalServerErrorException(
-        InternalServerErrorException_500.findUser,
-      );
+      throw new InternalServerErrorException(Exception500.findUser);
     }
 
     return new UserDto(user);
@@ -58,9 +54,7 @@ export class UsersService {
       });
 
       if (!editUser) {
-        throw new InternalServerErrorException(
-          InternalServerErrorException_500.findUser,
-        );
+        throw new InternalServerErrorException(Exception500.findUser);
       }
 
       await this.usersRepo.save({ ...editUser, ...user });
@@ -84,9 +78,7 @@ export class UsersService {
   ): Promise<Users> {
     const { email, password, avatar, ...userMeta } = data;
     if (!email || (!uid && !password)) {
-      throw new InternalServerErrorException(
-        InternalServerErrorException_500.saveUser,
-      );
+      throw new InternalServerErrorException(Exception500.saveUser);
     }
 
     const user = this.usersRepo.create({

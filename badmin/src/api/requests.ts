@@ -35,5 +35,9 @@ export const fetchArtistListForEvent = (data: { search: string }, cfg: { signal:
   requests.get<Event['artist']>(`artists`, data, cfg);
 
 export const fetchTickets = (dateUid: string) => requests.get<Ticket[]>(`tickets/${dateUid}`);
-export const requestSaveTickets = (dateUid: string, tickets: Ticket[]) =>
-  requests.post<Ticket[]>(`tickets/${dateUid}`, tickets);
+export const requestSaveTickets = (type: 'edit' | 'save', dateUid: string, tickets: Ticket[]) =>
+  type === 'edit'
+    ? requests.put<Ticket[]>(`tickets/${dateUid}`, tickets)
+    : requests.post<Ticket[]>(`tickets/${dateUid}`, tickets);
+export const requestDeleteTickets = (dateUid: string, ticketsUid: string[]) =>
+  requests.delete<boolean>(`tickets/${dateUid}`, { data: ticketsUid });

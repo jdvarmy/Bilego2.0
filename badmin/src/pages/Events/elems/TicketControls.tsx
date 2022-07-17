@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, CardHeader, Divider, Grid, TextField, Card, CardContent, IconButton, Tooltip } from '@mui/material';
 import { TicketType } from '../../../typings/enum';
 import TextFieldWithDisabledButton from '../../../components/TextFieldWithDisabledButton/TextFieldWithDisabledButton';
@@ -7,47 +7,31 @@ import TicketOnSellContent from './TicketOnSellContent';
 import { v4 as uidv4 } from 'uuid';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import { AppDispatch } from '../../../store/store';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { saveTickets } from '../../../store/ticketsSlice/ticketsSlice';
+import { selectTicketsStore } from '../../../store/selectors';
 
 type Props = {
   dateUid: string;
   type?: TicketType;
 };
 
-const initialTicketSellDataFc = (): TicketOnSell => ({
-  uid: uidv4(),
-  price: 0,
-  service: 0,
-  dateFrom: undefined,
-  dateTo: undefined,
-  color: undefined,
-});
-const initialTicketDataFc = (type?: TicketType): Ticket => ({
-  uid: uidv4(),
-  type: type,
-  name: undefined,
-  description: undefined,
-  stock: 0,
-  seat: undefined,
-  row: undefined,
-  sector: undefined,
-  sell: [initialTicketSellDataFc()],
-});
-
 const TicketControls = ({ type, dateUid }: Props) => {
   const dispatch: AppDispatch = useDispatch();
-  const [ticketData, setTicketData] = useState<Ticket>(initialTicketDataFc(type));
+  const { selectedTicket } = useSelector(selectTicketsStore);
+  const [ticketData, setTicketData] = useState<Ticket>(() => selectedTicket || initialTicketDataFc(type));
+
+  const isEditTicket = useMemo(() => !!selectedTicket, [selectedTicket]);
 
   const handleChange = (field: keyof Ticket) => (e: ChangeEvent<HTMLInputElement>) => {
     setTicketData((prev) => ({ ...prev, [field]: e.target.value }));
   };
-  const handleAddTicketOnSell = () => {
+  const handleAddTicketOnSell = useCallback(() => {
     setTicketData((prev) => {
       const sell = prev?.sell || [];
       return { ...prev, sell: [...sell, initialTicketSellDataFc()] };
     });
-  };
+  }, []);
   const handleDeleteTicketOnSell = (uid: string) => () => {
     if (!uid) {
       return;
@@ -61,9 +45,20 @@ const TicketControls = ({ type, dateUid }: Props) => {
       return prev;
     });
   };
-  const handleSaveTicket = () => {
-    dispatch(saveTickets(dateUid, [ticketData]));
-  };
+  const handleSaveTicket = useCallback(
+    (type: 'edit' | 'save') => () => {
+      dispatch(saveTickets(type, dateUid, [ticketData]));
+    },
+    [ticketData, type, dateUid, dispatch],
+  );
+
+  useEffect(() => {
+    if (selectedTicket) {
+      setTicketData(selectedTicket);
+    } else {
+      setTicketData(initialTicketDataFc(type));
+    }
+  }, [selectedTicket]);
 
   return (
     <Grid container alignItems='center' spacing={3}>
@@ -113,9 +108,22 @@ const TicketControls = ({ type, dateUid }: Props) => {
         />
       </Grid>
       <Grid item xs={2} container justifyContent='flex-end'>
-        <Button variant='outlined' size='small' color='success' onClick={handleSaveTicket}>
-          Сохранить билет
-        </Button>
+        <Tooltip
+          arrow
+          placement='top'
+          title={`Вся информация о билете, включая периоды продаж, сохраниться только после нажатия на эту кнопку. ${
+            isEditTicket ? 'Отменить редактирование Вы можете нажав на кнопку отмены выше' : ''
+          }`}
+        >
+          <Button
+            variant='outlined'
+            size='small'
+            color={isEditTicket ? 'warning' : 'success'}
+            onClick={handleSaveTicket(isEditTicket ? 'edit' : 'save')}
+          >
+            {isEditTicket ? 'Редактировать' : 'Сохранить'} билет
+          </Button>
+        </Tooltip>
       </Grid>
       <Grid item xs={12}>
         <Card>
@@ -151,3 +159,27 @@ const TicketControls = ({ type, dateUid }: Props) => {
 };
 
 export default TicketControls;
+
+function initialTicketSellDataFc(): TicketOnSell {
+  return {
+    uid: uidv4(),
+    price: 0,
+    service: 0,
+    dateFrom: undefined,
+    dateTo: undefined,
+    color: undefined,
+  };
+}
+function initialTicketDataFc(type?: TicketType): Ticket {
+  return {
+    uid: uidv4(),
+    type: type,
+    name: undefined,
+    description: undefined,
+    stock: 0,
+    seat: undefined,
+    row: undefined,
+    sector: undefined,
+    sell: [initialTicketSellDataFc()],
+  };
+}

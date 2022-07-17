@@ -1,12 +1,12 @@
 import { Ticket } from '../../typings/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '../store';
-import { fetchTickets, requestSaveTickets } from '../../api/requests';
+import { fetchTickets, requestDeleteTickets, requestSaveTickets } from '../../api/requests';
 
 type State = {
   loading: boolean;
-  selectedTicket?: Ticket;
   tickets: Ticket[] | null;
+  selectedTicket?: Ticket | undefined;
 };
 const initialState: State = {
   loading: false,
@@ -24,10 +24,13 @@ const tickets = createSlice({
     setTickets: (state, action: PayloadAction<Ticket[] | null>) => {
       state.tickets = action.payload;
     },
+    setSelectedTicket: (state, action: PayloadAction<Ticket | undefined>) => {
+      state.selectedTicket = action.payload;
+    },
   },
 });
 
-export const { setLoading, setTickets } = tickets.actions;
+export const { setLoading, setTickets, setSelectedTicket } = tickets.actions;
 
 export default tickets.reducer;
 
@@ -47,13 +50,33 @@ export const getTickets =
   };
 
 export const saveTickets =
-  (dateUid: string, tickets: Ticket[]): AppThunk =>
+  (type: 'edit' | 'save', dateUid: string, tickets: Ticket[]): AppThunk =>
   async (dispatch) => {
     dispatch(setLoading(true));
 
     try {
-      const { data } = await requestSaveTickets(dateUid, tickets);
+      const { data } = await requestSaveTickets(type, dateUid, tickets);
       dispatch(setTickets(data));
+    } catch (e) {
+      console.log(e);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+
+export const deleteTickets =
+  (ticketsUid: string[]): AppThunk =>
+  async (dispatch, getState) => {
+    const dateUid = getState().events.selectedDateUid;
+    if (!dateUid) {
+      return;
+    }
+
+    dispatch(setLoading(true));
+
+    try {
+      await requestDeleteTickets(dateUid, ticketsUid);
+      dispatch(getTickets(dateUid));
     } catch (e) {
       console.log(e);
     } finally {

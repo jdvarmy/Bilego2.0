@@ -93,7 +93,7 @@ export enum NotFoundException_404 {}
 
 export enum BadRequestException_400 {}
 
-export enum InternalServerErrorException_500 {
+export enum Exception500 {
   uploadFile, // Неудалось загрузить файл на диск
   removeFile, // Неудалось удалить файл
   saveUser, // Неуказаны логин или пароль
@@ -106,6 +106,8 @@ export enum InternalServerErrorException_500 {
   findEventUid, // Событие с таким идентификатором не найдено
   saveEventSlug, // Пустая ссылка на событие
   editNoEventDateId, // Нет идентификатора даты события при редактировании
+  editNoTicketId, // Нет идентификатора билета при редактировании
+  findTickets, // Билеты не найдены
 }
 
 export enum FileType {

@@ -79,8 +79,8 @@ export interface TicketOnSell {
   uid: string;
   price?: number;
   service?: number;
-  dateFrom?: string;
-  dateTo?: string;
+  dateFrom?: string | Date;
+  dateTo?: string | Date;
   color?: string;
   totalPrice?: { service: number; price: number };
 }

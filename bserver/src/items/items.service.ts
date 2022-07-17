@@ -2,11 +2,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Items } from '../typeorm';
 import { Repository } from 'typeorm';
-import {
-  City,
-  InternalServerErrorException_500,
-  PostStatus,
-} from '../types/enums';
+import { City, Exception500, PostStatus } from '../types/enums';
 import { ItemDto } from '../dtos/ItemDto';
 
 @Injectable()
@@ -29,9 +25,7 @@ export class ItemsService {
       .getMany();
 
     if (!items) {
-      throw new InternalServerErrorException(
-        InternalServerErrorException_500.findItems,
-      );
+      throw new InternalServerErrorException(Exception500.findItems);
     }
 
     return items.map((item) => new ItemDto(item));

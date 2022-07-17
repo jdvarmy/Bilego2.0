@@ -6,7 +6,7 @@ import { EventDates, Events } from '../typeorm';
 import { Repository } from 'typeorm';
 import { EventDto } from '../dtos/EventDto';
 import { v4 as uidv4 } from 'uuid';
-import { InternalServerErrorException_500 } from '../types/enums';
+import { Exception500 } from '../types/enums';
 import { ReqEventDateDto } from '../dtos/ReqEventDateDto';
 import { EventDatesDto } from '../dtos/EventDatesDto';
 
@@ -47,9 +47,7 @@ export class EventsService {
 
     const eventFromDb = await this.getEventByUid(uid);
     if (!eventFromDb) {
-      throw new InternalServerErrorException(
-        InternalServerErrorException_500.findEventUid,
-      );
+      throw new InternalServerErrorException(Exception500.findEventUid);
     }
 
     const updateEventData = this.eventsRepo.create(eventData);
@@ -74,10 +72,8 @@ export class EventsService {
   }
 
   async deleteEventDate(uid: string): Promise<boolean> {
-    const date = await this.eventDatesRepo.findOne({
-      where: { uid },
-    });
-    await this.eventDatesRepo.remove(date);
+    const eventDateFromDb = await this.getEventDateByUid(uid);
+    await this.eventDatesRepo.remove(eventDateFromDb);
 
     return true;
   }
@@ -86,9 +82,7 @@ export class EventsService {
     const { uid, ...eventDateData } = data;
 
     if (!uid) {
-      throw new InternalServerErrorException(
-        InternalServerErrorException_500.editNoEventDateId,
-      );
+      throw new InternalServerErrorException(Exception500.editNoEventDateId);
     }
     const eventDateFromDb = await this.getEventDateByUid(uid);
 
@@ -106,9 +100,7 @@ export class EventsService {
     });
 
     if (!event) {
-      throw new InternalServerErrorException(
-        InternalServerErrorException_500.findEvent,
-      );
+      throw new InternalServerErrorException(Exception500.findEvent);
     }
 
     return event;
@@ -120,9 +112,7 @@ export class EventsService {
     });
 
     if (!eventDate) {
-      throw new InternalServerErrorException(
-        InternalServerErrorException_500.findEventDate,
-      );
+      throw new InternalServerErrorException(Exception500.findEventDate);
     }
 
     return eventDate;
@@ -138,9 +128,7 @@ export class EventsService {
       .getMany();
 
     if (!eventDates) {
-      throw new InternalServerErrorException(
-        InternalServerErrorException_500.findEventDates,
-      );
+      throw new InternalServerErrorException(Exception500.findEventDates);
     }
 
     return eventDates;

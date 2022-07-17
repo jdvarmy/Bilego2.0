@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { InternalServerErrorException_500, PostStatus } from '../types/enums';
+import { Exception500, PostStatus } from '../types/enums';
 import { Artists } from '../typeorm';
 import { ArtistDto } from '../dtos/ArtistDto';
 
@@ -26,9 +26,7 @@ export class ArtistsService {
       .getMany();
 
     if (!artists) {
-      throw new InternalServerErrorException(
-        InternalServerErrorException_500.findItems,
-      );
+      throw new InternalServerErrorException(Exception500.findItems);
     }
 
     return artists.map((artist) => new ArtistDto(artist));

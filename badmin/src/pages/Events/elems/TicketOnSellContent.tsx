@@ -47,7 +47,7 @@ const TicketOnSellContent = ({
     }
 
     const localValue =
-      Object.prototype.toString.call(value) === '[object Date]' ? (value as Date).setSeconds(0, 0) : value;
+      Object.prototype.toString.call(value) === '[object Date]' ? new Date((value as Date).setSeconds(0, 0)) : value;
 
     setTicketData((prev) => {
       const sell = prev.sell ? prev.sell.map((i) => (i.uid === uid ? { ...i, [field]: localValue } : i)) : undefined;
@@ -100,7 +100,7 @@ const TicketOnSellContent = ({
               focused={!!service}
               value={service || ''}
               onChange={(e) => {
-                handleChangeField('service')(e.target.value);
+                handleChangeField('service')(Number(e.target.value));
               }}
             />
           </Grid>
@@ -113,7 +113,7 @@ const TicketOnSellContent = ({
               focused={!!price}
               value={price || ''}
               onChange={(e) => {
-                handleChangeField('price')(e.target.value);
+                handleChangeField('price')(Number(e.target.value));
               }}
             />
           </Grid>
@@ -132,11 +132,11 @@ function getTitle({ price, service, dateFrom, dateTo }: Omit<TicketOnSell, 'uid'
   const f = 'dd MMMM HH:mm';
   let title = 'Продажа ';
 
-  if (dateFrom && Date.parse(dateFrom)) {
-    title += `с ${format(new Date(Date.parse(dateFrom)), f, { locale: ru })} `;
+  if (dateFrom && Date.parse(dateFrom as string)) {
+    title += `с ${format(new Date(Date.parse(dateFrom as string)), f, { locale: ru })} `;
   }
-  if (dateTo && Date.parse(dateTo)) {
-    title += `по ${format(new Date(Date.parse(dateTo)), f, { locale: ru })} `;
+  if (dateTo && Date.parse(dateTo as string)) {
+    title += `по ${format(new Date(Date.parse(dateTo as string)), f, { locale: ru })} `;
   }
   if (service && price) {
     title += `цена: ${Number(service) + Number(price)}₽ за билет `;

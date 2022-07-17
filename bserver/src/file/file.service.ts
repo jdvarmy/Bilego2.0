@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { FileType, InternalServerErrorException_500 } from '../types/enums';
+import { FileType, Exception500 } from '../types/enums';
 import * as path from 'path';
 import * as fs from 'fs';
 import { v4 as uidv4 } from 'uuid';
@@ -28,7 +28,7 @@ export class FileService {
       return `${d.getFullYear()}-${d.getMonth() + 1}/${type}/` + fileName;
     } catch (e) {
       throw new InternalServerErrorException(
-        InternalServerErrorException_500.uploadFile + '. ' + e.message,
+        Exception500.uploadFile + '. ' + e.message,
       );
     }
   }
@@ -42,7 +42,7 @@ export class FileService {
       }
     } catch (e) {
       throw new InternalServerErrorException(
-        InternalServerErrorException_500.removeFile + '. ' + e.message,
+        Exception500.removeFile + '. ' + e.message,
       );
     }
   }

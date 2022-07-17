@@ -1,10 +1,12 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   InternalServerErrorException,
   Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { TicketsService } from './tickets.service';
@@ -36,6 +38,29 @@ export class TicketsController {
   ): Promise<TicketDto[]> {
     try {
       return this.ticketsService.saveTickets(eventDateUid, ticketsDto);
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
+  }
+
+  @Put(':eventDateUid')
+  @UseGuards(AccessJwtAuthGuard)
+  editTickets(
+    @Param('eventDateUid') eventDateUid: string,
+    @Body() ticketsDto: ReqTicketDto[],
+  ): Promise<TicketDto[]> {
+    try {
+      return this.ticketsService.editTickets(eventDateUid, ticketsDto);
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
+  }
+
+  @Delete(':eventDateUid')
+  @UseGuards(AccessJwtAuthGuard)
+  deleteTickets(@Body() ticketsUid: string[]): Promise<boolean> {
+    try {
+      return this.ticketsService.deleteTickets(ticketsUid);
     } catch (e) {
       throw new InternalServerErrorException(e.message);
     }

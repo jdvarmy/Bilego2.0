@@ -78,11 +78,9 @@ const requests = {
   put: <R>(url: string, data?: any, cfg?: AxiosRequestConfig) =>
     baseRequest<R>({ method: RequestMethod.Put, url, data, ...cfg }),
 
-  patch: <R>(url: string, _data?: any, cfg?: AxiosRequestConfig) =>
-    baseRequest<R>({ method: RequestMethod.Patch, url, ...cfg }),
+  patch: <R>(url: string, cfg?: AxiosRequestConfig) => baseRequest<R>({ method: RequestMethod.Patch, url, ...cfg }),
 
-  delete: <R>(url: string, _data?: any, cfg?: AxiosRequestConfig) =>
-    baseRequest<R>({ method: RequestMethod.Delete, url, ...cfg }),
+  delete: <R>(url: string, cfg?: AxiosRequestConfig) => baseRequest<R>({ method: RequestMethod.Delete, url, ...cfg }),
 };
 
 export default requests;
