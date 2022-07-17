@@ -72,10 +72,20 @@ export class TicketsService {
           (_s) => _s.uid === loopSell.uid,
         );
         const repoSell = localSellFromDb
-          ? this.ticketsSellRepo.create({ ...localSellFromDb, ...loopSell })
-          : this.ticketsSellRepo.create({ ...loopSell, ticket });
+          ? // редактирование _sell
+            this.ticketsSellRepo.create({ ...localSellFromDb, ...loopSell })
+          : // добавление нового _sell
+            this.ticketsSellRepo.create({ ...loopSell, ticket });
 
         await this.ticketsSellRepo.save(repoSell);
+      }
+
+      // удаление _sell
+      const forDeleteSell = sellFromDb.filter(
+        (sell) => !_sell.find((_s) => _s.uid === sell.uid),
+      );
+      for (const loopSell of forDeleteSell) {
+        await this.ticketsSellRepo.remove(loopSell);
       }
     }
 
