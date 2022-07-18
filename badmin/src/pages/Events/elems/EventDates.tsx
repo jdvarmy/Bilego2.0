@@ -1,5 +1,16 @@
 import React, { memo, SyntheticEvent, useEffect } from 'react';
-import { Card, CardContent, CardHeader, Divider, Grid, IconButton, Tab, Tabs, Tooltip } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  Grid,
+  IconButton,
+  Tab,
+  Tabs,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { Event } from '../../../typings/types';
 import EventDatesTabContent from './EventDatesTabContent';
 import { format } from 'date-fns';

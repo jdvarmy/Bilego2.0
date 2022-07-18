@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, IconButton, TextField, Tooltip } from '@mui/material';
+import { Grid, IconButton, TextField, Tooltip, Typography } from '@mui/material';
 import { DateTimePicker } from '@mui/lab';
 import { Event, EventDate } from '../../../typings/types';
 import { AppDispatch } from '../../../store/store';
@@ -52,6 +52,9 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
 
   return (
     <Grid sx={{ mt: 3 }} container spacing={3} alignItems='center'>
+      <Grid item xs={12}>
+        <Typography variant='h5'>Выберите дату и время проведения события</Typography>
+      </Grid>
       <Grid item xs={6} sx={{ display: 'flex' }}>
         <DateTimePicker
           renderInput={(props) => <TextField focused={!!selectDate.dateFrom} fullWidth {...props} />}
