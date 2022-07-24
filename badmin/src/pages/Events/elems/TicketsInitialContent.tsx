@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { TicketType } from '../../../typings/enum';
-import { Button, ButtonProps, Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import MapIcon from '@mui/icons-material/Map';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import { AppDispatch } from '../../../store/store';
 import { useDispatch } from 'react-redux';
 import { editEventDate } from '../../../store/eventsSlice/eventsSlice';
 import { EventDate } from '../../../typings/types';
+import AppMapModal from '../../../components/AddMapModal/AppMapModal';
 
 type Props = {
   selectedDate?: EventDate;
@@ -14,40 +15,39 @@ type Props = {
 
 const TicketsInitialContent = ({ selectedDate }: Props) => {
   const dispatch: AppDispatch = useDispatch();
+  const [show, setShow] = useState<boolean>(false);
 
-  const handleClick = (type: TicketType) => () => {
-    if (selectedDate) {
-      const { uid, ...data } = selectedDate;
-      if (uid) {
-        dispatch(editEventDate(uid, { ...data, type }));
+  const handleClick = useCallback(
+    (type: TicketType) => () => {
+      if (selectedDate) {
+        const { uid, ...data } = selectedDate;
+        !!uid && dispatch(editEventDate(uid, { ...data, type }));
       }
-    }
-  };
-
-  const initialButtons: (ButtonProps & { label: string })[] = [
-    {
-      sx: { mr: 2, my: 0.5 },
-      variant: 'outlined',
-      startIcon: <MapIcon fontSize='small' />,
-      label: 'Добавить билеты с картой',
-      onClick: handleClick(TicketType.map),
     },
-    {
-      sx: { mx: 2, my: 0.5 },
-      variant: 'outlined',
-      startIcon: <LocalActivityIcon fontSize='small' />,
-      label: 'Добавить входные билеты',
-      onClick: handleClick(TicketType.simple),
-    },
-  ];
+    [selectedDate, dispatch],
+  );
+  const handleOpenModal = useCallback(() => setShow(true), []);
+  const handleCloseModal = useCallback(() => setShow(false), []);
 
   return (
     <Grid item xs={12}>
-      {initialButtons.map(({ label, ...props }) => (
-        <Button key={label} {...props}>
-          {label}
-        </Button>
-      ))}
+      <Button
+        sx={{ mx: 2, my: 0.5 }}
+        variant='outlined'
+        startIcon={<MapIcon fontSize='small' />}
+        onClick={handleOpenModal}
+      >
+        Добавить билеты с картой
+      </Button>
+      <Button
+        sx={{ mx: 2, my: 0.5 }}
+        variant='outlined'
+        startIcon={<LocalActivityIcon fontSize='small' />}
+        onClick={handleClick(TicketType.simple)}
+      >
+        Добавить входные билеты
+      </Button>
+      <AppMapModal open={show} onClose={handleCloseModal} selectedDate={selectedDate} />
     </Grid>
   );
 };

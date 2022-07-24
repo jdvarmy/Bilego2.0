@@ -8,5 +8,6 @@ import { FileModule } from '../file/file.module';
   imports: [DatabaseModule, FileModule],
   controllers: [MedialibraryController],
   providers: [MedialibraryService],
+  exports: [MedialibraryService],
 })
 export class MedialibraryModule {}

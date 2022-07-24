@@ -1,6 +1,5 @@
-import React from 'react';
-import { Dialog, DialogTitle, DialogContent, Grid, Button } from '@mui/material';
-import DeleteSweepTwoToneIcon from '@mui/icons-material/DeleteSweepTwoTone';
+import React, { ReactNode } from 'react';
+import { Dialog, DialogTitle, DialogContent, Button, ButtonProps, DialogActions } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const DialogContentStyled = styled(DialogTitle)(
@@ -14,30 +13,28 @@ const DialogContentStyled = styled(DialogTitle)(
 );
 
 type Props = {
+  title: string;
   open: boolean;
   onClose: () => void;
-  onDeleteButton: () => void;
-  title: string;
+  onDeleteButton?: () => void;
+  onSuccessButton?: () => void;
+  actionButton?: ButtonProps & { label?: string };
+  children?: ReactNode;
+  contentActions?: ReactNode;
 };
 
-const ModalDialog = ({ open, onClose, onDeleteButton, title }: Props) => {
+const ModalDialog = ({ open, onClose, actionButton, title, children, contentActions }: Props) => {
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} maxWidth='lg'>
       <DialogContentStyled>{title}</DialogContentStyled>
-      <DialogContent>
-        <Grid container sx={{ my: 3 }} justifyContent='space-around' alignItems='center'>
-          <Grid item>
-            <Button variant='contained' color='error' onClick={onDeleteButton} startIcon={<DeleteSweepTwoToneIcon />}>
-              Удалить
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button variant='outlined' onClick={onClose}>
-              Отмена
-            </Button>
-          </Grid>
-        </Grid>
-      </DialogContent>
+      <DialogContent sx={{ pb: 5 }}>{contentActions}</DialogContent>
+      <DialogContent>{children}</DialogContent>
+      <DialogActions>
+        {actionButton && <Button {...actionButton}>{actionButton.label}</Button>}
+        <Button variant='outlined' onClick={onClose}>
+          Отмена
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 };

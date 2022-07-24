@@ -1,25 +1,15 @@
 import React, { memo } from 'react';
 import { Card, CardContent, CardHeader, Divider, Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { selectEventSelectedDateUid } from '../../../store/selectors';
+import { selectEventSelectedDate } from '../../../store/selectors';
 import TicketsInitialContent from './TicketsInitialContent';
-import { Event } from '../../../typings/types';
 import TicketControls from './TicketControls';
 import TicketsContent from './TicketsContent';
 
-type Props = {
-  dates?: Event['eventDates'];
-};
-
-const Tickets = ({ dates }: Props) => {
-  const selectedDateUid = useSelector(selectEventSelectedDateUid);
-  const selectedDate = dates?.find((date) => date.uid === selectedDateUid);
+const Tickets = () => {
+  const selectedDate = useSelector(selectEventSelectedDate);
 
   console.log('render Tickets');
-
-  if (!selectedDateUid) {
-    return null;
-  }
 
   return (
     <Card>
@@ -32,7 +22,7 @@ const Tickets = ({ dates }: Props) => {
           ) : (
             <>
               <Grid item xs={12}>
-                <TicketsContent type={selectedDate?.type} selectedDateUid={selectedDateUid} />
+                <TicketsContent type={selectedDate?.type} selectedDateUid={selectedDate?.uid} />
               </Grid>
               <Grid item xs={12}>
                 <TicketControls type={selectedDate?.type} dateUid={selectedDate.uid} />

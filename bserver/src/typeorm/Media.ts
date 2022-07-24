@@ -3,27 +3,33 @@ import { Users } from './Users';
 import { Artists } from './Artists';
 import { Items } from './Items';
 import { Events } from './Events';
+import { Maps } from './Maps';
 
 @Entity()
 export class Media {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
+  @OneToMany(() => Maps, (map) => map.map)
+  mapFile: Maps[];
+  @OneToMany(() => Maps, (minimap) => minimap.minimap)
+  minimapFile: Maps[];
+
   @OneToMany(() => Users, (user) => user.avatar)
-  userAvatar: Users;
+  userAvatar: Users[];
 
   @OneToMany(() => Artists, (artist) => artist.image)
-  artistImage: Artists;
+  artistImage: Artists[];
   @OneToMany(() => Artists, (artist) => artist.avatar)
-  artistAvatar: Artists;
+  artistAvatar: Artists[];
 
   @OneToMany(() => Items, (item) => item.image)
-  itemImage: Items;
+  itemImage: Items[];
 
   @OneToMany(() => Events, (event) => event.image)
-  eventImage: Events;
+  eventImage: Events[];
   @OneToMany(() => Events, (event) => event.headerImage)
-  eventHeaderImage: Events;
+  eventHeaderImage: Events[];
 
   @Column({ default: '' })
   name: string;

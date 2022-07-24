@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState, ReactElement, FC, LegacyRef, useEffect } from 'react';
+import React, { ChangeEvent, useState, useEffect, useCallback } from 'react';
 import {
   AppBar,
   Dialog,
@@ -23,34 +23,12 @@ import { AppDispatch } from '../../store/store';
 import { getFileList, uploadFile } from '../../store/medialibrarySlice/medialibrarySlice';
 import { selectMedialibrary } from '../../store/selectors';
 import { MediaFile, MediaSelectData } from '../../typings/types';
+import UploadFiles from '../UploadFiles/UploadFiles';
 
 type Props = {
   open: boolean;
   closeHandler: () => void;
   selectHandle: (data: MediaSelectData) => void;
-};
-
-type UploadProps = {
-  children: ReactElement;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  accept?: string;
-};
-
-const UploadFiles: FC<UploadProps> = ({ onChange, accept = 'image/*', children }) => {
-  const ref = useRef<HTMLInputElement>();
-  return (
-    <div onClick={() => ref.current?.click()}>
-      <input
-        accept={accept}
-        ref={ref as LegacyRef<HTMLInputElement> | undefined}
-        multiple
-        type='file'
-        style={{ display: 'none' }}
-        onChange={onChange}
-      />
-      {children}
-    </div>
-  );
 };
 
 const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
@@ -62,15 +40,18 @@ const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
     setFileList(e.target.files || null);
   };
 
-  const handleUpload = () => {
+  const handleUpload = useCallback(() => {
     if (fileList) {
       dispatch(uploadFile(fileList));
     }
-  };
-  const handleSelect = (data: MediaSelectData) => {
-    selectHandle(data);
-    closeHandler();
-  };
+  }, [fileList, dispatch]);
+  const handleSelect = useCallback(
+    (data: MediaSelectData) => {
+      selectHandle(data);
+      closeHandler();
+    },
+    [selectHandle, closeHandler],
+  );
 
   useEffect(() => {
     dispatch(getFileList());

@@ -20,13 +20,15 @@ export const getFileMedialibrary = (id: number) => requests.get<MediaFile>(`medi
 export const uploadFileMedialibrary = (data: FormData) => requests.post<boolean>(`media/upload`, data);
 export const removeFileMedialibrary = (id: number) => requests.delete<boolean>(`media/${id}`);
 
+export const fetchMapItems = () => requests.get<any[]>(`map`);
+export const uploadFileMapItems = (data: FormData) => requests.post<boolean>(`map/upload`, data);
+
 export const fetchEventData = (eventUid: string) => requests.get<Event>(`events/${eventUid}`);
 export const saveTemplateEventData = () => requests.post<Event>(`events`);
 export const saveEventData = (data: Event) => requests.put<Event>(`events`, data);
-export const fetchEventDatesData = (eventUid: string) => requests.get<EventDate[]>(`events/${eventUid}/dates`);
 export const requestSaveAddEventDate = (eventUid: string) => requests.post<EventDate>(`events/${eventUid}/dates`);
-export const requestDeleteEventDate = (id: string, eventUid: string) =>
-  requests.delete<boolean>(`events/${eventUid}/dates/${id}`);
+export const requestDeleteEventDate = (uid: string, eventUid: string) =>
+  requests.delete<boolean>(`events/${eventUid}/dates/${uid}`);
 export const requestEditEventDate = (eventUid: string, data: Partial<EventDate>) =>
   requests.put<EventDate>(`events/${eventUid}/dates`, data);
 

@@ -23,8 +23,6 @@ const EditEvent = () => {
   const event = useSelector(selectEvent);
   const [searchParams] = useSearchParams();
 
-  console.log(event);
-
   useEffect(() => {
     const uid = searchParams.get('uid');
     if (!event && uid) {
@@ -72,7 +70,7 @@ const EditEvent = () => {
               <EventDates uid={event.uid} dates={event.eventDates} />
             </Grid>
             <Grid item xs={12}>
-              <Tickets dates={event.eventDates} />
+              <Tickets />
             </Grid>
             <Grid item xs={12}>
               <EventProps />

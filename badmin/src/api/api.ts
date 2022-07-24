@@ -37,6 +37,7 @@ instance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    // todo: отдавать на беке только 403 если идет запрос от неавторизованного пользователя (протух токен)
     if ([403].includes(error.response?.status) && error.config && !error.config._isRetry) {
       originalRequest._isRetry = true;
 

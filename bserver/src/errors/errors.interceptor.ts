@@ -13,6 +13,7 @@ export class ErrorsInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     return next.handle().pipe(
       catchError((error) => {
+        // todo: записывать ошиьки в бд для дальнейшего отлова
         if (error.sqlState) {
           switch (error.code) {
             case 'ER_DUP_ENTRY':

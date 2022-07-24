@@ -9,19 +9,9 @@ import { AppDispatch } from '../../../store/store';
 import { Ticket } from '../../../typings/types';
 import { getActualSell } from '../../../helpers/getActualSell';
 import { LocalActions, LocalColor, localDate, LocalPrice, LocalTitle } from './TicketsContentHelpers';
-
+import TicketMap from '../../../components/TicketMap/TicketMap';
 // @ts-ignore
 import { groupBy } from 'lodash';
-
-interface Row {
-  name: string;
-  stock: number;
-  dateFrom: string;
-  dateTo: string;
-  totalPrice: number;
-  color: string;
-  actions: any;
-}
 
 type Props = {
   type?: TicketType;
@@ -52,15 +42,19 @@ const TicketsContent = ({ type, selectedDateUid }: Props) => {
 
   return (
     <Box sx={{ mx: '-16px' }}>
-      <TableGrid
-        // @ts-ignore
-        columns={cols}
-        rows={rows}
-        groupBy={['name']}
-        rowGrouper={rowGrouper}
-        expandedGroupIds={expandedGroupIds}
-        onExpandedGroupIdsChange={setExpandedGroupIds}
-      />
+      {type === TicketType.map ? (
+        <TicketMap />
+      ) : (
+        <TableGrid
+          // @ts-ignore
+          columns={cols}
+          rows={rows}
+          groupBy={['name']}
+          rowGrouper={rowGrouper}
+          expandedGroupIds={expandedGroupIds}
+          onExpandedGroupIdsChange={setExpandedGroupIds}
+        />
+      )}
     </Box>
   );
 };

@@ -1,5 +1,6 @@
 import { TicketType } from '../types/enums';
 import { EventDates } from '../typeorm';
+import { MapDto } from './MapDto';
 
 export class EventDatesDto {
   uid: string;
@@ -7,6 +8,7 @@ export class EventDatesDto {
   dateFrom?: Date;
   dateTo?: Date;
   closeDateTime?: Date;
+  map?: MapDto;
 
   constructor(eventDate: EventDates) {
     this.uid = eventDate.uid;
@@ -14,5 +16,6 @@ export class EventDatesDto {
     this.dateFrom = eventDate.dateFrom;
     this.dateTo = eventDate.dateTo;
     this.closeDateTime = eventDate.closeDateTime;
+    this.map = eventDate.map ? new MapDto(eventDate.map) : undefined;
   }
 }

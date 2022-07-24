@@ -1,16 +1,5 @@
 import React, { memo, SyntheticEvent, useEffect } from 'react';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Grid,
-  IconButton,
-  Tab,
-  Tabs,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Card, CardContent, CardHeader, Divider, Grid, IconButton, Tab, Tabs, Tooltip } from '@mui/material';
 import { Event } from '../../../typings/types';
 import EventDatesTabContent from './EventDatesTabContent';
 import { format } from 'date-fns';
@@ -43,7 +32,6 @@ const EventDates = ({ uid, dates }: Props) => {
   console.log('render EventDates');
 
   const handleChangeTab = (_: SyntheticEvent, newValue: string) => {
-    console.log(newValue);
     dispatch(setSelectedDateUid(newValue));
   };
   const handleAddTab = () => {
@@ -62,7 +50,7 @@ const EventDates = ({ uid, dates }: Props) => {
 
   useEffect(() => {
     dispatch(setSelectedDateUid(Array.isArray(dates) ? dates.at(-1)?.uid : undefined));
-  }, []);
+  }, [dispatch]);
 
   return (
     <Card>

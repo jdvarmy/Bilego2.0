@@ -52,14 +52,8 @@ function HeaderNotifications() {
         anchorEl={ref.current}
         onClose={handleClose}
         open={isOpen}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
         <Box sx={{ p: 2 }} display='flex' alignItems='center' justifyContent='space-between'>
           <Typography variant='h5'>Оповещения</Typography>

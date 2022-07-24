@@ -108,6 +108,10 @@ export enum Exception500 {
   editNoEventDateId, // Нет идентификатора даты события при редактировании
   editNoTicketId, // Нет идентификатора билета при редактировании
   findTickets, // Билеты не найдены
+  findMap, // Карта с такими данными не найдена
+  uploadMap, // Проблемы с загрузкой карты или мини-карты
+  uploadMapNoData, // Нет файла карты или мини-карты
+  parseSVGError, // Ошибка при парсинге SVG карты
 }
 
 export enum FileType {

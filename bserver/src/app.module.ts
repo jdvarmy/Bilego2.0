@@ -28,6 +28,7 @@ import { ErrorsInterceptor } from './errors/errors.interceptor';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseModule } from './database/database.module';
 import { MedialibraryModule } from './medialibrary/medialibrary.module';
+import { MapModule } from './map/map.module';
 import { FileModule } from './file/file.module';
 
 @Module({
@@ -57,6 +58,7 @@ import { FileModule } from './file/file.module';
     SlidesModule,
     TaxonomyModule,
     MedialibraryModule,
+    MapModule,
     FileModule,
   ],
   controllers: [AppController],

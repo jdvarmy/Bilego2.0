@@ -5,6 +5,7 @@ import { deleteUser } from '../../../store/usersSlice/usersSlice';
 import { AppDispatch } from '../../../store/store';
 import { useDispatch } from 'react-redux';
 import ModalDialog from '../../../components/ModalDialog/ModalDialog';
+import DeleteSweepTwoToneIcon from '@mui/icons-material/DeleteSweepTwoTone';
 
 type Props = {
   email: string;
@@ -47,7 +48,13 @@ const DeleteUserButton = ({ uid, email }: Props) => {
       <ModalDialog
         open={openDelete}
         onClose={handleCloseModal}
-        onDeleteButton={handleDeleteUser(uid)}
+        actionButton={{
+          variant: 'contained',
+          color: 'error',
+          startIcon: <DeleteSweepTwoToneIcon />,
+          label: 'Удалить',
+          onClick: handleDeleteUser(uid),
+        }}
         title={`Вы уверены, что хотите удалить ${email}?`}
       />
     </>

@@ -9,11 +9,13 @@ import { v4 as uidv4 } from 'uuid';
 import { Exception500 } from '../types/enums';
 import { ReqEventDateDto } from '../dtos/ReqEventDateDto';
 import { EventDatesDto } from '../dtos/EventDatesDto';
+import { MapService } from '../map/map.service';
 
 @Injectable()
 export class EventsService {
   constructor(
     private readonly apiService: ApiService,
+    private readonly mapService: MapService,
     @InjectRepository(Events) private eventsRepo: Repository<Events>,
     @InjectRepository(EventDates)
     private eventDatesRepo: Repository<EventDates>,
@@ -63,12 +65,12 @@ export class EventsService {
     return this.getEventDatesByEventId(event.id);
   }
 
-  async saveTemplateEventDate(eventUid: string): Promise<EventDates> {
+  async saveTemplateEventDate(eventUid: string): Promise<EventDatesDto> {
     const uid = uidv4();
     const event = await this.getEventByUid(eventUid);
 
     const eventDates = this.eventDatesRepo.create({ uid, event });
-    return await this.eventDatesRepo.save(eventDates);
+    return new EventDatesDto(await this.eventDatesRepo.save(eventDates));
   }
 
   async deleteEventDate(uid: string): Promise<boolean> {
@@ -78,17 +80,24 @@ export class EventsService {
     return true;
   }
 
-  async editEventDate(data: ReqEventDateDto): Promise<any> {
-    const { uid, ...eventDateData } = data;
+  async editEventDate(data: ReqEventDateDto): Promise<EventDatesDto> {
+    const { uid, map, ...eventDateData } = data;
 
     if (!uid) {
       throw new InternalServerErrorException(Exception500.editNoEventDateId);
     }
     const eventDateFromDb = await this.getEventDateByUid(uid);
+    const mapFromDb = !!map?.uid
+      ? await this.mapService.getMapByUid(map.uid)
+      : null;
 
     const eventDates = this.eventDatesRepo.create(eventDateData);
     return new EventDatesDto(
-      await this.eventDatesRepo.save({ ...eventDateFromDb, ...eventDates }),
+      await this.eventDatesRepo.save({
+        ...eventDateFromDb,
+        ...eventDates,
+        map: mapFromDb,
+      }),
     );
   }
 
@@ -96,7 +105,7 @@ export class EventsService {
   async getEventByUid(uid: string): Promise<Events> {
     const event = await this.eventsRepo.findOne({
       where: { uid },
-      relations: ['eventDates'],
+      relations: { eventDates: { map: true } },
     });
 
     if (!event) {
@@ -109,6 +118,7 @@ export class EventsService {
   async getEventDateByUid(uid: string): Promise<EventDates> {
     const eventDate = await this.eventDatesRepo.findOne({
       where: { uid },
+      relations: ['map'],
     });
 
     if (!eventDate) {

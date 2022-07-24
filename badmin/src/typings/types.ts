@@ -37,6 +37,7 @@ export type EventDate = {
   uid: string;
   eventUid: string;
   type?: TicketType;
+  map?: MapFile;
   dateFrom?: Date;
   dateTo?: Date;
   closeDateTime?: Date;
@@ -128,3 +129,17 @@ export type MediaFile = {
   size: number;
 };
 export type MediaSelectData = { id: number; name: string };
+export type MapFile = {
+  uid: string;
+  map?: MediaFile;
+  minimap?: MediaFile;
+  xml?: string;
+  viewBox?: string;
+  width?: number;
+  height?: number;
+  background?: any[];
+  attributes?: any;
+  metadata?: any[];
+  paths?: any[];
+  seats?: any[];
+};

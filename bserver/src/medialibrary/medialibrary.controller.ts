@@ -21,7 +21,7 @@ export class MedialibraryController {
 
   @Get()
   @UseGuards(AccessJwtAuthGuard)
-  public getMedia(@Req() req): Promise<MediaDto[]> {
+  getMedia(@Req() req): Promise<MediaDto[]> {
     try {
       return this.medialibraryService.getMedia();
     } catch (e) {
@@ -32,9 +32,7 @@ export class MedialibraryController {
   @Post('upload')
   @UseGuards(AccessJwtAuthGuard)
   @UseInterceptors(FileFieldsInterceptor([{ name: 'images[]', maxCount: 10 }]))
-  public insertMedia(
-    @UploadedFiles() files: Express.Multer.File[],
-  ): Promise<boolean> {
+  insertMedia(@UploadedFiles() files: Express.Multer.File[]): Promise<boolean> {
     try {
       return this.medialibraryService.insertMediaData(files['images[]']);
     } catch (e) {
@@ -44,7 +42,7 @@ export class MedialibraryController {
 
   @Delete(':id')
   @UseGuards(AccessJwtAuthGuard)
-  public removeMedia(@Param('id') id: number): Promise<boolean> {
+  removeMedia(@Param('id') id: number): Promise<boolean> {
     try {
       return this.medialibraryService.deleteMediaData(id);
     } catch (e) {
